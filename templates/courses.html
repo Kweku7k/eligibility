@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="container">
+<h4>Add a new Course</h4>
+
+<form action="{{url_for('courses')}}" method="post">
+    <div class="form-group">
+    <label for=""></label>
+    <input type="text" class="form-control" name="courseName" id="courseName" aria-describedby="helpId" placeholder="">
+    <small id="helpId" class="form-text text-muted">Help text</small>
+    </div>
+</form>
+
+<h4> All courses</h4>
+
+{% for course in courses %}
+<div class="card">
+    <h4>{{course.name}}</h4>
+</div>
+{% endfor %}
+
+</div>
+
+{% endblock %}
