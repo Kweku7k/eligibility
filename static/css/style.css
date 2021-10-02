@@ -1,0 +1,14 @@
+.button{
+    color: white;
+    background-color: red;
+    border-radius: 7px;
+    padding:10px 36px;
+    border: none;
+    width: 80%;
+
+}
+
+.card{
+    width: 100%;
+
+}

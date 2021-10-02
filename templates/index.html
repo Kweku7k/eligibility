@@ -1,0 +1,220 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="container">
+<br/>
+<h4>Please enter the first core subjects you have done</h4>
+
+<!-- Item Body -->
+    <!-- Maths -->
+<form method="POST">
+
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+              <label for=""></label>
+                  <label for=""></label>
+                  <input type="text" class="form-control" value="Mathematics" disabled name="maths" id="maths" aria-describedby="helpId" placeholder="">
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+              <label for=""></label>
+              <select class="form-control" name="" id="">
+                <option selected hidden class="text-muted">- -</option>
+                {% for subject in grades %}
+                <option>{{subject}}</option>
+                {% endfor %}
+              </select>
+            </div>
+        </div>
+    </div>
+   
+    <!-- Maths -->
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+              <label for=""></label>
+                  <label for=""></label>
+                  <input type="text" class="form-control" value="English" disabled name="" id="" aria-describedby="helpId" placeholder="">
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+              <label for=""></label>
+              <select class="form-control" name="" id="">
+                <option selected hidden class="text-muted">- -</option>
+                {% for subject in grades %}
+                <option>{{subject}}</option>
+                {% endfor %}
+              </select>
+            </div>
+        </div>
+    </div>
+   
+    <!-- Maths -->
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+              <label for=""></label>
+                  <label for=""></label>
+                  <input type="text" class="form-control" value="Integrated Science" disabled name="" id="" aria-describedby="helpId" placeholder="">
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+              <label for=""></label>
+              <select class="form-control" name="" id="">
+                <option selected hidden class="text-muted">- -</option>
+                {% for subject in grades %}
+                <option>{{subject}}</option>
+                {% endfor %}
+              </select>
+            </div>
+        </div>
+    </div>
+   
+    <!-- Maths -->
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+              <label for=""></label>
+                  <label for=""></label>
+                  <input type="text" class="form-control" value="Social Studies" disabled name="" id="" aria-describedby="helpId" placeholder="">
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+              <label for=""></label>
+              <select class="form-control" name="" id="">
+                <option selected hidden class="text-muted">- -</option>
+                {% for subject in grades %}
+                <option>{{subject}}</option>
+                {% endfor %}
+              </select>
+            </div>
+        </div>
+    </div>
+   
+    <h4>Electives</h4>
+    <!-- Maths -->
+    
+   
+    <!-- Elective -->
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+              <label for=""></label>
+              <select class="form-control" name="" id="">
+                <option selected hidden class="text-muted">None</option>
+                {% for subject in electives %}
+                <option>{{subject.name}}</option>
+                {% endfor %}
+              </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+              <label for=""></label>
+              <select class="form-control" name="" id="">
+                <option selected hidden class="text-muted">- -</option>
+                {% for subject in grades %}
+                <option>{{subject}}</option>
+                {% endfor %}
+              </select>
+            </div>
+        </div>
+    </div>
+   
+    <!-- Elective -->
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+              <label for=""></label>
+              <select class="form-control" name="" id="">
+                <option selected hidden class="text-muted">None</option>
+                {% for subject in electives %}
+                <option>{{subject.name}}</option>
+                {% endfor %}
+              </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+              <label for=""></label>
+              <select class="form-control" name="" id="">
+                <option selected hidden class="text-muted">- -</option>
+                {% for subject in grades %}
+                <option>{{subject}}</option>
+                {% endfor %}
+              </select>
+            </div>
+        </div>
+    </div>
+   
+    <!-- Elective -->
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+              <label for=""></label>
+              <select class="form-control" name="" id="">
+                <option selected hidden class="text-muted">None</option>
+                {% for subject in electives %}
+                <option>{{subject.name}}</option>
+                {% endfor %}
+              </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+              <label for=""></label>
+              <select class="form-control" name="" id="">
+                <option selected hidden class="text-muted">- -</option>
+                {% for subject in grades %}
+                <option>{{subject}}</option>
+                {% endfor %}
+              </select>
+            </div>
+        </div>
+    </div>
+   
+    <!-- Elective -->
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+              <label for=""></label>
+              <select class="form-control" name="" id="">
+                <option selected hidden class="text-muted">None</option>
+                {% for subject in electives %}
+                <option>{{subject.name}}</option>
+                {% endfor %}
+              </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+              <label for=""></label>
+              <select class="form-control" name="" id="">
+                <option selected hidden class="text-muted">- -</option>
+                {% for subject in grades %}
+                <option>{{subject}}</option>
+                {% endfor %}
+              </select>
+            </div>
+        </div>
+    </div>
+   
+
+
+    <!--  -->
+
+    <div style="text-align: center;">
+        <button type="submit" class="button btn-danger">Next</button>
+    </div>
+    <br/>
+<!-- Item End -->
+</form>
+</div>
+
+{% endblock %}
