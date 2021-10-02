@@ -26,7 +26,7 @@ def home():
     if request.method=='POST':
         print('request.form')
         print(request.args)
-        # return render_template('index.html')
+        return redirect(url_for('eligible'))
 
     return render_template('index.html', electives=electives, grades=grades)
 
