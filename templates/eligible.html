@@ -5,8 +5,13 @@
 <div style="display:block" class="container" onload="myFunction()">
   <div class="row"> 
 <div>
+  {% if ineligible %}
+  <small>You are ineligble for this year</small>
+  <h4>Sorry</h4>
+  {% else %}
   <small>You are eligble for the following courses</small>
   <h4>Congratulations</h4>
+  {% endif %}
 </div>
     {% for course in eligibleCourses %}
     <div class="card">
@@ -16,6 +21,8 @@
     {% endfor %}
   </div>
 </div>
+
+
 
 <!-- <div style="display: flex; justify-content: center; align-items: center; height: 100vh; width: 100vw;">
   <div style="text-align: center;">

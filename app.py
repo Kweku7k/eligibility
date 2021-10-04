@@ -21,9 +21,9 @@ class Course(db.Model):
 
 
 # eligibleCourses = []
-passed = []
-corePass = []
+ineligible = False
 def passedCoreSubjects(core1,core2,core3,core4):
+    corePass = []
     passedAtLeast3 = False;
 
 
@@ -33,11 +33,14 @@ def passedCoreSubjects(core1,core2,core3,core4):
             corePass.append(i)
             print('Core ' + i + ' passed')
     print("passed ALL CORE")
-    if len(passed) >= 3:
+    if len(corePass) >= 3:
         passedAtLeast3 = True;
+
+    print("Passed3" + str(passedAtLeast3))
     return passedAtLeast3
 
 def creditPass(el1,el2,el3,el4):
+    passed = [] 
     eligibleCourses = []
 
     print("Checking Passed Subjects")
@@ -54,6 +57,7 @@ def creditPass(el1,el2,el3,el4):
 
 @app.route('/',methods=['GET','POST'])
 def home():
+    ineligible=False
     electives = Course.query.all()
     grades = ['A1','B2','B3','C4','C5','C6','D7','E8','F9']
 
@@ -81,29 +85,31 @@ def home():
         print(str(el3) + " = " + str(el3grade))
         print(str(el4) + " = " + str(el4grade))
 
-        passedCoreSubjects(maths, english, social, science)
+        yourEligbleCourses = []
 
-        if passedCoreSubjects:
-            print("asdfs")
+        if passedCoreSubjects(maths, english, social, science):
+            print("Passed The Core Subjects")
             print(creditPass(el1grade, el2grade, el3grade, el4grade))
             yourEligbleCourses = creditPass(el1grade, el2grade, el3grade, el4grade)
 
-
-
+        # eligibleCourses = []
         print("yourEligbleCourses")
         print(yourEligbleCourses)
-        eligibleCourses = yourEligbleCourses
-        # return redirect(url_for('eligible'))
-        return render_template('eligible.html',eligibleCourses = eligibleCourses)
-        # return redirect('')
+        # print(yourEligbleCourses)
+        if yourEligbleCourses:
+            print(yourEligbleCourses)
+        else:
+            ineligible = True
 
+        print("passed")
+        # return redirect(url_for('eligible'))
+        return render_template('eligible.html',eligibleCourses = yourEligbleCourses, ineligible=ineligible)
+        # return redirect('')
 
     if request.method == 'GET':
         eligibleCourses = []
         print(eligibleCourses)
         return render_template('index.html', electives=electives, grades=grades)
-
-
    
     return render_template('index.html', electives=electives, grades=grades)
 
