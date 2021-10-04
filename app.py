@@ -124,7 +124,7 @@ def courses():
     if request.method=='POST':
         courseName = request.form.get('courseName')
         print(courseName)
-        newCourse = Course(name=courseName)
+        newCourse = Course(name=courseName, department= request.form.get('department'))
         db.session.add(newCourse)
         db.session.commit()
         return redirect('')

@@ -2,20 +2,39 @@
 
 {% block body %}
 <div class="container">
+    <br/>
 <h4>Add a new Course</h4>
 
 <form action="{{url_for('courses')}}" method="post">
     <div class="form-group">
     <label for=""></label>
-    <input type="text" class="form-control" name="courseName" id="courseName" aria-describedby="helpId" placeholder="">
-    <small id="helpId" class="form-text text-muted">Help text</small>
+    <input type="text" class="form-control" name="courseName" id="courseName" aria-describedby="helpId" placeholder="Programme Name">
     </div>
-</form>
+    
+    <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
+    <!-- <input type="text" class="form-control" name="department" id="department" aria-describedby="helpId" placeholder="description"> -->
+    <div class="form-group">
+      <label for="">Departments</label>
+      <select class="form-control" name="department" id="department">
+        <option>Faculty Of Arts and Social Sciences</option>
+        <option>School of Pharmacy</option>
+        <option>Faculty Of Law</option>
+        <option>Central Business School</option>
+        <option>School of Architecture adn Design</option>
+        <option>School of Engeneering and Technology</option>
+        <option>School of Medicine and Health Services</option>
+        <option>School of Medicine and Health Services</option>
+      </select>
+    </div>
 
+    <input style="width: auto;" class="button btn-danger" type="submit">
+</form>
+<br/>
 <h4> All courses</h4>
 
 {% for course in courses %}
 <div class="card">
+    <small>{{course.department}}s</small>
     <h4>{{course.name}}</h4>
 </div>
 {% endfor %}
