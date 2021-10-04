@@ -131,6 +131,15 @@ def courses():
     courses = Course.query.all()
     return render_template('courses.html', courses=courses)
 
+
+@app.route("/delete/<int:id>")
+def delete(id):
+    course = Course.query.filter_by(id = id).first()
+    print(course)
+    db.session.delete(course)
+    db.session.commit()
+    # return redirect('courses')
+    return redirect(url_for('courses'))
 if __name__ == '__main__':
     #DEBUG is SET to TRUE. CHANGE FOR PROD
     app.run(port=5000,debug=True)

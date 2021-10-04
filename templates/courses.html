@@ -33,9 +33,18 @@
 <h4> All courses</h4>
 
 {% for course in courses %}
-<div class="card">
-    <small>{{course.department}}s</small>
-    <h4>{{course.name}}</h4>
+<div  style="display: flex; justify-content: space-between;" class="course">
+    <div>
+        <small>{{course.department}}s</small>
+        <h4 style="margin: 0; width: fit-content;">{{course.name}}</h4>
+    </div>
+    <div>
+
+        <a href='{{url_for("delete", id=course.id)}}'>
+            <i class="fa fa-trash" aria-hidden="true"></i>
+        </a>
+    </div>
+    
 </div>
 {% endfor %}
 

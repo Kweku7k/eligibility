@@ -14,3 +14,13 @@
     padding: 20px;
     margin-bottom: 20px;
 }
+
+.course{
+    width: 100%;
+    border: 1px solid #c4c4c4;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex; 
+    border-radius: 10px;
+    justify-content: space-between; 
+}
