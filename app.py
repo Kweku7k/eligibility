@@ -13,7 +13,7 @@ migrate = Migrate(app, db)
 
 class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), nullable=False)
+    name = db.Column(db.String(80), nullable=False)
     department = db.Column(db.String(), nullable=True)
     # vendor = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
     def __repr__(self): 
@@ -50,9 +50,9 @@ def creditPass(el1,el2,el3,el4):
             print('Elective ' + i + ' passed')
     print("passed")
     if len(passed) >= 3:
-        eligibleCourses.append("Law")
-        eligibleCourses.append("Social Science")
-        eligibleCourses.append("Business School")
+        eligibleCourses.append("Faculty of Arts and Social Sciences")
+        eligibleCourses.append("Faculty Of Law")
+        eligibleCourses.append("Central Business School")
     return eligibleCourses
 
 @app.route('/',methods=['GET','POST'])
@@ -87,14 +87,19 @@ def home():
 
         yourEligbleCourses = []
 
+        passedEls = []
+
         if passedCoreSubjects(maths, english, social, science):
             print("Passed The Core Subjects")
             print(creditPass(el1grade, el2grade, el3grade, el4grade))
             yourEligbleCourses = creditPass(el1grade, el2grade, el3grade, el4grade)
 
+            for course in yourEligbleCourses:
+                passedEls.append(Course.query.filter_by(department = course).all())
+            
         # eligibleCourses = []
         print("yourEligbleCourses")
-        print(yourEligbleCourses)
+        print(yourEligbleCourses) 
         # print(yourEligbleCourses)
         if yourEligbleCourses:
             print(yourEligbleCourses)
@@ -103,14 +108,13 @@ def home():
 
         print("passed")
         # return redirect(url_for('eligible'))
-        return render_template('eligible.html',eligibleCourses = yourEligbleCourses, ineligible=ineligible)
+        return render_template('eligible.html',eligibleCourses = passedEls, ineligible=ineligible)
         # return redirect('')
 
     if request.method == 'GET':
         eligibleCourses = []
         print(eligibleCourses)
         return render_template('index.html', electives=electives, grades=grades)
-   
     return render_template('index.html', electives=electives, grades=grades)
 
 @app.route("/eligible")
