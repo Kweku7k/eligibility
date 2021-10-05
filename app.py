@@ -4,7 +4,7 @@ from flask_migrate import Migrate
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://bveqpegotqjcrw:42c1babebbe2323caa9665397a35de15bdf409b3feddbc2de3c81d4b6ef9f994@ec2-44-198-154-255.compute-1.amazonaws.com:5432/d4gc3s7c8o4g7e'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 db = SQLAlchemy(app)
@@ -144,3 +144,4 @@ if __name__ == '__main__':
     #DEBUG is SET to TRUE. CHANGE FOR PROD
     app.run(port=5000,debug=True)
 
+    
