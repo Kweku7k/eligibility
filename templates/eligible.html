@@ -11,12 +11,12 @@
   {% else %}
   <small>You are eligble for the following courses</small>
   <h4>Congratulations</h4>
-  {% endif %}
+  {% endif %} 
 </div>
     {% for course in eligibleCourses %}
     <div class="card">
-      <h6>{{course.department}}</h6>
-      <h4>{{course}}</h4>
+      <small>{{course.department}}</small>
+      <h4>{{course.name}}</h4>
     </div>
     {% endfor %}
   </div>

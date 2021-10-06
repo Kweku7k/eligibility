@@ -15,12 +15,13 @@ class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     department = db.Column(db.String(), nullable=True)
+
     # vendor = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
     def __repr__(self): 
         return f"Course('{self.id}', '{self.name}', )"
 
 
-# eligibleCourses = []
+# eligibleCourses = []  
 ineligible = False
 def passedCoreSubjects(core1,core2,core3,core4):
     corePass = []
@@ -93,9 +94,13 @@ def home():
             print("Passed The Core Subjects")
             print(creditPass(el1grade, el2grade, el3grade, el4grade))
             yourEligbleCourses = creditPass(el1grade, el2grade, el3grade, el4grade)
+            # THIS RETURNS AN ARRAY
+
 
             for course in yourEligbleCourses:
-                passedEls.append(Course.query.filter_by(department = course).all())
+                courses = Course.query.filter_by(department = course).all()
+                for item in courses:
+                    passedEls.append(item)
             
         # eligibleCourses = []
         print("yourEligbleCourses")
