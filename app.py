@@ -13,7 +13,8 @@ migrate = Migrate(app, db)
 
 class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), nullable=False)
+    name = db.Column(db.String(), nullable=False)
+    tempField = db.Column(db.String())
     department = db.Column(db.String(), nullable=True)
 
     # vendor = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
@@ -56,6 +57,38 @@ def creditPass(el1,el2,el3,el4):
         eligibleCourses.append("Central Business School")
     return eligibleCourses
 
+
+def pharmacy(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
+    print("Pharmacy Function")
+    eligibleCourses = []
+
+    ints = [el1, el2, el3, el4]
+    grades = [el1grade,el2grade,el3grade,el4grade]
+
+    physics = "" 
+    biology =""
+    chemistry =""
+    emaths=""
+    for idx, val in enumerate(ints):
+        print(grades[idx], val)
+        if val == 'Physics':
+            physics = grades[idx]
+            print(physics)
+        elif val == 'Biology':
+            biology = grades[idx]
+        elif val == 'Chemistry':
+            chemistry = grades[idx]
+        elif val == 'E-Maths':
+            emaths = grades[idx]
+
+    if int(chemistry[-1]) <= 4 and int(biology[-1]) <= 4:
+        if int(physics[-1]) <=4 or int(emaths[-1]) <=4:
+            print("You are eligyle for Pharmacy")
+            # eligibleCourses.append('School of Pharmacy')
+        else:
+            print("You are a mumu man")
+    return "School of Pharmacy"
+    
 @app.route('/',methods=['GET','POST'])
 def home():
     ineligible=False
@@ -94,9 +127,15 @@ def home():
             print("Passed The Core Subjects")
             print(creditPass(el1grade, el2grade, el3grade, el4grade))
             yourEligbleCourses = creditPass(el1grade, el2grade, el3grade, el4grade)
+            print("Passed For Pharmacy")
+            print(pharmacy(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade))
+            yourEligbleCourses.append(pharmacy(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade))
             # THIS RETURNS AN ARRAY
 
 
+        # Returns all the courses from the departments into an array
+            print("Array To Be Processed")
+            print(yourEligbleCourses)
             for course in yourEligbleCourses:
                 courses = Course.query.filter_by(department = course).all()
                 for item in courses:
@@ -133,7 +172,7 @@ def courses():
     if request.method=='POST':
         courseName = request.form.get('courseName')
         print(courseName)
-        newCourse = Course(name=courseName, department= request.form.get('department'))
+        newCourse = Course(tempField=courseName,name="default", department= request.form.get('department'))
         db.session.add(newCourse)
         db.session.commit()
         return redirect('')
