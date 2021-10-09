@@ -1,3 +1,4 @@
+import re
 from flask import Flask,redirect,url_for,render_template,request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -52,23 +53,22 @@ def creditPass(el1,el2,el3,el4):
             print('Elective ' + i + ' passed')
     print("passed")
     if len(passed) >= 3:
-        eligibleCourses.append("Faculty of Arts and Social Sciences")
+        eligibleCourses.append("Faculty Of Arts and Social Sciences")
         eligibleCourses.append("Faculty Of Law")
         eligibleCourses.append("Central Business School")
     return eligibleCourses
 
-
 def pharmacy(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
     print("Pharmacy Function")
-    eligibleCourses = []
+    eligibleCourses = "None"
 
     ints = [el1, el2, el3, el4]
     grades = [el1grade,el2grade,el3grade,el4grade]
 
-    physics = "" 
-    biology =""
-    chemistry =""
-    emaths=""
+    physics = "F9" 
+    biology ="F9"
+    chemistry ="F9"
+    emaths="F9"
     for idx, val in enumerate(ints):
         print(grades[idx], val)
         if val == 'Physics':
@@ -84,11 +84,250 @@ def pharmacy(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
     if int(chemistry[-1]) <= 4 and int(biology[-1]) <= 4:
         if int(physics[-1]) <=4 or int(emaths[-1]) <=4:
             print("You are eligyle for Pharmacy")
-            # eligibleCourses.append('School of Pharmacy')
+            eligibleCourses = "School of Pharmacy"
         else:
             print("You are a mumu man")
-    return "School of Pharmacy"
+    return eligibleCourses
     
+
+def planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
+    planning = "None"
+
+    groupA = []
+    groupB = []
+
+    # Group A
+    economics = "F9"
+    management = "F9"
+    geography = "F9"
+    government = "F9"
+    mathematics = "F9"
+    gka = "F9"
+
+    # Group B
+    accounting = "F9"
+    technicalDrawing = "F9"
+    graphicDesgin = "F9"
+    pictureMaking = "F9"
+    sculpture = "F9"
+    painting = "F9"
+
+    ints = [el1, el2, el3, el4]
+    grades = [el1grade,el2grade,el3grade,el4grade]
+
+    for idx, val in enumerate(ints):
+        print(grades[idx], val)
+        # Group A
+        if val == 'Economics':
+            # idx is the index, it then looks through the grades array for that item;
+            # So if idx = 1;
+            # grades[idx] == grades[1]
+            # And that gives the grade from the form
+            # ie. A1 or B2
+            # Then you take the last figure and change it to an integer
+            # int(var[-1])
+            # Then check if the item is below a 4
+            # Thats how you pass.
+            economics = grades[idx]
+            print("economics")
+            print(economics)
+            if int(economics[-1]) <= 4:
+                groupA.append(economics)
+            else:
+                print("Failed " + str(idx))
+        elif val == 'Management':
+            management = grades[idx]
+            print("management")
+            print(management)
+            if int(management[-1]) <= 4:
+                groupA.append(management)
+            else:
+                print("Failed " + str(idx))
+
+        elif val == 'Geography':
+            geography = grades[idx]
+            print("geography")
+            print(geography)
+            if int(geography[-1]) <= 4:
+                groupA.append(geography)
+            else:
+                print("Failed " + str(idx))
+
+        elif val == 'Government':
+            government = grades[idx]
+            print("government")
+            print(government)
+            if int(government[-1]) <= 4:
+                groupA.append(government)
+            else:
+                print("Failed " + str(idx))
+
+        elif val == 'Mathematics':
+            mathematics = grades[idx]
+            print("mathematics")
+            print(mathematics)
+            if int(mathematics[-1]) <= 4:
+                groupA.append(mathematics)
+            else:
+                print("Failed " + str(idx))
+
+        elif val == 'GKA':
+            gka = grades[idx]
+            print("gka")
+            print(gka)
+            if int(gka[-1]) <= 4:
+                groupA.append(gka)
+            else:
+                print("Failed " + str(idx))
+
+            # Group B
+        elif val == 'Accounting':
+            accounting = grades[idx]
+            print("Accounting")
+            print(accounting)
+            if int(accounting[-1]) <= 4:
+                groupB.append(accounting)
+            else:
+                print("Failed " + str(idx))
+
+        elif val == 'Technical Drawing':
+            technicalDrawing = grades[idx]
+            print("Technical Drawing")
+            print(accounting)
+            if int(technicalDrawing[-1]) <= 4:
+                groupB.append(technicalDrawing)
+            else:
+                print("Failed " + str(idx))
+
+        elif val == 'Graphic Design':
+            graphicDesgin = grades[idx]
+            print("Graphic Design")
+            print(graphicDesgin)
+            if int(graphicDesgin[-1]) <= 4:
+                groupB.append(graphicDesgin)
+            else:
+                print("Failed " + str(idx))
+
+        elif val == 'Picture Making':
+            pictureMaking = grades[idx]
+            print("Picture Making")
+            print(pictureMaking)
+            if int(pictureMaking[-1]) <= 4:
+                groupB.append(pictureMaking)
+            else:
+                print("Failed " + str(idx))
+
+        elif val == 'Sculpture':
+            sculpture = grades[idx]
+            print(sculpture)
+            if int(sculpture[-1]) <= 4:
+                groupB.append(sculpture)
+            else:
+                print("Failed " + str(idx))
+
+        elif val == 'Painting':
+            painting = grades[idx]
+            print(painting)
+            if int(painting[-1]) <= 4:
+                groupB.append(painting)
+            else:
+                print("Failed " + str(idx))
+
+        else:
+            planning = "You are uneligible for this course"
+        
+
+    print("groupB")
+    print(groupB)
+
+    print("groupA")
+    print(groupA)
+
+    if len(groupA) == 3 or len(groupA) == 2 and len(groupB) == 1:
+            planning = "Bachelor of Science in Planning"
+    else:
+        print("You are a mumu man")
+
+
+    return planning
+
+
+def realEstate(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
+    print("RealEstate Function")
+    realestateState = ""
+    eligibleCourses = []
+
+    ints = [el1, el2, el3, el4]
+    grades = [el1grade,el2grade,el3grade,el4grade]
+
+    economics = "F9" 
+    geography ="F9"
+    thirdElective ="F9"
+    fourthElective="F9"
+    fifthElective = "F9"
+    # Lol, this is just a loop that takes index, breathe
+    for idx, val in enumerate(ints):
+        print(grades[idx], val)
+        if val == 'Economics':
+            economics = grades[idx]
+            print("economics")
+            print(economics)
+        elif val == 'Geography':
+            geography = grades[idx]
+            print("geography")
+            print(geography)
+        elif val and thirdElective == "F9":
+            thirdElective = grades[idx]
+            print("thirdElective")
+            print(thirdElective)
+
+        elif val and fourthElective == "F9":
+            fourthElective = grades[idx]
+            print("fourthElective")
+            print(fourthElective)
+
+        elif val == True and fifthElective == "F9":
+            fifthElective = grades[idx]
+            print("fifthElective")
+            print(fifthElective)
+
+        # This might break
+        # Check if value is any of these, if not, save val with grade, as el1 ...
+
+    if int(thirdElective[-1]) <= 4 and int(fourthElective[-1]) <= 4:
+        print("Passed the first 2 other electives")
+        if economics and geography:
+            if int(economics[-1]) <=4 and int(geography[-1]) <=4:
+                print("You are eligyle for Real Estate")
+                realestateState = "Bachelor of Science in Real Estate"
+                # eligibleCourses.append('School of Pharmacy')
+            else:
+                print("You are a mumu man")
+        else: 
+            if int(geography[-1]) <=4 or int(economics[-1]) <=4:
+                print("You are eligible for Real Estate")
+                realestateState = "Bachelor of Science in Real Estate"
+                print(realestateState)
+            else:
+                "You are not eligible for Real Estate"
+    return realestateState
+    
+
+def architecture(el1,el2,el3,el4):
+    passed = [] 
+    eligibleCourses = "None"
+
+    print("Checking Passed Subjects")
+    for i in [el1,el2,el3,el4]:
+        if int(i[-1]) <= 4:
+            passed.append(i)
+            print('Elective ' + i + ' passed')
+    print("passed")
+    if len(passed) >= 3:
+        eligibleCourses= 'Bachelor Of Architecture'
+    return eligibleCourses
+
+
 @app.route('/',methods=['GET','POST'])
 def home():
     ineligible=False
@@ -123,6 +362,8 @@ def home():
 
         passedEls = []
 
+# ❤️⚡️  
+# Function starts here‼️‼️‼️
         if passedCoreSubjects(maths, english, social, science):
             print("Passed The Core Subjects")
             print(creditPass(el1grade, el2grade, el3grade, el4grade))
@@ -132,7 +373,6 @@ def home():
             yourEligbleCourses.append(pharmacy(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade))
             # THIS RETURNS AN ARRAY
 
-
         # Returns all the courses from the departments into an array
             print("Array To Be Processed")
             print(yourEligbleCourses)
@@ -140,6 +380,24 @@ def home():
                 courses = Course.query.filter_by(department = course).all()
                 for item in courses:
                     passedEls.append(item)
+
+        # We want to find the course by name for the Architecture
+            availableCourse = Course.query.filter_by(tempField= realEstate(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
+            print(availableCourse)
+            passedEls.append(availableCourse)
+
+            architectureCourse = Course.query.filter_by(tempField= architecture(el1grade,el2grade,el3grade,el4grade)).first()
+            print(architectureCourse)
+            passedEls.append(architectureCourse)
+
+            planningCourse = Course.query.filter_by(tempField= planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
+            print(planningCourse)
+            passedEls.append(planningCourse)
+
+
+
+            # print(Course.query.filter_by(tempField= realEstate(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first())
+            # print(realEstate(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade))
             
         # eligibleCourses = []
         print("yourEligbleCourses")
