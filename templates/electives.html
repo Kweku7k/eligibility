@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="container">
+    <br/>
+<h4>Add a new Elective</h4>
+
+<form action="{{url_for('electives')}}" method="post">
+    <div class="form-group">
+        <label for=""></label>
+        <input type="text" class="form-control" name="electiveName" id="electiveName" aria-describedby="helpId" placeholder="Programme Name">
+    </div>
+    
+    <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
+    <!-- <input type="text" class="form-control" name="department" id="department" aria-describedby="helpId" placeholder="description"> -->
+    <input style="width: auto;" class="button btn-danger" type="submit">
+</form>
+<br/>
+<h4> All electives</h4>
+
+{% for elective in electives %}
+<div  style="display: flex; justify-content: space-between;" class="course">
+    <div>
+        <h4 style="margin: 0; width: fit-content;">{{elective.name}}</h4>
+    </div>
+    <div>
+
+        <a href='{{url_for("deleteElective", id=elective.id)}}'>
+            <i class="fa fa-trash" aria-hidden="true"></i>
+        </a>
+    </div>
+    
+</div>
+{% endfor %}
+
+</div>
+
+{% endblock %}

@@ -6,10 +6,10 @@ from flask_migrate import Migrate
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://bveqpegotqjcrw:42c1babebbe2323caa9665397a35de15bdf409b3feddbc2de3c81d4b6ef9f994@ec2-44-198-154-255.compute-1.amazonaws.com:5432/d4gc3s7c8o4g7e'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 db = SQLAlchemy(app)
-
 migrate = Migrate(app, db)
 
 class Course(db.Model):
@@ -22,6 +22,22 @@ class Course(db.Model):
     def __repr__(self): 
         return f"Course('{self.id}', '{self.name}', )"
 
+class Program(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(), nullable=False)
+    # tempField = db.Column(db.String())
+    # department = db.Column(db.String(), nullable=True)
+
+    # vendor = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
+    def __repr__(self): 
+        return f"Course('{self.id}', '{self.name}', )"
+
+class Electives(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    name = db.Column(db.String())
+
+    def __repr__(self):
+        return f"Elective('{self.id}', '{self.name}', )"
 
 # eligibleCourses = []  
 ineligible = False
@@ -81,10 +97,46 @@ def pharmacy(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
         elif val == 'E-Maths':
             emaths = grades[idx]
 
+    # [-1] just takes the last character; so F9 => 9
+
     if int(chemistry[-1]) <= 4 and int(biology[-1]) <= 4:
         if int(physics[-1]) <=4 or int(emaths[-1]) <=4:
             print("You are eligyle for Pharmacy")
             eligibleCourses = "School of Pharmacy"
+        else:
+            print("You are a mumu man")
+    return eligibleCourses
+
+
+def civilEngineering(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
+    print("Pharmacy Function")
+    eligibleCourses = "None"
+
+    ints = [el1, el2, el3, el4]
+    grades = [el1grade,el2grade,el3grade,el4grade]
+
+    physics = "F9" 
+    biology ="F9"
+    chemistry ="F9"
+    emaths="F9"
+    for idx, val in enumerate(ints):
+        print(grades[idx], val)
+        if val == 'Physics':
+            physics = grades[idx]
+            print(physics)
+        elif val == 'Biology':
+            biology = grades[idx]
+        elif val == 'Chemistry':
+            chemistry = grades[idx]
+        elif val == 'E-Maths':
+            emaths = grades[idx]
+
+    # [-1] just takes the last character; so F9 => 9
+
+    if int(chemistry[-1]) <= 4 and int(physics[-1]) <= 4:
+        if int(biology[-1]) <=4 :
+            print("You are eligyle for Civil Engineering")
+            eligibleCourses = "Bachelor of Science in Civil Engineering"
         else:
             print("You are a mumu man")
     return eligibleCourses
@@ -257,6 +309,7 @@ def realEstate(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
     realestateState = ""
     eligibleCourses = []
 
+
     ints = [el1, el2, el3, el4]
     grades = [el1grade,el2grade,el3grade,el4grade]
 
@@ -327,9 +380,57 @@ def architecture(el1,el2,el3,el4):
         eligibleCourses= 'Bachelor Of Architecture'
     return eligibleCourses
 
+def computerScience(el1,el2,el3,el4, el1grade, el2grade, el3grade, el4grade):
+    print("Computer Science Function")
+    eligibleCourses = "None"
+    passed = []
+
+    ints = [el1, el2, el3, el4]
+    grades = [el1grade,el2grade,el3grade,el4grade]
+
+    physics = False
+    # biology ="F9"
+    # chemistry ="F9"
+    # emaths="F9"
+    for idx, val in enumerate(ints):
+        print(grades[idx], val)
+        if val == 'Physics' and int(grades[idx][-1]) <= 4:
+            physics = True
+            print(physics)
+        elif int(grades[idx][-1]) <= 4:
+            passed.append(val)
+
+    # [-1] just takes the last character; so F9 => 9
+
+    print("passed")
+    print(passed)
+    print(len(passed))
+
+    if physics == True and len(passed) >= 2:
+        print("You are eligyle for Computer Science")
+        eligibleCourses = "Bachelor Of Science In Computer Science"
+        print(eligibleCourses)
+
+    # if int(chemistry[-1]) <= 4 and int(biology[-1]) <= 4:
+    #     if int(physics[-1]) <=4 or int(emaths[-1]) <=4:
+    #         print("You are eligyle for Pharmacy")
+    #         eligibleCourses = "School of Pharmacy"
+    #     else:
+    #         print("You are a mumu man")
+    return eligibleCourses
+    
 
 @app.route('/',methods=['GET','POST'])
 def home():
+    array = []
+    els = Electives.query.all()
+
+    array2 = Program.query.all()
+    for course in array2:
+        array.append(str(course.name))
+    
+    print("array")
+    print(array)
     ineligible=False
     electives = Course.query.all()
     grades = ['A1','B2','B3','C4','C5','C6','D7','E8','F9']
@@ -362,7 +463,7 @@ def home():
 
         passedEls = []
 
-# ❤️⚡️  
+# ❤️⚡️
 # Function starts here‼️‼️‼️
         if passedCoreSubjects(maths, english, social, science):
             print("Passed The Core Subjects")
@@ -393,6 +494,14 @@ def home():
             planningCourse = Course.query.filter_by(tempField= planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
             print(planningCourse)
             passedEls.append(planningCourse)
+            
+            computerScienceCourse = Course.query.filter_by(tempField= computerScience(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
+            print("computerScienceCourse")
+            passedEls.append(computerScienceCourse)
+
+            print(passedEls)
+
+
 
 
 
@@ -416,9 +525,9 @@ def home():
     if request.method == 'GET':
         eligibleCourses = []
         print(eligibleCourses)
-        return render_template('index.html', electives=electives, grades=grades)
-    return render_template('index.html', electives=electives, grades=grades)
-
+        return render_template('index.html', electives=electives, els=els, grades=grades, array=array)
+    return render_template('index.html', electives=electives, els=els, grades=grades, array=array)
+    
 @app.route("/eligible")
 def eligible():
     return render_template('eligible.html',eligibleCourses = eligibleCourses)
@@ -430,12 +539,40 @@ def courses():
     if request.method=='POST':
         courseName = request.form.get('courseName')
         print(courseName)
-        newCourse = Course(tempField=courseName,name="default", department= request.form.get('department'))
+        newCourse = Course(tempField=courseName,name=courseName, department= request.form.get('department'))
         db.session.add(newCourse)
         db.session.commit()
         return redirect('')
     courses = Course.query.all()
     return render_template('courses.html', courses=courses)
+
+
+@app.route("/electives",methods=['GET','POST'])
+def electives(): 
+    if request.method=='POST':
+        electiveName = request.form.get('electiveName')
+        print(electiveName)
+        newElective = Electives(name=electiveName)
+        db.session.add(newElective)
+        db.session.commit()
+        return redirect('')
+    electives = Electives.query.all()
+    return render_template('electives.html', electives=electives)
+
+
+@app.route("/programs",methods=['GET','POST'])
+def programs(): 
+
+    if request.method=='POST':
+        programName = request.form.get('program')
+        print(programName)
+        print("programName")
+        newProgram = Program(name=programName)
+        db.session.add(newProgram)
+        db.session.commit()
+        return redirect('')
+    programs = Program.query.all()
+    return render_template('program.html', programs=programs)
 
 
 @app.route("/delete/<int:id>")
@@ -446,6 +583,16 @@ def delete(id):
     db.session.commit()
     # return redirect('courses')
     return redirect(url_for('courses'))
+
+
+@app.route("/deleteElective/<int:id>")
+def deleteElective(id):
+    elective = Electives.query.filter_by(id = id).first()
+    print(elective)
+    db.session.delete(elective)
+    db.session.commit()
+    # return redirect('courses')
+    return redirect(url_for('electives'))
 if __name__ == '__main__':
     #DEBUG is SET to TRUE. CHANGE FOR PROD
     app.run(port=5000,debug=True)

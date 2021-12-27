@@ -2,23 +2,61 @@
 
 {% block body %}
 
-<div style="display:block" class="container" onload="myFunction()">
-  <div class="row"> 
-<div>
+<div class="header">
   {% if ineligible %}
   <small>You are ineligble for this year</small>
   <h4>Sorry</h4>
   {% else %}
-  <small>You are eligble for the following courses</small>
   <h4>Congratulations</h4>
+  <small>You are eligble for the following courses</small>
+  <!-- <form class="form-inline my-2 my-lg-0"> -->
+    <!-- <input id="elig-search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
+    <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+  <!-- </form> -->
   {% endif %} 
 </div>
+<div class="container">
+  <div class="row"> 
+    <!--  Arts and Social Social Sciences -->
+    <!-- <small style="margin: auto;" ><b>Faculty Of Arts And Social Sciences</b></small>
+    <br/> -->
+    <!-- {% for course in eligibleCourses %}
+      {% if course.department == 'Faculty Of Arts and Social Sciences' %}
+      <a style="color: black;" href="www.central.edu">
+        <div class="card">
+          <div>
+            <small>{{course.department}}</small>
+            <h4>{{course.tempField}}</h4>
+          </div>
+        </div>
+      </a>
+      {% endif %}
+    {% endfor %} -->
+
+    <!-- <small style="margin: auto;" ><b>Faculty Of Arts And Social Sciences</b></small>
+    
     {% for course in eligibleCourses %}
-    <div class="card">
-      <small>{{course.department}}</small>
-      <h4>{{course.tempField}}</h4>
-    </div>
+      {% if course.department == 'School of Medicine and Health Sciences' %}
+      <div class="card">
+        <div>
+          <small>{{course.department}}</small>
+          <h4>{{course.tempField}}</h4>
+        </div>
+      </div>
+      {% endif %}
+    {% endfor %} -->
+
+    <!--  Arts and Social Social Sciences -->
+    {% for course in eligibleCourses %}
+      <div class="card">
+        <div>
+          <small>{{course.department}}</small>
+          <h4>{{course.tempField}}</h4>
+        </div>
+      </div>
     {% endfor %}
+
+
   </div>
 </div>
 
@@ -34,9 +72,9 @@
 </div> -->
 
 
-<script>
+<!-- <script>
   function myFunction() {
     setTimeout(function(){ alert("Hello"); }, 1000);
   }
-  </script>
+  </script> -->
 {% endblock %}
