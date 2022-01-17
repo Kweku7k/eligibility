@@ -501,13 +501,9 @@ def home():
 
             print(passedEls)
 
-
-
-
-
             # print(Course.query.filter_by(tempField= realEstate(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first())
             # print(realEstate(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade))
-            
+
         # eligibleCourses = []
         print("yourEligbleCourses")
         print(yourEligbleCourses) 
@@ -595,6 +591,7 @@ def deleteElective(id):
     return redirect(url_for('electives'))
 if __name__ == '__main__':
     #DEBUG is SET to TRUE. CHANGE FOR PROD
-    app.run(port=5000,debug=True)
+    # app.run(port=5000,debug=True)
+    app.run(host='0.0.0.0')
 
     
