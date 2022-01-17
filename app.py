@@ -52,7 +52,7 @@ def passedCoreSubjects(core1,core2,core3,core4):
             corePass.append(i)
             print('Core ' + i + ' passed')
     print("passed ALL CORE")
-    if len(corePass) >= 3:
+    if len(corePass) >= 4:
         passedAtLeast3 = True;
 
     print("Passed3" + str(passedAtLeast3))
