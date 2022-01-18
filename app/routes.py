@@ -1,43 +1,6 @@
-import re
+from app import app
+from app.models import *
 from flask import Flask,redirect,url_for,render_template,request
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
-
-app = Flask(__name__)
-
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://bveqpegotqjcrw:42c1babebbe2323caa9665397a35de15bdf409b3feddbc2de3c81d4b6ef9f994@ec2-44-198-154-255.compute-1.amazonaws.com:5432/d4gc3s7c8o4g7e'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
-
-class Course(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(), nullable=False)
-    tempField = db.Column(db.String())
-    department = db.Column(db.String(), nullable=True)
-
-    # vendor = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
-    def __repr__(self): 
-        return f"Course('{self.id}', '{self.name}', )"
-
-class Program(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(), nullable=False)
-    # tempField = db.Column(db.String())
-    # department = db.Column(db.String(), nullable=True)
-
-    # vendor = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
-    def __repr__(self): 
-        return f"Course('{self.id}', '{self.name}', )"
-
-class Electives(db.Model):
-    id = db.Column(db.Integer(), primary_key=True)
-    name = db.Column(db.String())
-
-    def __repr__(self):
-        return f"Elective('{self.id}', '{self.name}', )"
 
 # eligibleCourses = []  
 ineligible = False
@@ -589,9 +552,3 @@ def deleteElective(id):
     db.session.commit()
     # return redirect('courses')
     return redirect(url_for('electives'))
-if __name__ == '__main__':
-    #DEBUG is SET to TRUE. CHANGE FOR PROD
-    # app.run(port=5000,debug=True)
-    app.run(host='0.0.0.0')
-
-    
