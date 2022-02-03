@@ -18,7 +18,7 @@ def passedCoreSubjects(core1,core2,core3,core4):
     print("passed ALL CORE")
     if len(corePass) >= 3:
         passedAtLeast3 = True;
-        print("Passed 3 cores")
+        print("Passed 3 cored")
 
     print("Passed3" + str(passedAtLeast3))
     return passedAtLeast3
@@ -98,8 +98,8 @@ def civilEngineering(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
 
     # [-1] just takes the last character; so F9 => 9
 
-    if int(chemistry[-1]) <= 4 and int(physics[-1]) <= 4:
-        if int(biology[-1]) <=4 :
+    if int(chemistry[-1]) <= passeFigure and int(physics[-1]) <= passeFigure:
+        if int(biology[-1]) <=passeFigure :
             print("You are eligyle for Civil Engineering")
             eligibleCourses = "Bachelor of Science in Civil Engineering"
         else:
@@ -148,7 +148,7 @@ def planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
             economics = grades[idx]
             print("economics")
             print(economics)
-            if int(economics[-1]) <= 4:
+            if int(economics[-1]) <= passeFigure:
                 groupA.append(economics)
             else:
                 print("Failed " + str(idx))
@@ -156,7 +156,7 @@ def planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
             management = grades[idx]
             print("management")
             print(management)
-            if int(management[-1]) <= 4:
+            if int(management[-1]) <= passeFigure:
                 groupA.append(management)
             else:
                 print("Failed " + str(idx))
@@ -165,7 +165,7 @@ def planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
             geography = grades[idx]
             print("geography")
             print(geography)
-            if int(geography[-1]) <= 4:
+            if int(geography[-1]) <= passeFigure:
                 groupA.append(geography)
             else:
                 print("Failed " + str(idx))
@@ -174,7 +174,7 @@ def planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
             government = grades[idx]
             print("government")
             print(government)
-            if int(government[-1]) <= 4:
+            if int(government[-1]) <= passeFigure:
                 groupA.append(government)
             else:
                 print("Failed " + str(idx))
@@ -183,7 +183,7 @@ def planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
             mathematics = grades[idx]
             print("mathematics")
             print(mathematics)
-            if int(mathematics[-1]) <= 4:
+            if int(mathematics[-1]) <= passeFigure:
                 groupA.append(mathematics)
             else:
                 print("Failed " + str(idx))
@@ -192,7 +192,7 @@ def planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
             gka = grades[idx]
             print("gka")
             print(gka)
-            if int(gka[-1]) <= 4:
+            if int(gka[-1]) <= passeFigure:
                 groupA.append(gka)
             else:
                 print("Failed " + str(idx))
@@ -202,7 +202,7 @@ def planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
             accounting = grades[idx]
             print("Accounting")
             print(accounting)
-            if int(accounting[-1]) <= 4:
+            if int(accounting[-1]) <= passFigure:
                 groupB.append(accounting)
             else:
                 print("Failed " + str(idx))
@@ -211,7 +211,7 @@ def planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
             technicalDrawing = grades[idx]
             print("Technical Drawing")
             print(accounting)
-            if int(technicalDrawing[-1]) <= 4:
+            if int(technicalDrawing[-1]) <= passFigure:
                 groupB.append(technicalDrawing)
             else:
                 print("Failed " + str(idx))
@@ -220,7 +220,7 @@ def planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
             graphicDesgin = grades[idx]
             print("Graphic Design")
             print(graphicDesgin)
-            if int(graphicDesgin[-1]) <= 4:
+            if int(graphicDesgin[-1]) <= passFigure:
                 groupB.append(graphicDesgin)
             else:
                 print("Failed " + str(idx))
@@ -229,7 +229,7 @@ def planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
             pictureMaking = grades[idx]
             print("Picture Making")
             print(pictureMaking)
-            if int(pictureMaking[-1]) <= 4:
+            if int(pictureMaking[-1]) <= passFigure:
                 groupB.append(pictureMaking)
             else:
                 print("Failed " + str(idx))
@@ -237,7 +237,7 @@ def planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
         elif val == 'Sculpture':
             sculpture = grades[idx]
             print(sculpture)
-            if int(sculpture[-1]) <= 4:
+            if int(sculpture[-1]) <= passFigure:
                 groupB.append(sculpture)
             else:
                 print("Failed " + str(idx))
@@ -245,7 +245,7 @@ def planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
         elif val == 'Painting':
             painting = grades[idx]
             print(painting)
-            if int(painting[-1]) <= 4:
+            if int(painting[-1]) <= passFigure:
                 groupB.append(painting)
             else:
                 print("Failed " + str(idx))
@@ -312,17 +312,17 @@ def realEstate(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
         # This might break
         # Check if value is any of these, if not, save val with grade, as el1 ...
 
-    if int(thirdElective[-1]) <= 4 and int(fourthElective[-1]) <= 4:
+    if int(thirdElective[-1]) <= passFigure and int(fourthElective[-1]) <= passFigure:
         print("Passed the first 2 other electives")
         if economics and geography:
-            if int(economics[-1]) <=4 and int(geography[-1]) <=4:
+            if int(economics[-1]) <=passFigure and int(geography[-1]) <=passFigure:
                 print("You are eligyle for Real Estate")
                 realestateState = "Bachelor of Science in Real Estate"
                 # eligibleCourses.append('School of Pharmacy')
             else:
                 print("You are a mumu man")
         else: 
-            if int(geography[-1]) <=4 or int(economics[-1]) <=4:
+            if int(geography[-1]) <=passFigure or int(economics[-1]) <=passFigure:
                 print("You are eligible for Real Estate")
                 realestateState = "Bachelor of Science in Real Estate"
                 print(realestateState)
@@ -359,10 +359,10 @@ def computerScience(el1,el2,el3,el4, el1grade, el2grade, el3grade, el4grade):
     # emaths="F9"
     for idx, val in enumerate(ints):
         print(grades[idx], val)
-        if val == 'Physics' and int(grades[idx][-1]) <= 4:
+        if val == 'Physics' and int(grades[idx][-1]) <= passFigure:
             physics = True
             print(physics)
-        elif int(grades[idx][-1]) <= 4:
+        elif int(grades[idx][-1]) <= passFigure:
             passed.append(val)
 
     # [-1] just takes the last character; so F9 => 9
