@@ -3,20 +3,22 @@ from app.models import *
 from flask import Flask,redirect,url_for,render_template,request
 
 # eligibleCourses = []  
+passFigure = 6
 ineligible = False
 def passedCoreSubjects(core1,core2,core3,core4):
     corePass = []
     passedAtLeast3 = False;
 
-
     print("Checking Core Subjects")
+    # [-1] -> This takes the last character from the string
     for i in [core1,core2,core3,core4]:
-        if int(i[-1]) <= 4:
+        if int(i[-1]) <= passFigure:
             corePass.append(i)
             print('Core ' + i + ' passed')
     print("passed ALL CORE")
-    if len(corePass) >= 4:
+    if len(corePass) >= 3:
         passedAtLeast3 = True;
+        print("Passed 3 cores")
 
     print("Passed3" + str(passedAtLeast3))
     return passedAtLeast3
@@ -27,7 +29,7 @@ def creditPass(el1,el2,el3,el4):
 
     print("Checking Passed Subjects")
     for i in [el1,el2,el3,el4]:
-        if int(i[-1]) <= 4:
+        if int(i[-1]) <= passFigure:
             passed.append(i)
             print('Elective ' + i + ' passed')
     print("passed")
@@ -62,8 +64,8 @@ def pharmacy(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
 
     # [-1] just takes the last character; so F9 => 9
 
-    if int(chemistry[-1]) <= 4 and int(biology[-1]) <= 4:
-        if int(physics[-1]) <=4 or int(emaths[-1]) <=4:
+    if int(chemistry[-1]) <= passFigure and int(biology[-1]) <= passFigure:
+        if int(physics[-1]) <=passFigure or int(emaths[-1]) <=passFigure:
             print("You are eligyle for Pharmacy")
             eligibleCourses = "School of Pharmacy"
         else:
@@ -432,7 +434,7 @@ def home():
             print("Passed The Core Subjects")
             print(creditPass(el1grade, el2grade, el3grade, el4grade))
             yourEligbleCourses = creditPass(el1grade, el2grade, el3grade, el4grade)
-            print("Passed For Pharmacy")
+            print("Check For Pharmacy")
             print(pharmacy(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade))
             yourEligbleCourses.append(pharmacy(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade))
             # THIS RETURNS AN ARRAY
