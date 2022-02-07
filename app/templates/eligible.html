@@ -46,13 +46,35 @@
       {% endif %}
     {% endfor %} -->
 
+    {% if ineligible %}
+    
+    <div class="card">
+      <a href="https://www.central.edu.gh/bdc/">
+      <div>
+        <small>8 months course</small>
+        <h4>ATHE</h4>
+      </div>
+    </a>
+    </div>
+
+    <div class="card">
+      <div>
+        <small>8 months course</small>
+        <h4>CPPI</h4>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- https://www.central.edu.gh/96 -->
     <!--  Arts and Social Social Sciences -->
     {% for course in eligibleCourses %}
       <div class="card">
+      <a href="https://www.central.edu.gh/96">
         <div>
           <small>{{course.department}}</small>
           <h4>{{course.tempField}}</h4>
         </div>
+        </a>
       </div>
     {% endfor %}
 

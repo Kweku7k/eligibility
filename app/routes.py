@@ -74,7 +74,7 @@ def pharmacy(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
 
 
 def civilEngineering(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
-    print("Pharmacy Function")
+    print("Civil Engineering Function")
     eligibleCourses = "None"
 
     ints = [el1, el2, el3, el4]
@@ -98,13 +98,114 @@ def civilEngineering(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
 
     # [-1] just takes the last character; so F9 => 9
 
-    if int(chemistry[-1]) <= passeFigure and int(physics[-1]) <= passeFigure:
-        if int(biology[-1]) <=passeFigure :
-            print("You are eligyle for Civil Engineering")
+    if int(chemistry[-1]) <= passFigure and int(emaths[-1]) <= passFigure:
+        if int(physics[-1]) <=passFigure or int(biology[-1]) <=passFigure:
+            print("You are eligble for Civil Engineering")
             eligibleCourses = "Bachelor of Science in Civil Engineering"
         else:
-            print("You are a mumu man")
+            print("Failed Civil Engineering")
     return eligibleCourses
+
+
+def physicianAssistant(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
+    print("Physician Assistant Function")
+    eligibleCourses = "None"
+
+    ints = [el1, el2, el3, el4]
+    grades = [el1grade,el2grade,el3grade,el4grade]
+
+    physics = "F9" 
+    biology ="F9"
+    chemistry ="F9"
+    emaths="F9"
+    for idx, val in enumerate(ints):
+        print(grades[idx], val)
+        if val == 'Physics':
+            physics = grades[idx]
+            print(physics)
+        elif val == 'Biology':
+            biology = grades[idx]
+        elif val == 'Chemistry':
+            chemistry = grades[idx]
+        elif val == 'E-Maths':
+            emaths = grades[idx]
+
+    # [-1] just takes the last character; so F9 => 9
+
+    if int(chemistry[-1]) <= passFigure and int(biology[-1]) <= passFigure and int(physics[-1]) <=passFigure :
+        # if int(physics[-1]) <=passFigure or int(biology[-1]) <=passFigure:
+            print("You are eligble for Physician Assistant")
+            eligibleCourses = "Bachelor of Science in Physician Assistantship"
+    else:
+            print("Failed Physiciain Assistantship")
+    return eligibleCourses
+
+# def computerScience(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
+#     print("Computer Function")
+#     eligibleCourses = "None"
+
+#     ints = [el1, el2, el3, el4]
+#     grades = [el1grade,el2grade,el3grade,el4grade]
+
+#     physics = "F9" 
+#     biology ="F9"
+#     chemistry ="F9"
+#     emaths="F9"
+#     for idx, val in enumerate(ints):
+#         print(grades[idx], val)
+#         if val == 'Physics':
+#             physics = grades[idx]
+#             print(physics)
+#         elif val == 'Biology':
+#             biology = grades[idx]
+#         elif val == 'Chemistry':
+#             chemistry = grades[idx]
+#         elif val == 'E-Maths':
+#             emaths = grades[idx]
+
+#     # [-1] just takes the last character; so F9 => 9
+
+#     if int(chemistry[-1]) <= passFigure and int(biology[-1]) <= passFigure:
+#         if int(physics[-1]) <=passFigure or int(emaths[-1]) <=passFigure:
+#             print("You are eligyle for Pharmacy")
+#             eligibleCourses = "School of Pharmacy"
+#         else:
+#             print("You are a mumu man")
+#     return eligibleCourses
+
+
+# def civilEngineering(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
+#     print("Pharmacy Function")
+#     eligibleCourses = "None"
+
+#     ints = [el1, el2, el3, el4]
+#     grades = [el1grade,el2grade,el3grade,el4grade]
+
+#     physics = "F9" 
+#     biology ="F9"
+#     chemistry ="F9"
+#     emaths="F9"
+#     for idx, val in enumerate(ints):
+#         print(grades[idx], val)
+#         if val == 'Physics':
+#             physics = grades[idx]
+#             print(physics)
+#         elif val == 'Biology':
+#             biology = grades[idx]
+#         elif val == 'Chemistry':
+#             chemistry = grades[idx]
+#         elif val == 'E-Maths':
+#             emaths = grades[idx]
+
+#     # [-1] just takes the last character; so F9 => 9
+
+#     if int(chemistry[-1]) <= passFigure and int(physics[-1]) <= passFigure:
+#         if int(biology[-1]) <=passFigure :
+#             print("You are eligyle for Civil Engineering")
+#             eligibleCourses = "Bachelor of Science in Civil Engineering"
+#         else:
+#             print("You are a mumu man")
+#     return eligibleCourses
     
 
 def planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
@@ -148,7 +249,7 @@ def planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
             economics = grades[idx]
             print("economics")
             print(economics)
-            if int(economics[-1]) <= passeFigure:
+            if int(economics[-1]) <= passFigure:
                 groupA.append(economics)
             else:
                 print("Failed " + str(idx))
@@ -156,7 +257,7 @@ def planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
             management = grades[idx]
             print("management")
             print(management)
-            if int(management[-1]) <= passeFigure:
+            if int(management[-1]) <= passFigure:
                 groupA.append(management)
             else:
                 print("Failed " + str(idx))
@@ -165,7 +266,7 @@ def planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
             geography = grades[idx]
             print("geography")
             print(geography)
-            if int(geography[-1]) <= passeFigure:
+            if int(geography[-1]) <= passFigure:
                 groupA.append(geography)
             else:
                 print("Failed " + str(idx))
@@ -174,7 +275,7 @@ def planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
             government = grades[idx]
             print("government")
             print(government)
-            if int(government[-1]) <= passeFigure:
+            if int(government[-1]) <= passFigure:
                 groupA.append(government)
             else:
                 print("Failed " + str(idx))
@@ -183,7 +284,7 @@ def planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
             mathematics = grades[idx]
             print("mathematics")
             print(mathematics)
-            if int(mathematics[-1]) <= passeFigure:
+            if int(mathematics[-1]) <= passFigure:
                 groupA.append(mathematics)
             else:
                 print("Failed " + str(idx))
@@ -192,7 +293,7 @@ def planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
             gka = grades[idx]
             print("gka")
             print(gka)
-            if int(gka[-1]) <= passeFigure:
+            if int(gka[-1]) <= passFigure:
                 groupA.append(gka)
             else:
                 print("Failed " + str(idx))
@@ -345,6 +446,8 @@ def architecture(el1,el2,el3,el4):
         eligibleCourses= 'Bachelor Of Architecture'
     return eligibleCourses
 
+
+
 def computerScience(el1,el2,el3,el4, el1grade, el2grade, el3grade, el4grade):
     print("Computer Science Function")
     eligibleCourses = "None"
@@ -372,8 +475,47 @@ def computerScience(el1,el2,el3,el4, el1grade, el2grade, el3grade, el4grade):
     print(len(passed))
 
     if physics == True and len(passed) >= 2:
-        print("You are eligyle for Computer Science")
-        eligibleCourses = "Bachelor Of Science In Computer Science"
+        print("You are eligible for Computer Science")
+        eligibleCourses = "Bachelor of Science in Computer Science"
+        print(eligibleCourses)
+
+    # if int(chemistry[-1]) <= 4 and int(biology[-1]) <= 4:
+    #     if int(physics[-1]) <=4 or int(emaths[-1]) <=4:
+    #         print("You are eligyle for Pharmacy")
+    #         eligibleCourses = "School of Pharmacy"
+    #     else:
+    #         print("You are a mumu man")
+    return eligibleCourses
+
+def technology(el1,el2,el3,el4, el1grade, el2grade, el3grade, el4grade):
+    print("Computer Science Function")
+    eligibleCourses = "None"
+    passed = []
+
+    ints = [el1, el2, el3, el4]
+    grades = [el1grade,el2grade,el3grade,el4grade]
+
+    physics = False
+    # biology ="F9"
+    # chemistry ="F9"
+    # emaths="F9"
+    for idx, val in enumerate(ints):
+        print(grades[idx], val)
+        if val == 'Physics' and int(grades[idx][-1]) <= passFigure:
+            physics = True
+            print(physics)
+        elif int(grades[idx][-1]) <= passFigure:
+            passed.append(val)
+
+    # [-1] just takes the last character; so F9 => 9
+
+    print("passed")
+    print(passed)
+    print(len(passed))
+
+    if physics == True and len(passed) >= 2:
+        print("You are eligible for Computer Science")
+        eligibleCourses = "School of Engeneering and Technology"
         print(eligibleCourses)
 
     # if int(chemistry[-1]) <= 4 and int(biology[-1]) <= 4:
@@ -437,6 +579,8 @@ def home():
             print("Check For Pharmacy")
             print(pharmacy(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade))
             yourEligbleCourses.append(pharmacy(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade))
+            # yourEligbleCourses.append(technology(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade))
+
             # THIS RETURNS AN ARRAY
 
         # Returns all the courses from the departments into an array
@@ -461,10 +605,22 @@ def home():
             passedEls.append(planningCourse)
             
             computerScienceCourse = Course.query.filter_by(tempField= computerScience(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
-            print("computerScienceCourse")
+            print(computerScienceCourse)
             passedEls.append(computerScienceCourse)
-
+            if computerScienceCourse:
+                passedEls.append(Course.query.filter_by(tempField= "Bachelor of Science in Information Technology").first())
             print(passedEls)
+
+            PhysicianAssistantCourse = Course.query.filter_by(tempField= physicianAssistant(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
+            print(PhysicianAssistantCourse)
+            passedEls.append(PhysicianAssistantCourse)
+            if PhysicianAssistantCourse:
+                passedEls.append(Course.query.filter_by(tempField= "Bachelor of Science in Public Health").first())
+            print(passedEls)
+
+            civilEngineeringCourse = Course.query.filter_by(tempField= civilEngineering(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
+            print (civilEngineeringCourse)
+            passedEls.append(civilEngineeringCourse)
 
             # print(Course.query.filter_by(tempField= realEstate(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first())
             # print(realEstate(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade))
