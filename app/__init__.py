@@ -10,5 +10,6 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['SECRET_KEY'] = "Your_secret_string"
 
 from app import routes
