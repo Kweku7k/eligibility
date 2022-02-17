@@ -10,7 +10,8 @@
     <!-- Bootstrap CSS -->
     <script src="https://kit.fontawesome.com/091f1122a7.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  </head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
   <body>
     <nav  style="border: 1px solid #dc3545;" class="navbar navbar-expand-sm navbar-dark bg-danger">
         <a class="navbar-brand" href="#">Eligibility Checker</a>
@@ -38,7 +39,20 @@
             </form>
         </div> -->
     </nav>
+    
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-danger mb-3" role="alert">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
       {% block body %}
+
+
       {% endblock %}
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

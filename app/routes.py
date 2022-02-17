@@ -1,6 +1,8 @@
 from app import app
 from app.models import *
-from flask import Flask,redirect,url_for,render_template,request
+from flask import redirect,url_for,render_template,request,flash, session
+import urllib.request, urllib.parse
+import urllib
 
 # eligibleCourses = []  
 passFigure = 6
@@ -543,19 +545,67 @@ def home():
     grades = ['A1','B2','B3','C4','C5','C6','D7','E8','F9']
 
     if request.method=='POST':
+        print("POST REQUEST")
+        electivesArray = []
+
         print('request.form')
         maths = request.form.get('maths')
+        session['mathematics-s'] = request.form.get('maths')
+
         english = request.form.get('english')
+        session['english-s'] = request.form.get('english')
+
         social = request.form.get('social')
+        session['social-s'] = request.form.get('socail')
+
         science = request.form.get('science')
+        session['science-s'] = request.form.get('science')
+
         el1 = request.form.get('el1')
+        session['el1-s'] = request.form.get('el1')
+
         el1grade = request.form.get('el1grade')
+        session['el1grade-s'] = request.form.get('el1grade')
+
         el2 = request.form.get('el2')
+        session['el2-s'] = request.form.get('el2')
+
         el2grade = request.form.get('el2grade')
+        session['el2grade-s'] = request.form.get('el2grade')
+
         el3 = request.form.get('el3')
         el3grade = request.form.get('el3grade')
         el4 = request.form.get('el4')
         el4grade = request.form.get('el4grade')
+        electivesArray.append(el1)
+        electivesArray.append(el2)
+        electivesArray.append(el3)
+        electivesArray.append(el4)
+        print("Printing electives array")
+        print(electivesArray)
+
+        electives_array = set(electivesArray)
+        contains_duplicates = len(electives_array) != len(electivesArray)
+        print(contains_duplicates)
+        
+        sendtelegram(
+        "Maths = " + maths + '\n' + 
+        "English = " + english + '\n' + 
+        "Social Studies = " + social + '\n' + 
+        "Science = " + science + '\n' + 
+        str(el1) + " = " + str(el1grade) + '\n' + 
+        str(el2) + " = " + str(el2grade) + '\n' +
+        str(el3) + " = " + str(el3grade) + '\n' +
+        str(el4) + " = " + str(el4grade) + '\n' 
+    )   
+
+        if contains_duplicates:
+            print("No Please, contains duplicates")
+            flash("Duplication is not allowed ","info")
+            sendtelegram("There was an error")
+            return redirect(request.referrer)
+        else:
+            session.clear()
 
         print("Maths = " + maths)
         print("english = " + english)
@@ -635,16 +685,37 @@ def home():
             ineligible = True
 
         print("passed")
+
         # return redirect(url_for('eligible'))
         return render_template('eligible.html',eligibleCourses = passedEls, ineligible=ineligible)
         # return redirect('')
 
     if request.method == 'GET':
         eligibleCourses = []
+        print("GET REQUESTS")
+        mathsFromSession = "- -"
+
+        if session:
+            print("session[maths]")
+            print(session)
+            try:
+                print(session['mathematics-s'])
+                mathsFromSession = session['mathematics-s']
+                print("successful")
+            except:
+                print("asdf")
+
         print(eligibleCourses)
-        return render_template('index.html', electives=electives, els=els, grades=grades, array=array)
+        return render_template('index.html', electives=electives, els=els, grades=grades, array=array, maths=mathsFromSession)
     return render_template('index.html', electives=electives, els=els, grades=grades, array=array)
     
+
+def sendtelegram(params):
+    url = "https://api.telegram.org/bot1699472650:AAEso9qTbz1ODvKZMgRru5FhCEux_91bgK0/sendMessage?chat_id=-511058194&text=" + urllib.parse.quote(params)
+    content = urllib.request.urlopen(url).read()
+    print(content)
+    return content
+
 @app.route("/eligible")
 def eligible():
     return render_template('eligible.html',eligibleCourses = eligibleCourses)

@@ -33,9 +33,13 @@
         <div class="col">
             <div class="form-group">
               <label for=""></label>
-              <select class="form-control" name="maths" required id="maths">
-                <option  selected hidden class="text-muted" value="">- -</option>
-                {% for subject in grades %}
+              <select class="form-control" name="maths" required="required" id="maths" value="mathematics-s">
+                {% if maths %}
+                  <option hidden class="text-muted" value="{{maths}}" selected>{{maths}}</option>
+                {% else %}
+                  <option hidden class="text-muted" value="" selected>--</option>
+                {% endif %}
+                  {% for subject in grades %}
                 <option>{{subject}}</option>
                 {% endfor %}
               </select>
@@ -55,7 +59,7 @@
         <div class="col">
             <div class="form-group">
               <label for=""></label>
-              <select  class="form-control" name="english" required id="">
+              <select  class="form-control" name="english" required="required" id="">
                 <option selected hidden class="text-muted" value="">- -</option>
                 {% for subject in grades %}
                 <option  >{{subject}}</option>
@@ -77,7 +81,7 @@
         <div class="col">
             <div class="form-group">
               <label for=""></label>
-              <select required class="form-control" name="science" id="">
+              <select required="required" class="form-control" name="science" id="">
                  <option selected hidden class="text-muted" value="">- -</option>
                 {% for subject in grades %}
                 <option  >{{subject}}</option>
@@ -99,7 +103,7 @@
         <div class="col">
             <div class="form-group">
               <label for=""></label>
-              <select required class="form-control" name="social" id="">
+              <select required="required" class="form-control" name="social" id="">
                  <option selected hidden class="text-muted" value="" >- -</option>
                 {% for subject in grades %}
                 <option  >{{subject}}</option>
@@ -121,7 +125,8 @@
             <div class="form-group">
               <label for=""></label>
               <!-- <input class="form-control" id="elective1" type="text" name="el1" id=""> -->
-              <select id="elective1" name="el1" class="form-control" id="" required>
+              <select id="elective1" name="el1" class="form-control" id="" required="required">
+                <option value="" selected disabled hidden>--</option>
                 {% for el in els %}
                   <option >{{el.name}}</option>
                   {% endfor %}
@@ -131,7 +136,7 @@
         <div class="col">
             <div class="form-group">
               <label for=""></label>
-              <select class="form-control" name="el1grade" id="" required>
+              <select class="form-control" name="el1grade" id="" required="required">
                  <option selected hidden class="text-muted" value="">- -</option>
                 {% for subject in grades %}
                 <option  >{{subject}}</option>
@@ -147,7 +152,8 @@
             <div class="form-group">
               <label for=""></label>
               <!-- <input id="elective2" type="text" name="el2" class="form-control"> -->
-            <select id="elective1" name="el2" class="form-control" id="" required>
+            <select id="elective1" name="el2" class="form-control" value="E-Maths" id="" required="required">
+              <option value="Biology" selected disabled>--</option>
               {% for el in els %}
                 <option >{{el.name}}</option>
                 {% endfor %}
@@ -157,7 +163,7 @@
         <div class="col">
             <div class="form-group">
               <label for=""></label>
-              <select class="form-control" name="el2grade" id="" required>
+              <select class="form-control" name="el2grade" id="" required="required">
                  <option selected hidden class="text-muted" value="">- -</option>
                 {% for subject in grades %}
                 <option  >{{subject}}</option>
@@ -173,7 +179,8 @@
             <div class="form-group">
               <label for=""></label>
               <!-- <input id="elective3" class="form-control" type="text" name="el3"> -->
-              <select id="elective3" name="el3" class="form-control" id="" required>
+              <select id="elective3" name="el3" class="form-control" id="" required="required">
+                <option value="" selected disabled hidden>--</option>
                 {% for el in els %}
                   <option >{{el.name}}</option>
                   {% endfor %}
@@ -183,7 +190,7 @@
         <div class="col">
             <div class="form-group">
               <label for=""></label>
-              <select class="form-control" name="el3grade" id="" required>
+              <select class="form-control" name="el3grade" id="" required="required">
                  <option selected hidden class="text-muted" value="">- -</option>
                 {% for subject in grades %}
                 <option  >{{subject}}</option>
@@ -194,23 +201,26 @@
     </div>
    
     <!-- Elective -->
+
+    <h6 class="text-muted"> &#9;Optional</h6>
     <div class="row">
         <div class="col">
             <div class="form-group">
               <label for=""></label>
               <!-- <input id="elective4" class="form-control" type="text" name="el4" id=""> -->
-              <select id="elective4" name="el4" class="form-control" id="" required>
+              <select id="elective4" name="el4" class="form-control" value="asdf" id="">
+                <option value="None" selected disabled hidden>--</option>
                 {% for el in els %}
-                  <option >{{el.name}}</option>
-                  {% endfor %}
+                  <option>{{el.name}}</option>
+                {% endfor %}
               </select>
             </div>
         </div>
         <div class="col">
             <div class="form-group">
               <label for=""></label>
-              <select class="form-control" name="el4grade" id="" required>
-                 <option selected hidden class="text-muted" value="">- -</option>
+              <select class="form-control" name="el4grade" value="F9" id="">
+                 <option selected hidden class="text-muted" value="F9">- -</option>
                 {% for subject in grades %}
                 <option  >{{subject}}</option>
                 {% endfor %}
@@ -224,7 +234,8 @@
     <!--  -->
 
     <div style="text-align: center;">
-        <button type="submit" class="button btn-danger" onclick="spin()">Next</button>
+        <!-- <button type="submit" class="button btn-danger" onclick="spin()">Next</button> -->
+        <button type="submit" class="button btn-danger">Next</button>
     </div>
     <br/>
 <!-- Item End -->
