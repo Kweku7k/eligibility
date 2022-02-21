@@ -556,7 +556,7 @@ def home():
         session['english-s'] = request.form.get('english')
 
         social = request.form.get('social')
-        session['social-s'] = request.form.get('socail')
+        session['social-s'] = request.form.get('social')
 
         science = request.form.get('science')
         session['science-s'] = request.form.get('science')
@@ -574,7 +574,12 @@ def home():
         session['el2grade-s'] = request.form.get('el2grade')
 
         el3 = request.form.get('el3')
+        session['el3-s'] = request.form.get('el3')
+
         el3grade = request.form.get('el3grade')
+        session['el3grade-s'] = request.form.get('el3grade')
+
+
         el4 = request.form.get('el4')
         el4grade = request.form.get('el4grade')
         electivesArray.append(el1)
@@ -687,6 +692,7 @@ def home():
         print("passed")
 
         # return redirect(url_for('eligible'))
+        session.clear()
         return render_template('eligible.html',eligibleCourses = passedEls, ineligible=ineligible)
         # return redirect('')
 
@@ -701,12 +707,40 @@ def home():
             try:
                 print(session['mathematics-s'])
                 mathsFromSession = session['mathematics-s']
+                englishFromSession = session['english-s']
+                scienceFromSession = session['science-s']
+                socailFromSession = session['social-s']
+                el1FromSession = session['el1-s']
+                el1GradeFromSession = session['el1grade-s']
+                el2FromSession = session['el2-s']
+                el2GradeFromSession = session['el2grade-s']
+                el3FromSession = session['el3-s']
+                el3GradeFromSession = session['el3grade-s']
                 print("successful")
             except:
                 print("asdf")
+                return "kpew"
+
+
+        else:
+            print("Filling fields")
+            mathsFromSession = "--"
+            englishFromSession = "--"
+            scienceFromSession = "--"
+            socailFromSession = "--"
+            el1FromSession = "--"
+            el1GradeFromSession = "--"
+            el2FromSession = "--"
+            el2GradeFromSession = "--"
+            el3FromSession = "--"
+            el3GradeFromSession = "--"
+
 
         print(eligibleCourses)
-        return render_template('index.html', electives=electives, els=els, grades=grades, array=array, maths=mathsFromSession)
+        return render_template('index.html', electives=electives, els=els, grades=grades, array=array,
+        maths=mathsFromSession, english=englishFromSession, social=socailFromSession, science=scienceFromSession,
+        electiveOne=el1FromSession, electiveOneGrade=el1GradeFromSession, electiveTwo=el2FromSession, electiveTwoGrade=el2GradeFromSession,
+        electiveThree=el3FromSession, electiveThreeGrade=el3GradeFromSession)
     return render_template('index.html', electives=electives, els=els, grades=grades, array=array)
     
 
