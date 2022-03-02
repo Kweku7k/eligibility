@@ -760,13 +760,19 @@ def home():
 
         print('name')
         name = request.form.get('name')
+        session['number'] = request.form.get('maths')
+
         number = request.form.get('number')
+        session['number'] = request.form.get('maths')
+
         print(name)
         print(number)
 
         print('request.form')
         maths = request.form.get('maths')
         session['mathematics-s'] = request.form.get('maths')
+
+        
 
         english = request.form.get('english')
         session['english-s'] = request.form.get('english')
@@ -854,7 +860,7 @@ def home():
         passedEls = []
 
 # ❤️⚡️
-# Function starts here‼️‼️‼️
+# Function starts here‼️‼️‼️               
         if passedCoreSubjects(maths, english, social, science):
             print("Passed The Core Subjects")
             print(creditPass(el1grade, el2grade, el3grade, el4grade))
@@ -1016,8 +1022,18 @@ def electives():
 
 @app.route("/results",methods=['GET','POST'])
 def results(): 
+    #  Use session
     results = Results.query.all()
-    return render_template('results.html', results=results)
+    if request.method=='POST':
+        password = request.form.get('password')
+        print(password)
+        if password == 'admin':
+            return render_template('results.html', results=results, passed=True)
+        else:
+            flash(f'Wrong password, please try again','danger')
+    else:
+        return render_template('results.html', results=results)
+    return render_template('results.html')
 
 
 @app.route("/programs",methods=['GET','POST'])

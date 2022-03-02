@@ -17,19 +17,20 @@
 <small class="text-muted">Please fill the form with the details from your slip</small>
 <form autocomplete="off" action="{{url_for('home')}}" method="POST">
 
+
 <div class="row"> 
         <div class="col">
             <div class="form-group">
               <label for=""></label>
                   <label for=""></label>
-                  <input type="text" class="form-control" aria-describedby="helpId" id="name" name="name" placeholder="Enter your name">
+                  <input type="text" class="form-control" aria-describedby="helpId" id="name" name="name" required placeholder="Enter your name">
             </div>
         </div>
 
         <div class="col">
             <div class="form-group">
               <label for=""></label>
-             <input class="form-control" placeholder="Enter your phone number" id="number" name="number" type="number">
+             <input class="form-control" placeholder="Enter your phone number" id="number" name="number" required minlength="10" type="number">
             </div>
         </div>
     </div>

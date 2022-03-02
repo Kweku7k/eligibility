@@ -3,6 +3,8 @@
 {% block body %}
 
 
+{% if passed %}
+
 <table class="table">
     <tr>
         <th>Name</th>
@@ -17,6 +19,47 @@
         </tr>
     {% endfor %}
   </table>
+
+
+  {% else %}
+ 
+  <!-- <div id="spinner" style="display: flex; justify-content: center; align-items: center; height: 100vh; width: 100vw; display: block;">
+    <div style="text-align: center;">
+      <div class="spinner-border" role="status">
+        <span class="sr-only"></span>
+      </div>
+      <h6>Checking your courses</h6>
+    </div>
+  </div> -->
+<div class="container">
+<br>
+  <form action="{{url_for('results')}}" method="POST">
+    <!-- <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div> -->
+
+    <h4>Eligible Students Record</h4>
+    <h6 class="text-muted">Please fill in the password to access the results directory</h6>
+    <br/>
+
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password">
+    </div>
+    <!-- <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div> -->
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+
+{% endif %}
+
+
 
 
 {% endblock %}
