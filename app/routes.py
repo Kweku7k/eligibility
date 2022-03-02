@@ -371,6 +371,216 @@ def planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
 
     return planning
 
+# -------------
+
+def nursing(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
+    planning = "None"
+
+    groupA = []
+    groupB = []
+
+    # General Arts
+    geography = "F9"
+    government = "F9"
+    gka = "F9"
+    literature = "F9"
+    french = "F9"
+    history = "F9"
+    crs = "F9"
+    emaths = "F9"
+
+    # Science
+    biology = "F9"
+    chemistry = "F9"
+    physics = "F9"
+
+    # Agric Science
+    agriculture = "F9"
+
+    # Home Econs
+    MIL = "F9"
+    economics = "F9"
+    foodNnutrition = "F9"
+    textiles = "F9"
+    french = "F9"
+
+   
+
+    ints = [el1, el2, el3, el4]
+    grades = [el1grade,el2grade,el3grade,el4grade]
+
+    for idx, val in enumerate(ints):
+        print(grades[idx], val)
+        # Group A
+        if val == 'Economics':
+            # idx is the index, it then looks through the grades array for that item;
+            # So if idx = 1;
+            # grades[idx] == grades[1]
+            # And that gives the grade from the form
+            # ie. A1 or B2
+            # Then you take the last figure and change it to an integer
+            # int(var[-1])
+            # Then check if the item is below a 4
+            # Thats how you pass.
+            economics = grades[idx]
+            print("economics")
+            print(economics)
+            if int(economics[-1]) <= passFigure:
+                groupA.append(economics)
+            else:
+                print("Failed " + str(idx))
+        elif val == 'Geography':
+            geography = grades[idx]
+            print("geography")
+            print(geography)
+            if int(geography[-1]) <= passFigure:
+                groupA.append(geography)
+            else:
+                print("Failed " + str(idx))
+
+        elif val == 'Goverment':
+            government = grades[idx]
+            print(government)
+            if int(government[-1]) <= passFigure:
+                groupA.append(government)
+            else:
+                print("Failed " + str(idx))
+        elif val == 'GKA':
+            gka = grades[idx]
+            print(gka)
+            if int(gka[-1]) <= passFigure:
+                groupA.append(gka)
+            else:
+                print("Failed " + str(idx))
+
+        elif val == 'Literature':
+            literature = grades[idx]
+            print(literature)
+            if int(literature[-1]) <= passFigure:
+                groupA.append(literature)
+            else:
+                print("Failed " + str(idx))
+
+        elif val == 'French':
+            french = grades[idx]
+            print(french)
+            if int(french[-1]) <= passFigure:
+                groupA.append(french)
+            else:
+                print("Failed " + str(idx))
+
+        elif val == 'History':
+            history = grades[idx]
+            print(history)
+            if int(history[-1]) <= passFigure:
+                groupA.append(history)
+            else:
+                print("Failed " + str(idx))
+
+        elif val == 'CRS':
+            crs = grades[idx]
+            print(crs)
+            if int(crs[-1]) <= passFigure:
+                groupA.append(crs)
+            else:
+                print("Failed " + str(idx))
+        elif val == 'Goverment':
+            government = grades[idx]
+            print(government)
+            if int(government[-1]) <= passFigure:
+                groupA.append(government)
+            else:
+                print("Failed " + str(idx))
+        elif val == 'Goverment':
+            government = grades[idx]
+            print(government)
+            if int(government[-1]) <= passFigure:
+                groupA.append(government)
+            else:
+                print("Failed " + str(idx))
+        elif val == 'Goverment':
+            government = grades[idx]
+            print(government)
+            if int(government[-1]) <= passFigure:
+                groupA.append(government)
+            else:
+                print("Failed " + str(idx))
+        elif val == 'Goverment':
+            government = grades[idx]
+            print(government)
+            if int(government[-1]) <= passFigure:
+                groupA.append(government)
+            else:
+                print("Failed " + str(idx))
+        elif val == 'Goverment':
+            government = grades[idx]
+            print(government)
+            if int(government[-1]) <= passFigure:
+                groupA.append(government)
+            else:
+                print("Failed " + str(idx))
+        elif val == 'Goverment':
+            government = grades[idx]
+            print(government)
+            if int(government[-1]) <= passFigure:
+                groupA.append(government)
+            else:
+                print("Failed " + str(idx))
+        elif val == 'Goverment':
+            government = grades[idx]
+            print(government)
+            if int(government[-1]) <= passFigure:
+                groupA.append(government)
+            else:
+                print("Failed " + str(idx))
+        elif val == 'Goverment':
+            government = grades[idx]
+            print(government)
+            if int(government[-1]) <= passFigure:
+                groupA.append(government)
+            else:
+                print("Failed " + str(idx))
+        elif val == 'Goverment':
+            government = grades[idx]
+            print(government)
+            if int(government[-1]) <= passFigure:
+                groupA.append(government)
+            else:
+                print("Failed " + str(idx))
+        elif val == 'Goverment':
+            government = grades[idx]
+            print(government)
+            if int(government[-1]) <= passFigure:
+                groupA.append(government)
+            else:
+                print("Failed " + str(idx))
+        elif val == 'Goverment':
+            government = grades[idx]
+            print(government)
+            if int(government[-1]) <= passFigure:
+                groupA.append(government)
+            else:
+                print("Failed " + str(idx))
+
+        else:
+            planning = "You are uneligible for this course"
+        
+
+    print("groupB")
+    print(groupB)
+
+    print("groupA")
+    print(groupA)
+
+    if len(groupA) == 3 or len(groupA) == 2 and len(groupB) == 1:
+            planning = "Bachelor of Science in Planning"
+    else:
+        print("You are a mumu man")
+
+
+    return planning
+# -------------
+
 
 def realEstate(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
     print("RealEstate Function")
@@ -548,6 +758,12 @@ def home():
         print("POST REQUEST")
         electivesArray = []
 
+        print('name')
+        name = request.form.get('name')
+        number = request.form.get('number')
+        print(name)
+        print(number)
+
         print('request.form')
         maths = request.form.get('maths')
         session['mathematics-s'] = request.form.get('maths')
@@ -593,7 +809,11 @@ def home():
         contains_duplicates = len(electives_array) != len(electivesArray)
         print(contains_duplicates)
         
+
+            
         sendtelegram(
+        "Name = " + name + '\n'+ 
+        "Number = " + number + '\n'+ 
         "Maths = " + maths + '\n' + 
         "English = " + english + '\n' + 
         "Social Studies = " + social + '\n' + 
@@ -604,6 +824,8 @@ def home():
         str(el4) + " = " + str(el4grade) + '\n' 
     )   
 
+
+
         if contains_duplicates:
             print("No Please, contains duplicates")
             flash("Duplication is not allowed ","info")
@@ -611,6 +833,12 @@ def home():
             return redirect(request.referrer)
         else:
             session.clear()
+
+
+        newResult = Results(name=name, number=number, results="laslas", passed=True)
+        db.session.add(newResult)
+        db.session.commit()
+
 
         print("Maths = " + maths)
         print("english = " + english)
@@ -768,6 +996,10 @@ def courses():
     courses = Course.query.all()
     return render_template('courses.html', courses=courses)
 
+@app.route('/detail',methods=['GET','POST'])
+def detail():
+    return render_template("details.html")
+
 
 @app.route("/electives",methods=['GET','POST'])
 def electives(): 
@@ -780,6 +1012,12 @@ def electives():
         return redirect('')
     electives = Electives.query.all()
     return render_template('electives.html', electives=electives)
+
+
+@app.route("/results",methods=['GET','POST'])
+def results(): 
+    results = Results.query.all()
+    return render_template('results.html', results=results)
 
 
 @app.route("/programs",methods=['GET','POST'])

@@ -15,11 +15,29 @@
 <div id="body" class="container">
 <br/>
 <small class="text-muted">Please fill the form with the details from your slip</small>
+<form autocomplete="off" action="{{url_for('home')}}" method="POST">
+
+<div class="row"> 
+        <div class="col">
+            <div class="form-group">
+              <label for=""></label>
+                  <label for=""></label>
+                  <input type="text" class="form-control" aria-describedby="helpId" id="name" name="name" placeholder="Enter your name">
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="form-group">
+              <label for=""></label>
+             <input class="form-control" placeholder="Enter your phone number" id="number" name="number" type="number">
+            </div>
+        </div>
+    </div>
+
 <h4>Core Subjects</h4>
 
 <!-- Item Body -->
     <!-- Maths -->
-<form autocomplete="off" action="{{url_for('home')}}" method="POST">
 
     <div class="row"> 
         <div class="col">

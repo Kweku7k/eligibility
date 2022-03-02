@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Number</th> 
+        <th>Status</th>
+    </tr>
+    {% for result in results %}
+        <tr>
+        <td>{{result.name}}</td>
+        <td>{{result.number}}</td> 
+        <td>{{result.passed}}</td>
+        </tr>
+    {% endfor %}
+  </table>
+
+
+{% endblock %}
