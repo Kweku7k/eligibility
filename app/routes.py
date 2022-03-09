@@ -580,7 +580,8 @@ def nursing(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
     print("groupA")
     print(groupA)
 
-    if len(groupA) == 3 or len(groupA) == 2 and len(groupB) == 1:
+    # if len(groupA) == 3 or len(groupA) == 2 and len(groupB) == 1:
+    if len(groupA) >= 3:
             nursing = "Bachelor of Science in Nursing"
     else:
         print("You are a mumu man")
