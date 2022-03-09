@@ -4,7 +4,7 @@
 
 <div class="header">
   {% if ineligible %}
-  <small>You are ineligble for this year</small>
+  <small>You are eligble for the following Diploma Programs</small>
   <h4>Sorry</h4>
   {% else %}
   <h4>Congratulations</h4>
@@ -70,6 +70,7 @@
     <!-- https://www.central.edu.gh/96 -->
     <!--  Arts and Social Social Sciences -->
     {% for course in eligibleCourses %}
+      {% if course != None %}
       <div class="card">
       <a href="https://www.central.edu.gh/96">
         <div>
@@ -78,6 +79,7 @@
         </div>
         </a>
       </div>
+      {% endif %}
     {% endfor %}
 
 

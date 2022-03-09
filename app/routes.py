@@ -374,7 +374,8 @@ def planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
 # -------------
 
 def nursing(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
-    planning = "None"
+    print("Nursing Function")
+    nursing = "None"
 
     groupA = []
     groupB = []
@@ -435,6 +436,7 @@ def nursing(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
             print(geography)
             if int(geography[-1]) <= passFigure:
                 groupA.append(geography)
+                print("Passed " + val)
             else:
                 print("Failed " + str(idx))
 
@@ -443,6 +445,8 @@ def nursing(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
             print(government)
             if int(government[-1]) <= passFigure:
                 groupA.append(government)
+                print("Passed " + val)
+
             else:
                 print("Failed " + str(idx))
         elif val == 'GKA':
@@ -450,6 +454,8 @@ def nursing(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
             print(gka)
             if int(gka[-1]) <= passFigure:
                 groupA.append(gka)
+                print("Passed " + val)
+
             else:
                 print("Failed " + str(idx))
 
@@ -458,6 +464,8 @@ def nursing(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
             print(literature)
             if int(literature[-1]) <= passFigure:
                 groupA.append(literature)
+                print("Passed " + val)
+
             else:
                 print("Failed " + str(idx))
 
@@ -466,6 +474,8 @@ def nursing(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
             print(french)
             if int(french[-1]) <= passFigure:
                 groupA.append(french)
+                print("Passed " + val)
+
             else:
                 print("Failed " + str(idx))
 
@@ -474,6 +484,8 @@ def nursing(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
             print(history)
             if int(history[-1]) <= passFigure:
                 groupA.append(history)
+                print("Passed " + val)
+
             else:
                 print("Failed " + str(idx))
 
@@ -482,88 +494,84 @@ def nursing(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
             print(crs)
             if int(crs[-1]) <= passFigure:
                 groupA.append(crs)
+                print("Passed " + val)
+
             else:
                 print("Failed " + str(idx))
-        elif val == 'Goverment':
-            government = grades[idx]
-            print(government)
-            if int(government[-1]) <= passFigure:
-                groupA.append(government)
+        elif val == 'E-Maths':
+            emaths = grades[idx]
+            print(emaths)
+            if int(emaths[-1]) <= passFigure:
+                groupA.append(emaths)
+                print("Passed " + val)
+
             else:
                 print("Failed " + str(idx))
-        elif val == 'Goverment':
-            government = grades[idx]
-            print(government)
-            if int(government[-1]) <= passFigure:
-                groupA.append(government)
+                # Science Courses
+        elif val == 'Chemistry':
+            chemistry = grades[idx]
+            print(chemistry)
+            if int(chemistry[-1]) <= passFigure:
+                groupA.append(chemistry)
+                print("Passed " + val)
             else:
                 print("Failed " + str(idx))
-        elif val == 'Goverment':
-            government = grades[idx]
-            print(government)
-            if int(government[-1]) <= passFigure:
-                groupA.append(government)
+        elif val == 'Biology':
+            biology = grades[idx]
+            print(biology)
+            if int(biology[-1]) <= passFigure:
+                groupA.append(biology)
+                print("Passed " + val)
             else:
                 print("Failed " + str(idx))
-        elif val == 'Goverment':
-            government = grades[idx]
-            print(government)
-            if int(government[-1]) <= passFigure:
-                groupA.append(government)
+        elif val == 'Physics':
+            physics = grades[idx]
+            print(physics)
+            if int(physics[-1]) <= passFigure:
+                groupA.append(physics)
+                print("Passed " + val)
+
             else:
                 print("Failed " + str(idx))
-        elif val == 'Goverment':
-            government = grades[idx]
-            print(government)
-            if int(government[-1]) <= passFigure:
-                groupA.append(government)
+        elif val == 'Agriculture':
+            agriculture = grades[idx]
+            print(agriculture)
+            if int(agriculture[-1]) <= passFigure:
+                groupA.append(agriculture)
+                print("Passed " + val)
+
             else:
                 print("Failed " + str(idx))
-        elif val == 'Goverment':
-            government = grades[idx]
-            print(government)
-            if int(government[-1]) <= passFigure:
-                groupA.append(government)
+        elif val == 'MIL':
+            MIL = grades[idx]
+            print(MIL)
+            if int(MIL[-1]) <= passFigure:
+                groupA.append(MIL)
+                print("Passed " + val)
+
             else:
                 print("Failed " + str(idx))
-        elif val == 'Goverment':
-            government = grades[idx]
-            print(government)
-            if int(government[-1]) <= passFigure:
-                groupA.append(government)
+        elif val == 'Food And Nutrition':
+            foodNnutrition = grades[idx]
+            print(foodNnutrition)
+            if int(foodNnutrition[-1]) <= passFigure:
+                groupA.append(foodNnutrition)
+                print("Passed " + val)
+
             else:
                 print("Failed " + str(idx))
-        elif val == 'Goverment':
-            government = grades[idx]
-            print(government)
-            if int(government[-1]) <= passFigure:
-                groupA.append(government)
-            else:
-                print("Failed " + str(idx))
-        elif val == 'Goverment':
-            government = grades[idx]
-            print(government)
-            if int(government[-1]) <= passFigure:
-                groupA.append(government)
-            else:
-                print("Failed " + str(idx))
-        elif val == 'Goverment':
-            government = grades[idx]
-            print(government)
-            if int(government[-1]) <= passFigure:
-                groupA.append(government)
-            else:
-                print("Failed " + str(idx))
-        elif val == 'Goverment':
-            government = grades[idx]
-            print(government)
-            if int(government[-1]) <= passFigure:
-                groupA.append(government)
+        elif val == 'textiles':
+            textiles = grades[idx]
+            print(textiles)
+            if int(textiles[-1]) <= passFigure:
+                groupA.append(textiles)
+                print("Passed " + val)
+
             else:
                 print("Failed " + str(idx))
 
         else:
-            planning = "You are uneligible for this course"
+            nursing = "You are uneligible for this course"
         
 
     print("groupB")
@@ -573,12 +581,12 @@ def nursing(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
     print(groupA)
 
     if len(groupA) == 3 or len(groupA) == 2 and len(groupB) == 1:
-            planning = "Bachelor of Science in Planning"
+            nursing = "Bachelor of Science in Nursing"
     else:
         print("You are a mumu man")
 
 
-    return planning
+    return nursing
 # -------------
 
 
@@ -892,29 +900,41 @@ def home():
             planningCourse = Course.query.filter_by(tempField= planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
             print(planningCourse)
             passedEls.append(planningCourse)
+
+            nursingCourse = Course.query.filter_by(tempField= nursing(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
+            print("nursingCourse")
+            print(nursingCourse)
+            passedEls.append(nursingCourse)
             
             computerScienceCourse = Course.query.filter_by(tempField= computerScience(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
             print(computerScienceCourse)
             passedEls.append(computerScienceCourse)
             if computerScienceCourse:
                 passedEls.append(Course.query.filter_by(tempField= "Bachelor of Science in Information Technology").first())
-            print(passedEls)
+            # print(passedEls)
 
             PhysicianAssistantCourse = Course.query.filter_by(tempField= physicianAssistant(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
             print(PhysicianAssistantCourse)
             passedEls.append(PhysicianAssistantCourse)
+            print("Just passed Physician Assistanship")
             if PhysicianAssistantCourse:
                 passedEls.append(Course.query.filter_by(tempField= "Bachelor of Science in Public Health").first())
-            print(passedEls)
+            # print(passedEls)
 
             civilEngineeringCourse = Course.query.filter_by(tempField= civilEngineering(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
             print (civilEngineeringCourse)
             passedEls.append(civilEngineeringCourse)
 
+
+
             # print(Course.query.filter_by(tempField= realEstate(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first())
             # print(realEstate(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade))
 
         # eligibleCourses = []
+
+        print("passedEls")
+        print(passedEls)
+
         print("yourEligbleCourses")
         print(yourEligbleCourses) 
         # print(yourEligbleCourses)

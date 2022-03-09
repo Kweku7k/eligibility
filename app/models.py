@@ -9,7 +9,7 @@ class Course(db.Model):
     tempField = db.Column(db.String())
     department = db.Column(db.String(), nullable=True)
     def __repr__(self): 
-        return f"Course('{self.id}', '{self.name}', )"
+        return f"Course('{self.id}', '{self.name}','{self.tempField}','{self.department}' )"
 
 class Program(db.Model):
     id = db.Column(db.Integer, primary_key=True)
