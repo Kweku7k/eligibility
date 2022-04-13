@@ -71,18 +71,95 @@
     <!--  Arts and Social Social Sciences -->
     {% for course in eligibleCourses %}
       {% if course != None %}
-      <div class="card">
-      <a href="https://www.central.edu.gh/96">
-        <div>
-          <small>{{course.department}}</small>
-          <h4>{{course.tempField}}</h4>
+
+      <!-- Pharmacy -->
+        {% if course.department == "School of Pharmacy" %}
+        <div class="card" style="background-color: rgba(0, 0, 0, 0.3); color: rgb(255, 255, 255);">
+        <a style="color: inherit;" href="https://www.central.edu.gh/96" + course.id>
+          <div>
+            <small>{{course.department}}</small>
+            <h4>{{course.tempField}}</h4>
+          </div>
+          </a>
         </div>
-        </a>
-      </div>
+        {% endif %}
+
+        <!-- Law -->
+        {% if course.department == "Faculty Of Law" %}
+        <div class="card" style="background-color: rgba(0, 0, 0, 0.3); color: black;">
+        <a style="color: inherit;" href="https://www.central.edu.gh/96" + {{course.id}}>
+          <div>
+            <small>{{course.department}}</small>
+            <h4>{{course.tempField}}</h4>
+          </div>
+          </a>
+        </div>
+        {% endif %}
+
+      <!-- Business -->
+        {% if course.department == "Central Business School" %}
+        <div class="card" style="background-color: rgba(47, 0, 255, 0.3); color:blue">
+        <a style="color: inherit;" href="https://www.central.edu.gh/96">
+          <div>
+
+            <small>{{course.department}}</small>
+            <h4>{{course.tempField}}</h4>
+          </div>
+          </a>
+        </div>
+        {% endif %}
+
+      <!-- Arts and Social Science -->
+        {% if course.department == "Faculty Of Arts and Social Sciences" %}
+        <div class="card" style="background-color: rgba(255, 119, 0, 0.3); color: orange">
+        <a style="color: inherit;" href="https://www.central.edu.gh/96">
+          <div>
+            <small>{{course.department}}</small>
+            <h4>{{course.tempField}}</h4>
+          </div>
+          </a>
+        </div>
+        {% endif %}
+
+
+      <!-- School of Architecture and Design -->
+        {% if course.department == "School of Architecture and Design" %}
+        <div class="card" style="background-color: rgba(26, 255, 0, 0.3); color: green">
+        <a style="color: inherit;" href="https://www.central.edu.gh/96">
+          <div>
+            <small>{{course.department}}</small>
+            <h4>{{course.tempField}}</h4>
+          </div>
+          </a>
+        </div>
+        {% endif %}
+
+
+      <!-- School of Engeneering and Technology -->
+        {% if course.department == "School of Engeneering and Technology" %}
+        <div class="card" style="background-color: rgba(246, 255, 0, 0.828); color:rgb(0, 0, 0)">
+        <a style="color: inherit;" href="https://www.central.edu.gh/96">
+          <div>
+            <small>{{course.department}}</small>
+            <h4>{{course.tempField}}</h4>
+          </div>
+          </a>
+        </div>
+        {% endif %}
+
+      <!-- School of Medicine and Health Sciences -->
+        {% if course.department == "School of Medicine and Health Sciences" %}
+        <div class="card" style="background-color: rgb(0, 255, 238); color:teal">
+        <a style="color: inherit;" href="https://www.central.edu.gh/96">
+          <div>
+            <small>{{course.department}}</small>
+            <h4>{{course.tempField}}</h4>
+          </div>
+          </a>
+        </div>
+        {% endif %}
       {% endif %}
     {% endfor %}
-
-
   </div>
 </div>
 

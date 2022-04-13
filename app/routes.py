@@ -664,7 +664,8 @@ def architecture(el1,el2,el3,el4):
             print('Elective ' + i + ' passed')
     print("passed")
     if len(passed) >= 3:
-        eligibleCourses= 'Bachelor Of Architecture'
+        print("You are eligible for Architecture")
+        eligibleCourses= 'Bachelor of Architecture'
     return eligibleCourses
 
 
@@ -886,6 +887,7 @@ def home():
             print(yourEligbleCourses)
             for course in yourEligbleCourses:
                 courses = Course.query.filter_by(department = course).all()
+                print("Initial Out Put to PassedEls")
                 for item in courses:
                     passedEls.append(item)
 
@@ -895,6 +897,7 @@ def home():
             passedEls.append(availableCourse)
 
             architectureCourse = Course.query.filter_by(tempField= architecture(el1grade,el2grade,el3grade,el4grade)).first()
+            print("architectureCourse")
             print(architectureCourse)
             passedEls.append(architectureCourse)
 
@@ -926,15 +929,53 @@ def home():
             print (civilEngineeringCourse)
             passedEls.append(civilEngineeringCourse)
 
-
-
             # print(Course.query.filter_by(tempField= realEstate(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first())
             # print(realEstate(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade))
 
         # eligibleCourses = []
 
         print("passedEls")
-        print(passedEls)
+        # print(passedEls)
+
+        availableScienceCourses = []
+        otherAvailableCourses = []
+        availableBusinessCourses = []
+
+        courseOffered = request.form.get('courseOffered')
+
+        allEligibleCourses = []
+
+        print("courses!")
+        for course in passedEls:
+            if course != None and course.department == "School of Pharmacy" or course != None and course.department == "School of Medicine and Health Sciences" or course != None and course.department == "School of Engeneering and Technology":
+                print(course)
+                availableScienceCourses.append(course)
+            elif course != None and course.department == "Central Business School":
+                print(course)
+                availableBusinessCourses.append(course)  
+            else:
+                otherAvailableCourses.append(course)
+
+
+        # Interms of order
+
+        if courseOffered == 'Science':
+            for course in availableScienceCourses:
+                allEligibleCourses.append(course)
+            for course in availableBusinessCourses:
+                allEligibleCourses.append(course)
+            for course in otherAvailableCourses:
+                allEligibleCourses.append(course)
+        elif courseOffered == 'Business':
+            for course in availableBusinessCourses:
+                allEligibleCourses.append(course)
+            for course in availableScienceCourses:
+                allEligibleCourses.append(course)
+            for course in otherAvailableCourses:
+                allEligibleCourses.append(course)
+        else:
+            allEligibleCourses = passedEls
+                
 
         print("yourEligbleCourses")
         print(yourEligbleCourses) 
@@ -945,10 +986,13 @@ def home():
             ineligible = True
 
         print("passed")
-
+        print("availableScienceCourses")
+        print(availableScienceCourses)
+        sendtelegram(str(availableScienceCourses))
         # return redirect(url_for('eligible'))
+    
         session.clear()
-        return render_template('eligible.html',eligibleCourses = passedEls, ineligible=ineligible)
+        return render_template('eligible.html', eligibleCourses = allEligibleCourses, availableScienceCourses = availableScienceCourses, otherAvailableCourses = otherAvailableCourses, ineligible=ineligible)
         # return redirect('')
 
     if request.method == 'GET':

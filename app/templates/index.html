@@ -23,16 +23,31 @@
             <div class="form-group">
               <label for=""></label>
                   <label for=""></label>
-                  <input type="text" class="form-control" aria-describedby="helpId" id="name" name="name" required placeholder="Enter your name">
+                  <input type="text" class="form-control" aria-describedby="helpId" id="name" name="name" required placeholder="Name">
             </div>
         </div>
 
         <div class="col">
             <div class="form-group">
               <label for=""></label>
-             <input class="form-control" placeholder="Enter your phone number" id="number" name="number" required minlength="10" type="number">
+             <input class="form-control" placeholder="Phone number" id="number" name="number" required minlength="10" type="number">
             </div>
         </div>
+    </div>
+
+    <div class="row"> 
+      <div class="col">
+        <div class="form-group">
+        <small class="text-muted">Which course did you offer</small>
+          <select class="form-control" name="courseOffered" required="required" id="courseOffered" value="">
+              <option class="text-muted" value="Science" selected>Science</option>
+              <option class="text-muted" value="Visual Arts" selected>Visual Arts</option>
+              <option class="text-muted" value="General Arts" selected>General Arts</option>
+              <option class="text-muted" value="Business" selected>Business</option>
+              <option class="text-muted" value="Agriculture" selected>Agriculture</option>
+          </select>
+        </div>
+    </div>
     </div>
 
 <h4>Core Subjects</h4>
@@ -442,6 +457,18 @@
   autocomplete(document.getElementById("elective3"), countries);
   autocomplete(document.getElementById("elective4"), countries);
   // autocomplete(document.getElementById("myInput2"), countries);
+  </script>
+
+  <script>
+  window.addEventListener( "pageshow", function ( event ) {
+  var historyTraversal = event.persisted || 
+                         ( typeof window.performance != "undefined" && 
+                              window.performance.navigation.type === 2 );
+  if ( historyTraversal ) {
+    // Handle page restore.
+    window.location.reload();
+  }
+});
   </script>
 
 {% endblock %}
