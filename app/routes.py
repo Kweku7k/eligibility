@@ -1,6 +1,7 @@
 from app import app
 from app.models import *
 from flask import redirect,url_for,render_template,request,flash, session
+from .forms import TestForm
 import urllib.request, urllib.parse
 import urllib
 
@@ -748,6 +749,13 @@ def technology(el1,el2,el3,el4, el1grade, el2grade, el3grade, el4grade):
     #         print("You are a mumu man")
     return eligibleCourses
     
+@app.route('/test')
+def method_name():
+    pass
+    form = TestForm()
+    return render_template('test.html', form=form)
+
+
 
 @app.route('/',methods=['GET','POST'])
 def home():
@@ -770,10 +778,10 @@ def home():
 
         print('name')
         name = request.form.get('name')
-        session['number'] = request.form.get('maths')
+        session['name-s'] = request.form.get('name')
 
         number = request.form.get('number')
-        session['number'] = request.form.get('maths')
+        session['number-s'] = request.form.get('number')
 
         print(name)
         print(number)
@@ -813,7 +821,11 @@ def home():
 
 
         el4 = request.form.get('el4')
+        session['el4-s'] = request.form.get('el4')
+
         el4grade = request.form.get('el4grade')
+        session['el4grade-s'] = request.form.get('el4grade')
+
         electivesArray.append(el1)
         electivesArray.append(el2)
         electivesArray.append(el3)
@@ -841,11 +853,14 @@ def home():
     )   
 
 
-
         if contains_duplicates:
             print("No Please, contains duplicates")
             flash("Duplication is not allowed ","info")
             sendtelegram("There was an error")
+            return redirect(request.referrer)
+        elif len(number) != 10:
+            print(number)
+            flash("Problem with personal information ","info")
             return redirect(request.referrer)
         else:
             session.clear()
@@ -1006,23 +1021,33 @@ def home():
             try:
                 print(session['mathematics-s'])
                 mathsFromSession = session['mathematics-s']
+                nameFromSession = session['name-s']
+                numberFromSession = session['number-s']
                 englishFromSession = session['english-s']
                 scienceFromSession = session['science-s']
                 socailFromSession = session['social-s']
                 el1FromSession = session['el1-s']
                 el1GradeFromSession = session['el1grade-s']
                 el2FromSession = session['el2-s']
+
+
                 el2GradeFromSession = session['el2grade-s']
                 el3FromSession = session['el3-s']
                 el3GradeFromSession = session['el3grade-s']
+                el4FromSession = session['el4-s']
+                el4GradeFromSession = session['el4grade-s']
                 print("successful")
             except:
                 print("asdf")
-                return "kpew"
+                # return str(session)
+            
+
 
 
         else:
             print("Filling fields")
+            nameFromSession= ""
+            numberFromSession= "--"
             mathsFromSession = "--"
             englishFromSession = "--"
             scienceFromSession = "--"
@@ -1033,13 +1058,17 @@ def home():
             el2GradeFromSession = "--"
             el3FromSession = "--"
             el3GradeFromSession = "--"
+            el4FromSession = "--"
+            el4GradeFromSession = "--"
 
 
         print(eligibleCourses)
         return render_template('index.html', electives=electives, els=els, grades=grades, array=array,
         maths=mathsFromSession, english=englishFromSession, social=socailFromSession, science=scienceFromSession,
         electiveOne=el1FromSession, electiveOneGrade=el1GradeFromSession, electiveTwo=el2FromSession, electiveTwoGrade=el2GradeFromSession,
-        electiveThree=el3FromSession, electiveThreeGrade=el3GradeFromSession)
+        electiveThree=el3FromSession, electiveThreeGrade=el3GradeFromSession, electiveFour=el4FromSession, electiveFourGrade=el4GradeFromSession,
+        name=nameFromSession, number=numberFromSession
+        )
     return render_template('index.html', electives=electives, els=els, grades=grades, array=array)
     
 

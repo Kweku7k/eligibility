@@ -23,14 +23,23 @@
             <div class="form-group">
               <label for=""></label>
                   <label for=""></label>
-                  <input type="text" class="form-control" aria-describedby="helpId" id="name" name="name" required placeholder="Name">
+                  {% if name %}
+                    <input type="text" class="form-control" aria-describedby="helpId" id="name" name="name" value={{name}} required="required" placeholder="Name">
+                  {% else %}
+                    <input type="text" class="form-control" aria-describedby="helpId" id="name" name="name"  required="required" placeholder="Name">
+                  {% endif %}
             </div>
         </div>
 
         <div class="col">
             <div class="form-group">
               <label for=""></label>
-             <input class="form-control" placeholder="Phone number" id="number" name="number" required minlength="10" type="number">
+
+              {% if number %}
+                <input class="form-control" placeholder="Phone number" id="number" name="number" value={{number}} required minlength="10" type="number">
+                {% else %}  
+                <input class="form-control" placeholder="Phone number" id="number" name="number" required minlength="10" type="number">
+              {% endif %}
             </div>
         </div>
     </div>
@@ -336,11 +345,19 @@
 </div>
 
 <script>
+
+  function timeout(){
+    document.getElementById("spinner").style.display = "none";
+    document.getElementById("body").style.display = "block"
+  }
+
   function spin() {
     console.log("asdf")
     console.log(document.getElementById("spinner").style.display)
     document.getElementById("spinner").style.display = "flex";
     document.getElementById("body").style.display = "none"
+    const myTimeout = setTimeout(timeout, 5000);
+
     // console.log(document.getElementById("spinner").style.display)
   }
 </script>
