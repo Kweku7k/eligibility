@@ -16,31 +16,33 @@
 <br/>
 <small class="text-muted">Please fill the form with the details from your slip</small>
 <form autocomplete="off" action="{{url_for('home')}}" method="POST">
-
+  {{ form.hidden_tag() }}
 
 <div class="row"> 
         <div class="col">
             <div class="form-group">
-              <label for=""></label>
-                  <label for=""></label>
-                  {% if name %}
-                    <input type="text" class="form-control" aria-describedby="helpId" id="name" name="name" value={{name}} required="required" placeholder="Name">
-                  {% else %}
-                    <input type="text" class="form-control" aria-describedby="helpId" id="name" name="name"  required="required" placeholder="Name">
-                  {% endif %}
+
+                {{ form.name(class="form-control", placeholder="Enter your name", id="exampleInputEmail1")}}
+
+                <div class="invalid-feedback d-block">
+                  {% for error in form.name.errors %}
+                      <span>{{ error }}</span>
+                  {% endfor %}
+              </div>
             </div>
         </div>
 
         <div class="col">
-            <div class="form-group">
-              <label for=""></label>
+          <div class="form-group">
 
-              {% if number %}
-                <input class="form-control" placeholder="Phone number" id="number" name="number" value={{number}} required minlength="10" type="number">
-                {% else %}  
-                <input class="form-control" placeholder="Phone number" id="number" name="number" required minlength="10" type="number">
-              {% endif %}
-            </div>
+            {{ form.number(class="form-control", placeholder="Enter your name", id="exampleInputEmail1")}}
+
+            <div class="invalid-feedback d-block">
+              {% for error in form.number.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+        </div>
         </div>
     </div>
 
@@ -48,13 +50,14 @@
       <div class="col">
         <div class="form-group">
         <small class="text-muted">Which course did you offer</small>
-          <select class="form-control" name="courseOffered" required="required" id="courseOffered" value="">
-              <option class="text-muted" value="Science" selected>Science</option>
-              <option class="text-muted" value="Visual Arts" selected>Visual Arts</option>
-              <option class="text-muted" value="General Arts" selected>General Arts</option>
-              <option class="text-muted" value="Business" selected>Business</option>
-              <option class="text-muted" value="Agriculture" selected>Agriculture</option>
-          </select>
+        
+        <!-- {{ form.courseOffered.label(id="label1") }} -->
+        {{ form.courseOffered(class="form-control", placeholder="Enter your name", id="exampleInputEmail1")}}
+        <div class="invalid-feedback d-block">
+          {% for error in form.courseOffered.errors %}
+              <span>{{ error }}</span>
+          {% endfor %}
+        </div>
         </div>
     </div>
     </div>
@@ -67,108 +70,85 @@
     <div class="row"> 
         <div class="col">
             <div class="form-group">
-              <label for=""></label>
-                  <label for=""></label>
                   <input type="text" class="form-control" value="Mathematics" disabled aria-describedby="helpId" placeholder="">
             </div>
         </div>
 
         <div class="col">
-            <div class="form-group">
-              <label for=""></label>
-              <select class="form-control" name="maths" required="required" id="maths" value="mathematics-s">
-                {% if maths %}
-                  <option hidden class="text-muted" value="{{maths}}" selected>{{maths}}</option>
-                {% else %}
-                  <option hidden class="text-muted" value="" selected>--</option>
-                {% endif %}
-                  {% for subject in grades %}
-                <option>{{subject}}</option>
-                {% endfor %}
-              </select>
-            </div>
-        </div>
+          <div class="form-group">
+            
+          {{ form.mathsScore(class="form-control")}}  
+
+          <div class="invalid-feedback d-block">
+            {% for error in form.mathsScore.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+      </div>
+  </div>
     </div>
    
     <!-- English -->
     <div class="row">
         <div class="col">
             <div class="form-group">
-              <label for=""></label>
-                  <label for=""></label>
                   <input type="text" class="form-control" value="English" disabled name="" id="" aria-describedby="helpId" placeholder="">
             </div>
         </div>
         <div class="col">
             <div class="form-group">
-              <label for=""></label>
-              <select  class="form-control" name="english" required="required" id="">
+              
+            {{ form.englishScore(class="form-control")}}
 
-                {% if english %}
-                <option hidden class="text-muted" value="{{english}}" selected>{{english}}</option>
-              {% else %}
-                <option hidden class="text-muted" value="" selected>--</option>
-              {% endif %}
-
-                {% for subject in grades %}
-                <option  >{{subject}}</option>
-                {% endfor %}
-              </select>
+            <div class="invalid-feedback d-block">
+              {% for error in form.englishScore.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
             </div>
         </div>
+    </div>
     </div>
    
     <!-- Science -->
     <div class="row">
         <div class="col">
             <div class="form-group">
-              <label for=""></label>
-                  <label for=""></label>
                   <input type="text" class="form-control" value="Integrated Science" disabled name="" id="" aria-describedby="helpId" placeholder="">
             </div>
         </div>
         <div class="col">
             <div class="form-group">
-              <label for=""></label>
-              <select required="required" class="form-control" name="science" id="">
-                {% if science %}
-                <option hidden class="text-muted" value="{{science}}" selected>{{science}}</option>
-              {% else %}
-                <option hidden class="text-muted" value="" selected>--</option>
-              {% endif %}
-                {% for subject in grades %}
-                <option  >{{subject}}</option>
-                {% endfor %}
-              </select>
+            {{ form.scienceScore(class="form-control")}}
+
+            <div class="invalid-feedback d-block">
+              {% for error in form.scienceScore.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
             </div>
         </div>
     </div>
+    </div>  
    
     <!-- Social Studies -->
     <div class="row">
         <div class="col">
             <div class="form-group">
-              <label for=""></label>
-                  <label for=""></label>
                   <input type="text" class="form-control" value="Social Studies" disabled name="" id="" aria-describedby="helpId" placeholder="">
             </div>
         </div>
         <div class="col">
-            <div class="form-group">
-              <label for=""></label>
-              <select required="required" class="form-control" name="social" id="">
-                {% if social %}
-                <option hidden class="text-muted" value="{{social}}" selected>{{social}}</option>
-                {% else %}
-                <option hidden class="text-muted" value="" selected>-None</option>
-                {% endif %}
 
-                {% for subject in grades %}
-                <option  >{{subject}}</option>
-                {% endfor %}
-              </select>
+            <div class="form-group">
+            {{ form.socialScore(class="form-control")}}
+
+            <div class="invalid-feedback d-block">
+              {% for error in form.socialScore.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
             </div>
         </div>
+
+    </div>
     </div>
 
    <br/>
@@ -180,164 +160,110 @@
     <!-- Elective -->
     <div class="row">
         <div class="col">
-            <div class="form-group">
-              <label for=""></label>
-              <!-- <input class="form-control" id="elective1" type="text" name="el1" id=""> -->
-              <select id="elective1" name="el1" class="form-control" id="" required="required">
-                <!-- <option value="" selected disabled hidden>--</option> -->
-
-                {% if electiveOne %}
-                <option hidden class="text-muted" value="{{electiveOne}}" selected>{{electiveOne}}</option>
-                {% else %}
-                <option hidden class="text-muted" value="" selected>-None</option>
-                {% endif %}
-
-                {% for el in els %}
-                  <option >{{el.name}}</option>
-                  {% endfor %}
-              </select>
+          <div class="form-group">
+            {{ form.el1(class="form-control")}}
+            <div class="invalid-feedback d-block">
+                {% for error in form.el1.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
             </div>
+          </div>
         </div>
         <div class="col">
-            <div class="form-group">
-              <label for=""></label>
-              <select class="form-control" name="el1grade" id="" required="required">
-
-                {% if electiveOneGrade %}
-                <option hidden class="text-muted" value="{{electiveOneGrade}}" selected>{{electiveOneGrade}}</option>
-                {% else %}
-                <option hidden class="text-muted" value="" selected>--</option>
-                {% endif %}
-
-                 <!-- <option selected hidden class="text-muted" value="">- -</option> -->
-                {% for subject in grades %}
-                <option  >{{subject}}</option>
+          <div class="form-group">
+            {{ form.el1grade(class="form-control")}}
+            <div class="invalid-feedback d-block">
+                {% for error in form.el1grade.errors %}
+                    <span>{{ error }}</span>
                 {% endfor %}
-              </select>
             </div>
+          </div>
         </div>
     </div>
-   
+
     <!-- Elective -->
     <div class="row">
-        <div class="col">
-            <div class="form-group">
-              <label for=""></label>
-              <!-- <input id="elective2" type="text" name="el2" class="form-control"> -->
-            <select id="elective1" name="el2" class="form-control" value="E-Maths" id="" required="required">
-              <!-- <option value="Biology" selected disabled>--</option> -->
-
-
-              {% if electiveTwo %}
-              <option hidden class="text-muted" value="{{electiveTwo}}" selected>{{electiveTwo}}</option>
-              {% else %}
-              <option hidden class="text-muted" value="" selected>-None</option>
-              {% endif %}
-
-              {% for el in els %}
-                <option >{{el.name}}</option>
-                {% endfor %}
-            </select>
-            </div>
+      <div class="col">
+        <div class="form-group">
+          {{ form.el2(class="form-control")}}
+          <div class="invalid-feedback d-block">
+              {% for error in form.el2.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
         </div>
-        <div class="col">
-            <div class="form-group">
-              <label for=""></label>
-              <select class="form-control" name="el2grade" id="" required="required">
-                 <!-- <option selected hidden class="text-muted" value="">- -</option> -->
-
-
-                {% if electiveTwoGrade %}
-                <option hidden class="text-muted" value="{{electiveTwoGrade}}" selected>{{electiveTwoGrade}}</option>
-                {% else %}
-                <option hidden class="text-muted" value="" selected>-None</option>
-                {% endif %}
-
-                {% for subject in grades %}
-                <option  >{{subject}}</option>
-                {% endfor %}
-              </select>
-            </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          {{ form.el2grade(class="form-control")}}
+          <div class="invalid-feedback d-block">
+              {% for error in form.el2grade.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
         </div>
+      </div>
+  </div>
+
+  <!-- Elective -->
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        {{ form.el3(class="form-control")}}
+        <div class="invalid-feedback d-block">
+            {% for error in form.el3.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+      </div>
     </div>
-   
-    <!-- Elective -->
-    <div class="row">
-        <div class="col">
-            <div class="form-group">
-              <label for=""></label>
-              <!-- <input id="elective3" class="form-control" type="text" name="el3"> -->
-              <select id="elective3" name="el3" class="form-control" id="" required="required">
-                <!-- <option value="" selected disabled hidden>--</option> -->
-
-                {% if electiveThree %}
-                <option hidden class="text-muted" value="{{electiveThree}}" selected>{{electiveThree}}</option>
-                {% else %}
-                <option hidden class="text-muted" value="" selected>--</option>
-                {% endif %}
-
-                {% for el in els %}
-                  <option >{{el.name}}</option>
-                {% endfor %}
-              </select>
-            </div>
+    <div class="col">
+      <div class="form-group">
+        {{ form.el3grade(class="form-control")}}
+        <div class="invalid-feedback d-block">
+            {% for error in form.el3grade.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
         </div>
-        <div class="col">
-            <div class="form-group">
-              <label for=""></label>
-              <select class="form-control" name="el3grade" id="" required="required">
-                 <!-- <option selected hidden class="text-muted" value="">- -</option> -->
-
-                 {% if electiveThreeGrade %}
-                 <option hidden class="text-muted" value="{{electiveThreeGrade}}" selected>{{electiveThreeGrade}}</option>
-                 {% else %}
-                 <option hidden class="text-muted" value="" selected>-None</option>
-                 {% endif %}
-
-                {% for subject in grades %}
-                <option  >{{subject}}</option>
-                {% endfor %}
-              </select>
-            </div>
-        </div>
+      </div>
     </div>
+</div>
+
    
     <!-- Elective -->
 
     <h6 style="text-align: center; border-top: 10px;" class="text-muted"> &#9;Optional</h6>
+    <!-- Elective -->
     <div class="row">
-        <div class="col">
-            <div class="form-group">
-              <label for=""></label>
-              <!-- <input id="elective4" class="form-control" type="text" name="el4" id=""> -->
-              <select id="elective4" name="el4" class="form-control" value="asdf" id="">
-                <option value="None" selected disabled hidden>--</option>
-                {% for el in els %}
-                  <option>{{el.name}}</option>
-                {% endfor %}
-              </select>
-            </div>
+      <div class="col">
+        <div class="form-group">
+          {{ form.el4(class="form-control")}}
+          <div class="invalid-feedback d-block">
+              {% for error in form.el4.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
         </div>
-        <div class="col">
-            <div class="form-group">
-              <label for=""></label>
-              <select class="form-control" name="el4grade" value="F9" id="">
-                 <option selected hidden class="text-muted" value="F9">- -</option>
-                {% for subject in grades %}
-                <option  >{{subject}}</option>
-                {% endfor %}
-              </select>
-            </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          {{ form.el4grade(class="form-control")}}
+          <div class="invalid-feedback d-block">
+              {% for error in form.el4grade.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
         </div>
-    </div>
+      </div>
+  </div>
    
 
 
     <!--  -->
 
     <div style="text-align: center;">
-        <button type="submit" class="button btn-danger" onclick="spin()">Next</button>
-        <!-- <button type="submit" class="button btn-danger">Next</button> -->
+        <button type="submit" class="button btn-danger">Next</button>
+        <!-- <button type="submit" class="button btn-danger" onclick="spin()">Next</button> -->
     </div>
     <br/>
 <!-- Item End -->
@@ -349,6 +275,7 @@
   function timeout(){
     document.getElementById("spinner").style.display = "none";
     document.getElementById("body").style.display = "block"
+    alert("This is not working.")
   }
 
   function spin() {

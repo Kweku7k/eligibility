@@ -1,7 +1,7 @@
 from app import app
 from app.models import *
 from flask import redirect,url_for,render_template,request,flash, session
-from .forms import TestForm
+from .forms import TestForm, Checker
 import urllib.request, urllib.parse
 import urllib
 
@@ -759,6 +759,8 @@ def method_name():
 
 @app.route('/',methods=['GET','POST'])
 def home():
+    form= Checker()
+
     array = []
     els = Electives.query.all()
 
@@ -774,302 +776,287 @@ def home():
 
     if request.method=='POST':
         print("POST REQUEST")
-        electivesArray = []
-
-        print('name')
-        name = request.form.get('name')
-        session['name-s'] = request.form.get('name')
-
-        number = request.form.get('number')
-        session['number-s'] = request.form.get('number')
-
-        print(name)
-        print(number)
-
-        print('request.form')
-        maths = request.form.get('maths')
-        session['mathematics-s'] = request.form.get('maths')
-
-        
-
-        english = request.form.get('english')
-        session['english-s'] = request.form.get('english')
-
-        social = request.form.get('social')
-        session['social-s'] = request.form.get('social')
-
-        science = request.form.get('science')
-        session['science-s'] = request.form.get('science')
-
-        el1 = request.form.get('el1')
-        session['el1-s'] = request.form.get('el1')
-
-        el1grade = request.form.get('el1grade')
-        session['el1grade-s'] = request.form.get('el1grade')
-
-        el2 = request.form.get('el2')
-        session['el2-s'] = request.form.get('el2')
-
-        el2grade = request.form.get('el2grade')
-        session['el2grade-s'] = request.form.get('el2grade')
-
-        el3 = request.form.get('el3')
-        session['el3-s'] = request.form.get('el3')
-
-        el3grade = request.form.get('el3grade')
-        session['el3grade-s'] = request.form.get('el3grade')
+        if form.validate_on_submit():
+            print("Forms validated successfully")
+            electivesArray = []
 
 
-        el4 = request.form.get('el4')
-        session['el4-s'] = request.form.get('el4')
 
-        el4grade = request.form.get('el4grade')
-        session['el4grade-s'] = request.form.get('el4grade')
+            print('name')
+            print('request.form')
 
-        electivesArray.append(el1)
-        electivesArray.append(el2)
-        electivesArray.append(el3)
-        electivesArray.append(el4)
-        print("Printing electives array")
-        print(electivesArray)
+            name = form.name.data
+            number = form.number.data
+            maths = form.mathsScore.data
+            english = form.englishScore.data
+            social = form.socialScore.data
+            science = form.scienceScore.data
+            # --------------------------------
+            el1 = form.el1.data
+            el1grade = form.el1grade.data
+            # --------------------------------
+            el2 = form.el2.data
+            el2grade = form.el2grade.data
+            # --------------------------------
+            el3 = form.el3.data
+            el3grade = form.el3grade.data
+            # --------------------------------
+            el4 = form.el4.data
+            el4grade = form.el4grade.data
 
-        electives_array = set(electivesArray)
-        contains_duplicates = len(electives_array) != len(electivesArray)
-        print(contains_duplicates)
-        
+            # --------------------------------
+            electivesArray.append(el1)
+            electivesArray.append(el2)
+            electivesArray.append(el3)
+            electivesArray.append(el4)
+            print("Printing electives array")
+            print(electivesArray)
 
+            electives_array = set(electivesArray)
+            contains_duplicates = len(electives_array) != len(electivesArray)
+            print(contains_duplicates)
             
-        sendtelegram(
-        "Name = " + name + '\n'+ 
-        "Number = " + number + '\n'+ 
-        "Maths = " + maths + '\n' + 
-        "English = " + english + '\n' + 
-        "Social Studies = " + social + '\n' + 
-        "Science = " + science + '\n' + 
-        str(el1) + " = " + str(el1grade) + '\n' + 
-        str(el2) + " = " + str(el2grade) + '\n' +
-        str(el3) + " = " + str(el3grade) + '\n' +
-        str(el4) + " = " + str(el4grade) + '\n' 
-    )   
+
+                
+            sendtelegram(
+            "Name = " + name + '\n'+ 
+            "Number = " + number + '\n'+ 
+            "Maths = " + maths + '\n' + 
+            "English = " + english + '\n' + 
+            "Social Studies = " + social + '\n' + 
+            "Science = " + science + '\n' + 
+            str(el1) + " = " + str(el1grade) + '\n' + 
+            str(el2) + " = " + str(el2grade) + '\n' +
+            str(el3) + " = " + str(el3grade) + '\n' +
+            str(el4) + " = " + str(el4grade) + '\n' 
+        )   
 
 
-        if contains_duplicates:
-            print("No Please, contains duplicates")
-            flash("Duplication is not allowed ","info")
-            sendtelegram("There was an error")
-            return redirect(request.referrer)
-        elif len(number) != 10:
-            print(number)
-            flash("Problem with personal information ","info")
-            return redirect(request.referrer)
-        else:
-            session.clear()
+            if contains_duplicates:
+                print("No Please, contains duplicates")
+                flash("Duplication is not allowed ","info")
+                sendtelegram("There was an error")
+                return redirect(request.referrer)
+            elif len(number) != 10:
+                print(number)
+                flash("Problem with personal information ","info")
+                return redirect(request.referrer)
+            else:
+                session.clear()
 
 
-        newResult = Results(name=name, number=number, results="laslas", passed=True)
-        db.session.add(newResult)
-        db.session.commit()
+            newResult = Results(name=name, number=number, results="laslas", passed=True)
+            db.session.add(newResult)
+            db.session.commit()
 
 
-        print("Maths = " + maths)
-        print("english = " + english)
-        print("social = " + social)
-        print("science = " + science)
-        print(str(el1) + " = " + str(el1grade))
-        print(str(el2) + " = " + str(el2grade))
-        print(str(el3) + " = " + str(el3grade))
-        print(str(el4) + " = " + str(el4grade))
+            print("Maths = " + maths)
+            print("english = " + english)
+            print("social = " + social)
+            print("science = " + science)
+            print(str(el1) + " = " + str(el1grade))
+            print(str(el2) + " = " + str(el2grade))
+            print(str(el3) + " = " + str(el3grade))
+            print(str(el4) + " = " + str(el4grade))
 
-        yourEligbleCourses = []
+            yourEligbleCourses = []
 
-        passedEls = []
+            passedEls = []
 
 # ❤️⚡️
 # Function starts here‼️‼️‼️               
-        if passedCoreSubjects(maths, english, social, science):
-            print("Passed The Core Subjects")
-            print(creditPass(el1grade, el2grade, el3grade, el4grade))
-            yourEligbleCourses = creditPass(el1grade, el2grade, el3grade, el4grade)
-            print("Check For Pharmacy")
-            print(pharmacy(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade))
-            yourEligbleCourses.append(pharmacy(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade))
-            # yourEligbleCourses.append(technology(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade))
+            if passedCoreSubjects(maths, english, social, science):
+                print("Passed The Core Subjects")
+                print(creditPass(el1grade, el2grade, el3grade, el4grade))
+                yourEligbleCourses = creditPass(el1grade, el2grade, el3grade, el4grade)
+                print("Check For Pharmacy")
+                print(pharmacy(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade))
+                yourEligbleCourses.append(pharmacy(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade))
+                # yourEligbleCourses.append(technology(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade))
 
-            # THIS RETURNS AN ARRAY
+                # THIS RETURNS AN ARRAY
 
-        # Returns all the courses from the departments into an array
-            print("Array To Be Processed")
-            print(yourEligbleCourses)
-            for course in yourEligbleCourses:
-                courses = Course.query.filter_by(department = course).all()
-                print("Initial Out Put to PassedEls")
-                for item in courses:
-                    passedEls.append(item)
+            # Returns all the courses from the departments into an array
+                print("Array To Be Processed")
+                print(yourEligbleCourses)
+                for course in yourEligbleCourses:
+                    courses = Course.query.filter_by(department = course).all()
+                    print("Initial Out Put to PassedEls")
+                    for item in courses:
+                        passedEls.append(item)
 
-        # We want to find the course by name for the Architecture
-            availableCourse = Course.query.filter_by(tempField= realEstate(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
-            print(availableCourse)
-            passedEls.append(availableCourse)
+            # We want to find the course by name for the Architecture
+                availableCourse = Course.query.filter_by(tempField= realEstate(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
+                print(availableCourse)
+                passedEls.append(availableCourse)
 
-            architectureCourse = Course.query.filter_by(tempField= architecture(el1grade,el2grade,el3grade,el4grade)).first()
-            print("architectureCourse")
-            print(architectureCourse)
-            passedEls.append(architectureCourse)
+                architectureCourse = Course.query.filter_by(tempField= architecture(el1grade,el2grade,el3grade,el4grade)).first()
+                print("architectureCourse")
+                print(architectureCourse)
+                passedEls.append(architectureCourse)
 
-            planningCourse = Course.query.filter_by(tempField= planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
-            print(planningCourse)
-            passedEls.append(planningCourse)
+                planningCourse = Course.query.filter_by(tempField= planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
+                print(planningCourse)
+                passedEls.append(planningCourse)
 
-            nursingCourse = Course.query.filter_by(tempField= nursing(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
-            print("nursingCourse")
-            print(nursingCourse)
-            passedEls.append(nursingCourse)
-            
-            computerScienceCourse = Course.query.filter_by(tempField= computerScience(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
-            print(computerScienceCourse)
-            passedEls.append(computerScienceCourse)
-            if computerScienceCourse:
-                passedEls.append(Course.query.filter_by(tempField= "Bachelor of Science in Information Technology").first())
-            # print(passedEls)
-
-            PhysicianAssistantCourse = Course.query.filter_by(tempField= physicianAssistant(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
-            print(PhysicianAssistantCourse)
-            passedEls.append(PhysicianAssistantCourse)
-            print("Just passed Physician Assistanship")
-            if PhysicianAssistantCourse:
-                passedEls.append(Course.query.filter_by(tempField= "Bachelor of Science in Public Health").first())
-            # print(passedEls)
-
-            civilEngineeringCourse = Course.query.filter_by(tempField= civilEngineering(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
-            print (civilEngineeringCourse)
-            passedEls.append(civilEngineeringCourse)
-
-            # print(Course.query.filter_by(tempField= realEstate(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first())
-            # print(realEstate(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade))
-
-        # eligibleCourses = []
-
-        print("passedEls")
-        # print(passedEls)
-
-        availableScienceCourses = []
-        otherAvailableCourses = []
-        availableBusinessCourses = []
-
-        courseOffered = request.form.get('courseOffered')
-
-        allEligibleCourses = []
-
-        print("courses!")
-        for course in passedEls:
-            if course != None and course.department == "School of Pharmacy" or course != None and course.department == "School of Medicine and Health Sciences" or course != None and course.department == "School of Engeneering and Technology":
-                print(course)
-                availableScienceCourses.append(course)
-            elif course != None and course.department == "Central Business School":
-                print(course)
-                availableBusinessCourses.append(course)  
-            else:
-                otherAvailableCourses.append(course)
-
-
-        # Interms of order
-
-        if courseOffered == 'Science':
-            for course in availableScienceCourses:
-                allEligibleCourses.append(course)
-            for course in availableBusinessCourses:
-                allEligibleCourses.append(course)
-            for course in otherAvailableCourses:
-                allEligibleCourses.append(course)
-        elif courseOffered == 'Business':
-            for course in availableBusinessCourses:
-                allEligibleCourses.append(course)
-            for course in availableScienceCourses:
-                allEligibleCourses.append(course)
-            for course in otherAvailableCourses:
-                allEligibleCourses.append(course)
-        else:
-            allEligibleCourses = passedEls
+                nursingCourse = Course.query.filter_by(tempField= nursing(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
+                print("nursingCourse")
+                print(nursingCourse)
+                passedEls.append(nursingCourse)
                 
+                computerScienceCourse = Course.query.filter_by(tempField= computerScience(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
+                print(computerScienceCourse)
+                passedEls.append(computerScienceCourse)
+                if computerScienceCourse:
+                    passedEls.append(Course.query.filter_by(tempField= "Bachelor of Science in Information Technology").first())
+                # print(passedEls)
 
-        print("yourEligbleCourses")
-        print(yourEligbleCourses) 
-        # print(yourEligbleCourses)
-        if yourEligbleCourses:
-            print(yourEligbleCourses)
+                PhysicianAssistantCourse = Course.query.filter_by(tempField= physicianAssistant(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
+                print(PhysicianAssistantCourse)
+                passedEls.append(PhysicianAssistantCourse)
+                print("Just passed Physician Assistanship")
+                if PhysicianAssistantCourse:
+                    passedEls.append(Course.query.filter_by(tempField= "Bachelor of Science in Public Health").first())
+                # print(passedEls)
+
+                civilEngineeringCourse = Course.query.filter_by(tempField= civilEngineering(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
+                print (civilEngineeringCourse)
+                passedEls.append(civilEngineeringCourse)
+
+                # print(Course.query.filter_by(tempField= realEstate(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first())
+                # print(realEstate(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade))
+
+            # eligibleCourses = []
+
+            print("passedEls")
+            # print(passedEls)
+
+            availableScienceCourses = []
+            otherAvailableCourses = []
+            availableBusinessCourses = []
+
+            courseOffered = form.courseOffered.data
+
+            allEligibleCourses = []
+
+            print("courses!")
+            for course in passedEls:
+                if course != None and course.department == "School of Pharmacy" or course != None and course.department == "School of Medicine and Health Sciences" or course != None and course.department == "School of Engeneering and Technology":
+                    print(course)
+                    availableScienceCourses.append(course)
+                elif course != None and course.department == "Central Business School":
+                    print(course)
+                    availableBusinessCourses.append(course)  
+                else:
+                    otherAvailableCourses.append(course)
+
+
+            # Interms of order
+
+            if courseOffered == 'Science':
+                for course in availableScienceCourses:
+                    allEligibleCourses.append(course)
+                for course in availableBusinessCourses:
+                    allEligibleCourses.append(course)
+                for course in otherAvailableCourses:
+                    allEligibleCourses.append(course)
+            elif courseOffered == 'Business':
+                for course in availableBusinessCourses:
+                    allEligibleCourses.append(course)
+                for course in availableScienceCourses:
+                    allEligibleCourses.append(course)
+                for course in otherAvailableCourses:
+                    allEligibleCourses.append(course)
+            else:
+                allEligibleCourses = passedEls
+                    
+
+            print("yourEligbleCourses")
+            print(yourEligbleCourses) 
+            # print(yourEligbleCourses)
+            if yourEligbleCourses:
+                print(yourEligbleCourses)
+            else:
+                ineligible = True
+
+            print("passed")
+            print("availableScienceCourses")
+            print(availableScienceCourses)
+            sendtelegram(str(availableScienceCourses))
+            # return redirect(url_for('eligible'))
+        
+            session.clear()
+            return render_template('eligible.html', eligibleCourses = allEligibleCourses, availableScienceCourses = availableScienceCourses, otherAvailableCourses = otherAvailableCourses, ineligible=ineligible)
+            # return redirect('')
+        
         else:
-            ineligible = True
+            print(form.errors)
+            print("form.courseOffered.errors")
+            print(form.courseOffered.errors)
+            flash(f'There was a problem please try again','danger')
 
-        print("passed")
-        print("availableScienceCourses")
-        print(availableScienceCourses)
-        sendtelegram(str(availableScienceCourses))
-        # return redirect(url_for('eligible'))
-    
-        session.clear()
-        return render_template('eligible.html', eligibleCourses = allEligibleCourses, availableScienceCourses = availableScienceCourses, otherAvailableCourses = otherAvailableCourses, ineligible=ineligible)
-        # return redirect('')
+
 
     if request.method == 'GET':
+        print(form)
         eligibleCourses = []
         print("GET REQUESTS")
         mathsFromSession = "- -"
 
-        if session:
-            print("session[maths]")
-            print(session)
-            try:
-                print(session['mathematics-s'])
-                mathsFromSession = session['mathematics-s']
-                nameFromSession = session['name-s']
-                numberFromSession = session['number-s']
-                englishFromSession = session['english-s']
-                scienceFromSession = session['science-s']
-                socailFromSession = session['social-s']
-                el1FromSession = session['el1-s']
-                el1GradeFromSession = session['el1grade-s']
-                el2FromSession = session['el2-s']
+        # if session:
+        #     print("session[maths]")
+        #     print(session)
+        #     try:
+        #         print(session['mathematics-s'])
+        #         mathsFromSession = session['mathematics-s']
+        #         nameFromSession = session['name-s']
+        #         numberFromSession = session['number-s']
+        #         englishFromSession = session['english-s']
+        #         scienceFromSession = session['science-s']
+        #         socailFromSession = session['social-s']
+        #         el1FromSession = session['el1-s']
+        #         el1GradeFromSession = session['el1grade-s']
+        #         el2FromSession = session['el2-s']
 
 
-                el2GradeFromSession = session['el2grade-s']
-                el3FromSession = session['el3-s']
-                el3GradeFromSession = session['el3grade-s']
-                el4FromSession = session['el4-s']
-                el4GradeFromSession = session['el4grade-s']
-                print("successful")
-            except:
-                print("asdf")
-                # return str(session)
+        #         el2GradeFromSession = session['el2grade-s']
+        #         el3FromSession = session['el3-s']
+        #         el3GradeFromSession = session['el3grade-s']
+        #         el4FromSession = session['el4-s']
+        #         el4GradeFromSession = session['el4grade-s']
+        #         print("successful")
+        #     except:
+        #         print("asdf")
             
 
 
 
-        else:
-            print("Filling fields")
-            nameFromSession= ""
-            numberFromSession= "--"
-            mathsFromSession = "--"
-            englishFromSession = "--"
-            scienceFromSession = "--"
-            socailFromSession = "--"
-            el1FromSession = "--"
-            el1GradeFromSession = "--"
-            el2FromSession = "--"
-            el2GradeFromSession = "--"
-            el3FromSession = "--"
-            el3GradeFromSession = "--"
-            el4FromSession = "--"
-            el4GradeFromSession = "--"
+        # else:
+        #     print("Filling fields")
+        #     nameFromSession= ""
+        #     numberFromSession= "--"
+        #     mathsFromSession = "--"
+        #     englishFromSession = "--"
+        #     scienceFromSession = "--"
+        #     socailFromSession = "--"
+        #     el1FromSession = "--"
+        #     el1GradeFromSession = "--"
+        #     el2FromSession = "--"
+        #     el2GradeFromSession = "--"
+        #     el3FromSession = "--"
+        #     el3GradeFromSession = "--"
+        #     el4FromSession = "--"
+        #     el4GradeFromSession = "--"
 
 
         print(eligibleCourses)
         return render_template('index.html', electives=electives, els=els, grades=grades, array=array,
-        maths=mathsFromSession, english=englishFromSession, social=socailFromSession, science=scienceFromSession,
-        electiveOne=el1FromSession, electiveOneGrade=el1GradeFromSession, electiveTwo=el2FromSession, electiveTwoGrade=el2GradeFromSession,
-        electiveThree=el3FromSession, electiveThreeGrade=el3GradeFromSession, electiveFour=el4FromSession, electiveFourGrade=el4GradeFromSession,
-        name=nameFromSession, number=numberFromSession
+        maths=mathsFromSession, english="englishFromSession", social="socailFromSession", science="scienceFromSession",
+        electiveOne="el1FromSession", electiveOneGrade="el1GradeFromSession", electiveTwo="el2FromSession", electiveTwoGrade="el2GradeFromSession",
+        electiveThree="el3FromSession", electiveThreeGrade="el3GradeFromSession", electiveFour="el4FromSession", electiveFourGrade="el4GradeFromSession",
+        name="nameFromSession", number="numberFromSession", form=form
         )
-    return render_template('index.html', electives=electives, els=els, grades=grades, array=array)
+    return render_template('index.html', electives=electives, els=els, grades=grades, array=array, form=form)
     
 
 def sendtelegram(params):
