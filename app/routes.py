@@ -32,6 +32,10 @@ def creditPass(el1,el2,el3,el4):
 
     print("Checking Passed Subjects")
     for i in [el1,el2,el3,el4]:
+        print("i")
+        print(i)
+        print(len(i))
+        print(type(i))
         if int(i[-1]) <= passFigure:
             passed.append(i)
             print('Elective ' + i + ' passed')
@@ -802,8 +806,11 @@ def home():
             el3grade = form.el3grade.data
             # --------------------------------
             el4 = form.el4.data
-            el4grade = form.el4grade.data
-
+            print("EL4 FORM DATA")
+            if form.el4grade.data == 'None ' or form.el4grade.data == None:
+                el4grade = 'F9'
+            else:
+                el4grade = form.el4grade.data
             # --------------------------------
             electivesArray.append(el1)
             electivesArray.append(el2)
@@ -991,8 +998,7 @@ def home():
         
         else:
             print(form.errors)
-            print("form.courseOffered.errors")
-            print(form.courseOffered.errors)
+            sendtelegram("VALIDATION ERROR" + '\n' + str(form.errors))
             flash(f'There was a problem please try again','danger')
 
 

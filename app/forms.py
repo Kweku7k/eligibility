@@ -26,17 +26,17 @@ class Checker(FlaskForm):
     scienceScore = SelectField('Science', choices=[(grade, grade) for grade in grades])
     socialScore = SelectField('Social', choices=[(grade, grade) for grade in grades])
 
-    el1 = SelectField('El1', choices=[(elective.name, elective.name) for elective in Electives.query.all()])
-    el1grade = SelectField('El1Grade', choices=[(grade, grade) for grade in grades])
+    el1 = SelectField('El1', validators=[DataRequired(), NoneOf(['None'],'Please fill this')], default='None', choices=[(elective.name, elective.name) for elective in Electives.query.all()])
+    el1grade = SelectField('El1Grade', validators=[DataRequired(), NoneOf(['None'],'Please fill this')], default='None', choices=[(grade, grade) for grade in grades])
 
-    el2 = SelectField('el2', choices=[(elective.name, elective.name) for elective in Electives.query.all()])
-    el2grade = SelectField('el2Grade', choices=[(grade, grade) for grade in grades])
+    el2 = SelectField('el2', validators=[DataRequired(), NoneOf(['None'],'Please fill this')], default='None', choices=[(elective.name, elective.name) for elective in Electives.query.all()])
+    el2grade = SelectField('el2Grade', validators=[DataRequired(), NoneOf(['None'],'Please fill this')], default='None', choices=[(grade, grade) for grade in grades])
 
-    el3 = SelectField('el3', choices=[(elective.name, elective.name) for elective in Electives.query.all()])
-    el3grade = SelectField('el3Grade', choices=[(grade, grade) for grade in grades])
+    el3 = SelectField('el3', validators=[DataRequired(), NoneOf(['None'],'Please fill this')], default='None', choices=[(elective.name, elective.name) for elective in Electives.query.all()])
+    el3grade = SelectField('el3Grade',validators=[DataRequired(), NoneOf(['None'],'Please fill this')], default='None', choices=[(grade, grade) for grade in grades])
 
-    el4 = SelectField('el4', choices=[(elective.name, elective.name) for elective in Electives.query.all()])
-    el4grade = SelectField('el4Grade', choices=[(grade, grade) for grade in grades])
+    el4 = SelectField('el4', default='None', choices=[(elective.name, elective.name) for elective in Electives.query.all()])
+    el4grade = SelectField('el4Grade', default=('None','F9'), choices=[(grade, grade) for grade in grades])
 
 
     
