@@ -807,7 +807,7 @@ def home():
             # --------------------------------
             el4 = form.el4.data
             print("EL4 FORM DATA")
-            if form.el4grade.data == 'None ' or form.el4grade.data == None:
+            if form.el4grade.data == 'None' or form.el4grade.data == None:
                 el4grade = 'F9'
             else:
                 el4grade = form.el4grade.data
@@ -981,7 +981,7 @@ def home():
             print("yourEligbleCourses")
             print(yourEligbleCourses) 
             # print(yourEligbleCourses)
-            if yourEligbleCourses:
+            if yourEligbleCourses == [] or yourEligbleCourses != ['None']:
                 print(yourEligbleCourses)
             else:
                 ineligible = True
