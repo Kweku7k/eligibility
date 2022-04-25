@@ -31,7 +31,6 @@ class Checker(FlaskForm):
 
     el2 = SelectField('el2', validators=[DataRequired(), NoneOf(['None'],'Please fill this')], default='None', choices=[(elective.name, elective.name) for elective in Electives.query.all()])
     el2grade = SelectField('el2grade', validators=[DataRequired(), NoneOf(['None'],'Please fill this')], default='None', choices=[(g,g) for g in grades])
-    # el2grade = SelectField('el2Grade', validators=[DataRequired(), NoneOf(['None'],'Please fill this')], default='None', choices=[(grade, grade) for grade in grades])
 
     el3 = SelectField('el3', validators=[DataRequired(), NoneOf(['None'],'Please fill this')], default='None', choices=[(elective.name, elective.name) for elective in Electives.query.all()])
     el3grade = SelectField('el3Grade',validators=[DataRequired(), NoneOf(['None'],'Please fill this')], default='None', choices=[(grade, grade) for grade in grades])
