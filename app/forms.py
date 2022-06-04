@@ -20,7 +20,7 @@ class TestForm(FlaskForm):
 class Checker(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     number = StringField('Phone', validators=[DataRequired(), Length(min=10, max=15, message="Your phone number should be more than 10 digits and less than 15")])
-    courseOffered = SelectField('Course', validators=[DataRequired(), NoneOf(['None'],'Please fill this')], choices=[('None',''),('Science', 'Science'), ('Agriculture','Agriculture'), ('Visual Arts','Visual Arts'), ('General Arts', 'General Arts'), ('Business','Business')], default=None )
+    courseOffered = SelectField('Course', validators=[DataRequired(), NoneOf(['None'],'Please fill this')], choices=[('None',''),('Science', 'Science'), ('Agriculture','Agriculture'), ('Visual Arts','Visual Arts'), ('General Arts', 'General Arts'), ('Business','Business'), ('Home Economics', 'Home Economics')], default=None )
     mathsScore = SelectField('Math',  validators=[DataRequired(), NoneOf(['None'], errorMessage)], default='None', choices=[(grade, grade) for grade in grades])
     englishScore = SelectField('English', validators=[DataRequired(), NoneOf(['None'], errorMessage)], default='None', choices=[(grade, grade) for grade in grades])
     scienceScore = SelectField('Science', validators=[DataRequired(), NoneOf(['None'], errorMessage)], default='None', choices=[(grade, grade) for grade in grades])
