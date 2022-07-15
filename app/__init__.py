@@ -8,8 +8,8 @@ app = Flask(__name__)
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://admin:admin@eligibility.central.edu.gh:5432/elDb'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://admin:admin@eligibility.central.edu.gh:5432/elDb'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SECRET_KEY'] = "Your_secret_string"
 
