@@ -14,7 +14,7 @@ errorMessage = "Please fill this."
 class TestForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired( message="Please enter a name.") ])
     phone = StringField('Phone', validators=[DataRequired(), Length(min=10, max=15, message="Your phone number should be more than 10 digits and less than 15")])
-    course = SelectField('Course', choices=[(cat.name, cat.name) for cat in Course.query.all()] )
+    course = SelectField('Course', validators=[DataRequired( message="Please enter a name.")], choices=[(cat.name, cat.name) for cat in Course.query.all()] )
     submit = SubmitField('Sign Up')
 
 class Checker(FlaskForm):

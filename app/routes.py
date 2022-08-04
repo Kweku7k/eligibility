@@ -121,7 +121,7 @@ def civilEngineering(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
     if int(chemistry[-1]) <= passFigure and int(emaths[-1]) <= passFigure:
         if int(physics[-1]) <=passFigure or int(biology[-1]) <=passFigure:
             print("You are eligble for Civil Engineering")
-            eligibleCourses = "Bachelor of Science in Civil Engineering"
+            eligibleCourses = "Bachelor Of Science In Civil Engineering"
         else:
             print("Failed Civil Engineering")
     return eligibleCourses
@@ -382,8 +382,10 @@ def planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
     print("groupA")
     print(groupA)
 
-    if len(groupA) == 3 or len(groupA) == 2 and len(groupB) == 1:
-            planning = "Bachelor of Science in Planning"
+    if len(groupA) >= 3 or len(groupA) == 2 and len(groupB) == 1:
+            # planning = "Bachelor Of Science In Planning"
+        print("TXY - Bachelor Of Science In Planning")
+        planning = "Bachelor Of Science In Planning"
     else:
         print("You are a mumu man")
 
@@ -664,15 +666,15 @@ def realEstate(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
         print("Passed the first 2 other electives")
         if economics and geography:
             if int(economics[-1]) <=passFigure and int(geography[-1]) <=passFigure:
-                print("You are eligyle for Real Estate")
-                realestateState = "Bachelor of Science in Real Estate"
+                print("You are eligible for Real Estate")
+                realestateState = "Bachelor Of Science In Real Estate"
                 # eligibleCourses.append('School of Pharmacy')
             else:
                 print("You are a mumu man")
         else: 
             if int(geography[-1]) <=passFigure or int(economics[-1]) <=passFigure:
                 print("You are eligible for Real Estate")
-                realestateState = "Bachelor of Science in Real Estate"
+                realestateState = "Bachelor Of Science In Real Estate"
                 print(realestateState)
             else:
                 "You are not eligible for Real Estate"
@@ -691,7 +693,7 @@ def architecture(el1,el2,el3,el4):
     print("passed")
     if len(passed) >= 3:
         print("You are eligible for Architecture")
-        eligibleCourses= 'Bachelor of Architecture'
+        eligibleCourses= 'Bachelor Of Architecture'
     return eligibleCourses
 
 
@@ -724,7 +726,7 @@ def computerScience(el1,el2,el3,el4, el1grade, el2grade, el3grade, el4grade):
 
     if physics == True and len(passed) >= 2:
         print("You are eligible for Computer Science")
-        eligibleCourses = "Bachelor of Science in Computer Science"
+        eligibleCourses = "Bachelor Of Science In Computer Science"
         print(eligibleCourses)
 
     # if int(chemistry[-1]) <= 4 and int(biology[-1]) <= 4:
@@ -920,6 +922,7 @@ def home():
                 passedEls.append(architectureCourse)
 
                 planningCourse = Course.query.filter_by(tempField= planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
+                print("planningCourse")
                 print(planningCourse)
                 passedEls.append(planningCourse)
 
@@ -932,7 +935,7 @@ def home():
                 print(computerScienceCourse)
                 passedEls.append(computerScienceCourse)
                 if computerScienceCourse:
-                    passedEls.append(Course.query.filter_by(tempField= "Bachelor of Science in Information Technology").first())
+                    passedEls.append(Course.query.filter_by(tempField= "Bachelor Of Science In Information Technology").first())
 
                 PhysicianAssistantCourse = Course.query.filter_by(tempField= physicianAssistant(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
                 print(PhysicianAssistantCourse)
