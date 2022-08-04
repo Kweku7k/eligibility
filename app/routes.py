@@ -394,7 +394,7 @@ def planning(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
 
 def nursing(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
     print("Nursing Function")
-    nursing = "None"
+    nursing = ""
 
     groupA = []
     groupB = []
@@ -601,9 +601,14 @@ def nursing(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
 
     # if len(groupA) == 3 or len(groupA) == 2 and len(groupB) == 1:
     if len(groupA) >= 3:
-            nursing = "Bachelor of Science in Nursing"
+        # nursing = Course.query.filter_by("Bachelor of Science in Nursing").first()
+        nursing = "Bachelor Of Science In Nursing"
+        print(nursing)
     else:
         print("You are a mumu man")
+
+    print(nursing)
+    print("Lin3 608")
 
 
     return nursing
@@ -935,7 +940,8 @@ def home():
                 print("Just passed Physician Assistanship")
                 if PhysicianAssistantCourse:
                     print('Adding Public Health to passedEls')
-                    pHealth = Course.query.filter_by(tempField="Bachelor of Science in Public Health").first()
+                    pHealth = Course.query.filter_by(tempField="Bachelor Of Science In Public Health").first()
+                    
                     print(pHealth)
                     passedEls.append(pHealth)
                 print(passedEls)

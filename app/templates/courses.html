@@ -34,7 +34,7 @@
 {% for course in courses %}
 <div  style="display: flex; justify-content: space-between;" class="course">
     <div>
-        <small>{{course.department}}</small>
+        <small><span>{{course.id}}. </span>{{course.department}}</small>
         <h4 style="margin: 0; width: fit-content;">{{course.tempField}}</h4>
     </div>
     <div>
