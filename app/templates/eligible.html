@@ -7,7 +7,7 @@
   <small>You are eligble for the following Diploma Programs</small>
   <h4>Sorry</h4>
   {% else %}
-  <h4>Congratulations</h4>
+  <h4>Congratulations <span>{{name}}</span></h4>
   <small>You are eligble for the following courses</small>
   <!-- <form class="form-inline my-2 my-lg-0"> -->
     <!-- <input id="elig-search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
@@ -68,7 +68,13 @@
     {% endif %}
 
     <!-- https://www.central.edu.gh/96 -->
+   
     <!--  Arts and Social Social Sciences -->
+
+    <!-- {% for course in eligibleCourses %}
+    <h4>{{course}}</h4>
+    {% endfor %} -->
+
     {% for course in eligibleCourses %}
       {% if course != None %}
 

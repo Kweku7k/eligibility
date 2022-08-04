@@ -1,3 +1,5 @@
+import json
+from sqlalchemy import true
 from app import app
 from app.models import *
 from flask import redirect,url_for,render_template,request,flash, session
@@ -8,6 +10,17 @@ import urllib
 # eligibleCourses = []  
 passFigure = 6
 ineligible = False
+
+def convertToIds(courses):
+    courseIds = []
+    print(courses)
+    for course in courses:
+        if course != None:
+            print(course)
+            print(course.id)
+            courseIds.append(course.id)
+    return courseIds
+
 def passedCoreSubjects(core1,core2,core3,core4):
     corePass = []
     passedAtLeast3 = False;
@@ -142,9 +155,10 @@ def physicianAssistant(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
     if int(chemistry[-1]) <= passFigure and int(biology[-1]) <= passFigure and int(physics[-1]) <=passFigure :
         # if int(physics[-1]) <=passFigure or int(biology[-1]) <=passFigure:
             print("You are eligble for Physician Assistant")
-            eligibleCourses = "Bachelor of Science in Physician Assistantship"
+            eligibleCourses = "Bachelor Of Science In Physician Assisstanship"
     else:
             print("Failed Physiciain Assistantship")
+    print("Inside the pa function, final output is " + eligibleCourses)
     return eligibleCourses
 
 # def computerScience(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
@@ -596,6 +610,8 @@ def nursing(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
 # -------------
 
 
+
+
 def realEstate(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
     print("RealEstate Function")
     realestateState = ""
@@ -852,10 +868,6 @@ def home():
                 session.clear()
 
 
-            newResult = Results(name=name, number=number, results="laslas", passed=True)
-            db.session.add(newResult)
-            db.session.commit()
-
 
             print("Maths = " + maths)
             print("english = " + english)
@@ -916,15 +928,17 @@ def home():
                 passedEls.append(computerScienceCourse)
                 if computerScienceCourse:
                     passedEls.append(Course.query.filter_by(tempField= "Bachelor of Science in Information Technology").first())
-                # print(passedEls)
 
                 PhysicianAssistantCourse = Course.query.filter_by(tempField= physicianAssistant(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
                 print(PhysicianAssistantCourse)
                 passedEls.append(PhysicianAssistantCourse)
                 print("Just passed Physician Assistanship")
                 if PhysicianAssistantCourse:
-                    passedEls.append(Course.query.filter_by(tempField= "Bachelor of Science in Public Health").first())
-                # print(passedEls)
+                    print('Adding Public Health to passedEls')
+                    pHealth = Course.query.filter_by(tempField="Bachelor of Science in Public Health").first()
+                    print(pHealth)
+                    passedEls.append(pHealth)
+                print(passedEls)
 
                 civilEngineeringCourse = Course.query.filter_by(tempField= civilEngineering(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
                 print (civilEngineeringCourse)
@@ -978,6 +992,42 @@ def home():
                 allEligibleCourses = passedEls
                     
 
+            # Add New Result to Database
+            print('Name---------------------')
+            print(name)
+            print('Number---------------------')
+            print(number)
+            print('courseOffered---------------------')
+            print(courseOffered)
+            print('eligibleCourses---------------------')
+            # print(str(eligibleCourses))
+            print('allEligibleCourses---------------------')
+            print(allEligibleCourses)
+            print('available Courses ---------------------')
+            print(availableCourse)
+            print('otherAvailableCourses---------------------')
+            print(otherAvailableCourses)
+            print('ineligble---------------------')
+            print(ineligible)
+
+            if ineligible :
+                passedEligibleTest = False
+            else:
+                passedEligibleTest = True
+                
+            # This returns an array of all the courses
+            # Conversion to an array of id's
+            print("Before return")
+            print(type(allEligibleCourses))
+
+            allEligibleCourseIds = convertToIds(allEligibleCourses)
+            print(otherAvailableCourses)
+            
+
+            newResult = Results(name=name, number=number, course=courseOffered, results=str(allEligibleCourseIds), eligibleCourses=json.dumps(allEligibleCourseIds), availableScienceCourses=str(availableScienceCourses), otherAvailableCourses=str(otherAvailableCourses), passed=passedEligibleTest )
+            db.session.add(newResult)
+            db.session.commit()
+
             print("yourEligbleCourses")
             print(yourEligbleCourses) 
             # print(yourEligbleCourses)
@@ -992,9 +1042,16 @@ def home():
             sendtelegram(str(availableScienceCourses))
             # return redirect(url_for('eligible'))
         
+            
+
             session.clear()
-            return render_template('eligible.html', eligibleCourses = allEligibleCourses, availableScienceCourses = availableScienceCourses, otherAvailableCourses = otherAvailableCourses, ineligible=ineligible)
-            # return redirect('')
+
+            
+            
+
+            return render_template('eligible.html', name=name, eligibleCourses = allEligibleCourses, availableScienceCourses = availableScienceCourses, otherAvailableCourses = otherAvailableCourses, ineligible=ineligible)
+            # return redirect('') 
+
         
         else:
             print(form.errors)
@@ -1054,7 +1111,6 @@ def home():
         #     el4FromSession = "--"
         #     el4GradeFromSession = "--"
 
-
         print(eligibleCourses)
         return render_template('index.html', electives=electives, els=els, grades=grades, array=array,
         maths=mathsFromSession, english="englishFromSession", social="socailFromSession", science="scienceFromSession",
@@ -1071,9 +1127,37 @@ def sendtelegram(params):
     print(content)
     return content
 
-@app.route("/eligible")
-def eligible():
-    return render_template('eligible.html',eligibleCourses = eligibleCourses)
+@app.route("/eligible/<int:id>")
+def eligible(id):
+    eligibleCourses = []
+    print(id)
+    result = Results.query.get_or_404(id)
+    print(result)
+    print(result.passed)
+    allEligibleCourses = result.eligibleCourses
+    array = allEligibleCourses.split("' )")
+    print(len(array))
+    print(allEligibleCourses)
+    print('--------')
+    print(array[0])
+    print(type(array))
+    availableScienceCourses = result.availableScienceCourses
+    otherAvailableCourses = result.otherAvailableCourses
+    if result.passed != True:
+        ineligible = True
+    else:
+        ineligible = False
+    allEligCourses = []
+    courseIds = json.loads(result.results)
+
+
+    for course in courseIds:
+        allEligCourses.append(Course.query.get_or_404(course))
+    print(allEligCourses)
+
+    
+    # return render_template('eligible.html',eligibleCourses = eligibleCourses)
+    return render_template('eligible.html', name=result.name, eligibleCourses = allEligCourses, availableScienceCourses = availableScienceCourses, otherAvailableCourses = otherAvailableCourses, ineligible=ineligible)
 
 
 @app.route("/courses",methods=['GET','POST'])

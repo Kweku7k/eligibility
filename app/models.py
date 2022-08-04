@@ -31,6 +31,10 @@ class Results(db.Model):
     name = db.Column(db.String(), nullable=False)
     number = db.Column(db.String(), nullable=False)
     # Results array
+    course = db.Column(db.String(), default="N/A")
+    eligibleCourses = db.Column(db.String(), default="N/A")
+    availableScienceCourses = db.Column(db.String(), default="N/A")
+    otherAvailableCourses = db.Column(db.String(), default="N/A")
     results = db.Column(db.String(), nullable=False)
     passed = db.Column(db.Boolean, nullable=False)
 

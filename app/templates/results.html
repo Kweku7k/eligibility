@@ -6,17 +6,30 @@
 {% if passed %}
 
 <table class="table">
-    <tr>
+    <th>
+        <th>Id</th>
         <th>Name</th>
         <th>Number</th> 
         <th>Status</th>
-    </tr>
+        <th>Course</th>
+        <!-- <th>Course</th> -->
+    </th>
     {% for result in results %}
-        <tr>
+    <tr>
+      <td>
+          {{result.id}}
+
+      </td>
         <td>{{result.name}}</td>
         <td>{{result.number}}</td> 
-        <td>{{result.passed}}</td>
-        </tr>
+        <td>
+        <a href="{{url_for("eligible", id=result.id)}}">
+          {{result.passed}}
+        </a>
+        </td>
+        <td>{{result.course}}</td>
+      </tr>
+
     {% endfor %}
   </table>
 
