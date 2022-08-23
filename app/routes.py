@@ -850,6 +850,7 @@ def home():
                 
             sendtelegram(
             "Name = " + name + '\n'+ 
+            "Course = " + form.courseOffered.data + '\n'+ 
             "Number = " + number + '\n'+ 
             "Maths = " + maths + '\n' + 
             "English = " + english + '\n' + 
@@ -1127,7 +1128,7 @@ def home():
         electiveThree="el3FromSession", electiveThreeGrade="el3GradeFromSession", electiveFour="el4FromSession", electiveFourGrade="el4GradeFromSession",
         name="nameFromSession", number="numberFromSession", form=form
         )
-    return render_template('index.html', electives=electives, els=els, grades=grades, array=array, form=form)
+    return render_template('indexnew.html', electives=electives, els=els, grades=grades, array=array, form=form)
     
 
 def sendtelegram(params):

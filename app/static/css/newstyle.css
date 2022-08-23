@@ -1,0 +1,56 @@
+.button{
+    color: white;
+    background-color: red;
+    border-radius: 7px;
+    padding:10px 36px;
+    border: none;
+    width: 80%;
+
+}
+
+.header{
+    background-color: #dc3545;
+    padding: 15px;
+    margin-bottom: 30px;
+    color: white
+}
+
+#elig-search{
+    background-color: rgba(0, 0, 0, 0.205);
+    border: none;
+    padding: 30px;
+    color: white;
+}
+
+#elig-search:focus{
+    border: 1px solid rgba(0, 0, 0, 0.205);
+}
+
+.row{
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+
+.nav{
+    border: 1px solid #dc3545 !important;
+}
+
+.card{
+    width: 100%;
+    padding: 20px;
+    background-color: #5635dc2d;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
+    border: none !important;
+    border-radius: 10px;
+}
+
+.course{
+    width: 100%;
+    border: 1px solid #c4c4c4;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex; 
+    border-radius: 10px;
+    justify-content: space-between; 
+}
