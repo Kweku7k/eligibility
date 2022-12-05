@@ -11,6 +11,25 @@ import urllib
 passFigure = 6
 ineligible = False
 
+
+# @app.route('/sendmessage')
+def sendmessage(phone, message):
+    api_key = "aniXLCfDJ2S0F1joBHuM0FcmH" #Remember to put your own API Key here
+    phone = phone #SMS recepient"s phone number
+    message = message
+    sender_id = "PrestoSl" #11 Characters maximum
+    send_sms(api_key,phone,message,sender_id)
+    # flash (f'Account has been verified','success')
+    return 'Done'
+
+def send_sms(api_key,phone,message,sender_id):
+    params = {"key":api_key,"to":phone,"msg":message,"sender_id":sender_id}
+    url = 'https://apps.mnotify.net/smsapi?'+ urllib.parse.urlencode(params)
+    content = urllib.request.urlopen(url).read()
+    print (content)
+    print (url)
+
+
 def convertToIds(courses):
     courseIds = []
     print(courses)
@@ -155,7 +174,7 @@ def physicianAssistant(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
     if int(chemistry[-1]) <= passFigure and int(biology[-1]) <= passFigure and int(physics[-1]) <=passFigure :
         # if int(physics[-1]) <=passFigure or int(biology[-1]) <=passFigure:
             print("You are eligble for Physician Assistant")
-            eligibleCourses = "Bachelor Of Science In Physician Assisstanship"
+            eligibleCourses = "Bachelor of Science in Physician Assistantship"
     else:
             print("Failed Physiciain Assistantship")
     print("Inside the pa function, final output is " + eligibleCourses)
@@ -598,18 +617,20 @@ def nursing(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade):
 
     print("groupA")
     print(groupA)
+    print(len(groupA))
 
     # if len(groupA) == 3 or len(groupA) == 2 and len(groupB) == 1:
     if len(groupA) >= 3:
         # nursing = Course.query.filter_by("Bachelor of Science in Nursing").first()
-        nursing = "Bachelor Of Science In Nursing"
+        print("Finished Bachelor Of Nursing User is eligible!")
+        nursing = "Bachelor of Science in Nursing"
         print(nursing)
+        return nursing
     else:
-        print("You are a mumu man")
+        print("You are uneligible for Nursing!")
 
     print(nursing)
     print("Lin3 608")
-
 
     return nursing
 # -------------
@@ -784,7 +805,8 @@ def method_name():
 
 @app.route('/',methods=['GET','POST'])
 def home():
-    form= Checker()
+    # WTF form for validation
+    form=Checker()
 
     array = []
     els = Electives.query.all()
@@ -864,15 +886,13 @@ def home():
                 print("No Please, contains duplicates")
                 flash("Duplication is not allowed ","info")
                 sendtelegram("There was an error")
-                return redirect(request.referrer)
+                return redirect(request.referrer) #This returns the user to the main screen
             elif len(number) != 10:
                 print(number)
                 flash("Problem with personal information ","info")
-                return redirect(request.referrer)
+                return redirect(request.referrer) #This returns the user to the main screen
             else:
                 session.clear()
-
-
 
             print("Maths = " + maths)
             print("english = " + english)
@@ -1039,6 +1059,7 @@ def home():
             # print(yourEligbleCourses)
             if yourEligbleCourses == [] or yourEligbleCourses != ['None']:
                 print(yourEligbleCourses)
+                sendmessage(number, "Congratulations! \n You are eligible for Central University Admissions. Click the link to view your course options \n" + "https://eligibility.central.edu.gh/"+ str(newResult.id ))
             else:
                 ineligible = True
 
