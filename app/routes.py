@@ -790,6 +790,8 @@ def method_name():
 @app.route('/',methods=['GET','POST'])
 def home():
 
+        
+
     # if request.is_json:
     #     return jsonify({'message':"Wrong Body Try Again."}),500
     form = Checker()
@@ -806,7 +808,15 @@ def home():
     ineligible=False
     electives = Course.query.all()
     grades = ['A1','B2','B3','C4','C5','C6','D7','E8','F9']
-
+    
+    if request.method == 'GET':
+        return jsonify({
+            "courses": ["Science","Agriculture","Visual Arts","General Arts"],
+            "coreSubjects": ["Maths","Science","Social Studies","English"],
+            "grades":["A1","B2","B3","C4","C5","C6","D7","E8","F9"],
+            "electiveSubjects":[elective.name for elective in Electives.query.all()]
+        })
+    
     if request.method == 'POST':
         print("POST REQUEST")
 
@@ -1217,16 +1227,20 @@ def home():
     return render_template('index.html', electives=electives, els=els, grades=grades, array=array, form=form)
     
 # 
-def convertCourseToString(array):
+def convertCourseToString(array, type=None):
 
     print('--- ARRAY ---')
     print(array)
     responseArray = []
+        
     for course in array:
         print(course)
         if course is not None:
-            responseArray.append({"name":course.name,"department":course.department,"tempField":course.tempField})
-
+            if type is not None:
+                responseArray.append({course.name})
+            else:
+                responseArray.append({"name":course.name,"department":course.department,"tempField":course.tempField})
+    
     print("SUCCESSFULL COURSE CONVERSION COMPLETE")
 
     print(responseArray)
