@@ -8,6 +8,8 @@ from .forms import TestForm, Checker
 import urllib.request, urllib.parse
 import urllib
 
+
+
 # eligibleCourses = []  
 passFigure = 6
 ineligible = False
@@ -1122,12 +1124,16 @@ def home():
 
 
             response = {
+                "data":{
+
                 "name":name,
                 "eligibleCourses":convertCourseToString(allEligibleCourses),
                 "availableScienceCourses":convertCourseToString(availableScienceCourses),
                 "otherAvailableCourses":convertCourseToString(otherAvailableCourses),
                 "otherAvailableCourses":convertCourseToString(otherAvailableCourses),
                 "ineligible":ineligible
+                }
+
             }
 
             if request.is_json:
@@ -1139,7 +1145,7 @@ def home():
             
             
 
-            return render_template('eligible.html', name=name, eligibleCourses = allEligibleCourses, availableScienceCourses = availableScienceCourses, otherAvailableCourses = otherAvailableCourses, ineligible=ineligible)
+            # return render_template('eligible.html', name=name, eligibleCourses = allEligibleCourses, availableScienceCourses = availableScienceCourses, otherAvailableCourses = otherAvailableCourses, ineligible=ineligible)
             # return redirect('') 
 
         
