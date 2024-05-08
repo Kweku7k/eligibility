@@ -1,0 +1,297 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="newstyle.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename="css/stylenew.css")}}">
+    <script src='../static/js/script.js' defer></script>
+    
+	<title>Registration Form</title>
+</head>
+
+	</script>
+
+	<section>
+   <nav class="nav-bar">
+     <div class="nav">
+       <img src="https://www.central.edu.gh/virgin/images/Central-Uni-logo.png">
+     </div>
+   </nav> 
+  </section>
+
+	<form action="{{url_for('home')}}" class="form"  method="POST">
+        {{ form.hidden_tag() }}
+      <h1 class="text-center" data-aos="fade-down"
+     data-aos-easing="linear"
+     data-aos-duration="1500">Eligibility Checker</h1>
+      <!-- Progress bar -->
+
+      <div class="progressbar">
+        <div class="progress" id="progress"></div>
+         <div class="progress-step progress-step-active" data-title="Personal Information"></div>
+         <div class="progress-step" data-title="Core Subjects"></div>
+         <div class="progress-step" data-title="Elective Subjects"></div>
+       </div>
+
+      <p class="note"><strong style="text-decoration-line: underline; text-decoration-style: double;">Note</strong> : Please fill this form with details from your slip.</p>
+      <div class="form-step form-step-active">
+        {{ form.name(class="input-group", placeholder="Enter your name", id="exampleInputEmail1")}}
+        
+        
+
+        {{ form.number(class="input-group", placeholder="Enter your number", id="exampleInputEmail1")}}
+       
+
+
+        <div class="form-group">
+          <label for="course"><strong>What course did you offer</strong></label>
+          <!-- {{ form.courseOffered.label(id="label1") }} -->
+        {{ form.courseOffered(class="form-control", placeholder="Enter your name", id="exampleInputEmail1")}}
+        <div class="invalid-feedback d-block">
+          {% for error in form.courseOffered.errors %}
+              <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        </div>
+      
+        <div class="">
+          <a href="#" class="btn btn-next btn-danger width-50 ml-auto">Next</a>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-step">
+        <h2 class="text-center">Core Subject</h2>
+   
+   <!---math -->
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <input class="form-control" type="text" value="Mathematics" disabled aria-describedby="helpId">
+            </div>
+          </div>
+        <div class="col">
+            <div class="form-group">
+            
+                    {{ form.mathsScore(class="form-control")}}  
+          
+                    <div class="invalid-feedback d-block">
+                    {% for error in form.mathsScore.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                    </div>
+
+                    </div>
+                </div>
+           
+          </div>
+        
+        
+<!--English-->
+       
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <input class="form-control" type="text" value="English" disabled aria-describedby="helpId">
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              
+                    {{ form.englishScore(class="form-control")}}
+        
+                    <div class="invalid-feedback d-block">
+                      {% for error in form.englishScore.errors %}
+                          <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+          </div>
+        
+        <!--Science-->
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <input class="form-control" type="text" value="Integrated Science" disabled aria-describedby="helpId">
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+                
+                    {{ form.scienceScore(class="form-control")}}
+        
+                    <div class="invalid-feedback d-block">
+                      {% for error in form.scienceScore.errors %}
+                          <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                </div>
+            </div>
+      
+         
+    </div>
+       <!--Social-->
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <input class="form-control" type="text" value="Social Studies" disabled aria-describedby="helpId">
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+                
+                    {{ form.socialScore(class="form-control")}}
+        
+                    <div class="invalid-feedback d-block">
+                      {% for error in form.socialScore.errors %}
+                          <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                </div>
+            </div>
+          </div>
+    
+      
+        <div class="btns-group">
+          <a href="#" class="btn btn-next btn-danger">Next</a>
+        </div>
+      </div>
+   
+
+      <div class="form-step">
+        <h2 class="text-center">Elective Subject</h2>
+        
+        <div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                {{ form.el1(class="form-control")}}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.el1.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+              </div>
+            </div>
+            
+            <div class="col">
+              <div class="form-group">
+                {{ form.el1grade(class="form-control")}}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.el1grade.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+              </div>
+            </div>
+        </div>
+    
+        <!-- Elective -->
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              {{ form.el2(class="form-control")}}
+              <div class="invalid-feedback d-block">
+                  {% for error in form.el2.errors %}
+                      <span>{{ error }}</span>
+                  {% endfor %}
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              {{ form.el2grade(class="form-control")}}
+              <div class="invalid-feedback d-block">
+                  {% for error in form.el2grade.errors %}
+                      <span>{{ error }}</span>
+                  {% endfor %}
+              </div>
+            </div>
+          </div>
+      </div>
+    
+      <!-- Elective -->
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            {{ form.el3(class="form-control")}}
+            <div class="invalid-feedback d-block">
+                {% for error in form.el3.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            {{ form.el3grade(class="form-control")}}
+            <div class="invalid-feedback d-block">
+                {% for error in form.el3grade.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+          </div>
+        </div>
+    </div>
+    
+       
+        <!-- Elective -->
+    
+        <h6 style="text-align: center; border-top: 10px;" class="text-muted"> &#9;Optional</h6>
+        <!-- Elective -->
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              {{ form.el4(class="form-control")}}
+              <div class="invalid-feedback d-block">
+                  {% for error in form.el4.errors %}
+                      <span>{{ error }}</span>
+                  {% endfor %}
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              {{ form.el4grade(class="form-control")}}
+              <div class="invalid-feedback d-block">
+                  {% for error in form.el4grade.errors %}
+                      <span>{{ error }}</span>
+                  {% endfor %}
+              </div>
+            </div>
+          </div>
+      </div>
+       
+    
+    
+        <!--  -->
+    
+                 
+        <div style="text-align: center;">
+          <button type="submit" class="button btn-danger">Next</button>
+          <!-- <button type="submit" class="button btn-danger" onclick="spin()">Next</button> -->
+      </div>
+      </div>
+        <br/>
+    <!-- Item End -->
+    </form>
+    </div>
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  
+</body>
+</html>

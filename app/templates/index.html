@@ -1,56 +1,57 @@
+{% extends "layout.html" %}
 
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" type="text/css" href="newstyle.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <link rel="stylesheet" href="{{url_for('static', filename="css/stylenew.css")}}">
-    <script src='../static/js/script.js' defer></script>
-    
-	<title>Registration Form</title>
-</head>
+{% block body %}
 
-	</script>
+<!-- <h4 id="array">{{array}}</h4> -->
+<div id="spinner" style="display: flex; justify-content: center; align-items: center; height: 100vh; width: 100vw; display: none;">
+  <div style="text-align: center;">
+    <div class="spinner-border" role="status">
+      <span class="sr-only"></span>
+    </div>
+    <h6>Checking your courses</h6>
+  </div>
+</div>
 
-	<section>
-   <nav class="nav-bar">
-     <div class="nav">
-       <img src="https://www.central.edu.gh/virgin/images/Central-Uni-logo.png">
-     </div>
-   </nav> 
-  </section>
+<div id="body" class="container">
+<br/>
+<small class="text-muted">Please fill the form with the details from your slip</small>
+<form autocomplete="off" action="{{url_for('home')}}" method="POST">
+  {{ form.hidden_tag() }}
 
-	<form action="{{url_for('home')}}" class="form"  method="POST">
-        {{ form.hidden_tag() }}
-      <h1 class="text-center" data-aos="fade-down"
-     data-aos-easing="linear"
-     data-aos-duration="1500">Eligibility Checker</h1>
-      <!-- Progress bar -->
+<div class="row"> 
+        <div class="col">
+            <div class="form-group">
 
-      <div class="progressbar">
-        <div class="progress" id="progress"></div>
-         <div class="progress-step progress-step-active" data-title="Personal Information"></div>
-         <div class="progress-step" data-title="Core Subjects"></div>
-         <div class="progress-step" data-title="Elective Subjects"></div>
-       </div>
+                {{ form.name(class="form-control", placeholder="Enter your name", id="exampleInputEmail1")}}
 
-      <p class="note"><strong style="text-decoration-line: underline; text-decoration-style: double;">Note</strong> : Please fill this form with details from your slip.</p>
-      <div class="form-step form-step-active">
-        {{ form.name(class="input-group", placeholder="Enter your name", id="exampleInputEmail1")}}
-        
-        
+                <div class="invalid-feedback d-block">
+                  {% for error in form.name.errors %}
+                      <span>{{ error }}</span>
+                  {% endfor %}
+              </div>
+            </div>
+        </div>
 
-        {{ form.number(class="input-group", placeholder="Enter your number", id="exampleInputEmail1")}}
-       
+        <div class="col">
+          <div class="form-group">
 
+            {{ form.number(class="form-control", placeholder="Enter your number", id="exampleInputEmail1")}}
 
+            <div class="invalid-feedback d-block">
+              {% for error in form.number.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="row"> 
+      <div class="col">
         <div class="form-group">
-          <label for="course"><strong>What course did you offer</strong></label>
-          <!-- {{ form.courseOffered.label(id="label1") }} -->
+        <small class="text-muted">Which course did you offer</small>
+        
+        <!-- {{ form.courseOffered.label(id="label1") }} -->
         {{ form.courseOffered(class="form-control", placeholder="Enter your name", id="exampleInputEmail1")}}
         <div class="invalid-feedback d-block">
           {% for error in form.courseOffered.errors %}
@@ -58,240 +59,362 @@
           {% endfor %}
         </div>
         </div>
-      
-        <div class="">
-          <a href="#" class="btn btn-next btn-danger width-50 ml-auto">Next</a>
-        </div>
-      </div>
+    </div>
     </div>
 
+<h4>Core Subjects</h4>
 
-    <div class="form-step">
-        <h2 class="text-center">Core Subject</h2>
-   
-   <!---math -->
-        <div class="row">
-          <div class="col">
-            <div class="form-group">
-              <input class="form-control" type="text" value="Mathematics" disabled aria-describedby="helpId">
-            </div>
-          </div>
+<!-- Item Body -->
+    <!-- Maths -->
+
+    <div class="row"> 
         <div class="col">
             <div class="form-group">
-            
-                    {{ form.mathsScore(class="form-control")}}  
-          
-                    <div class="invalid-feedback d-block">
-                    {% for error in form.mathsScore.errors %}
-                        <span>{{ error }}</span>
-                    {% endfor %}
-                    </div>
-
-                    </div>
-                </div>
-           
-          </div>
-        
-        
-<!--English-->
-       
-        <div class="row">
-          <div class="col">
-            <div class="form-group">
-              <input class="form-control" type="text" value="English" disabled aria-describedby="helpId">
+                  <input type="text" class="form-control" value="Mathematics" disabled aria-describedby="helpId" placeholder="">
             </div>
+        </div>
+
+        <div class="col">
+          <div class="form-group">
+            
+          {{ form.mathsScore(class="form-control")}}  
+
+          <div class="invalid-feedback d-block">
+            {% for error in form.mathsScore.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
           </div>
-          <div class="col">
+        </div>
+  </div>
+    </div>
+   
+    <!-- English -->
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                  <input type="text" class="form-control" value="English" disabled name="" id="" aria-describedby="helpId" placeholder="">
+            </div>
+        </div>
+        <div class="col">
             <div class="form-group">
               
-                    {{ form.englishScore(class="form-control")}}
-        
-                    <div class="invalid-feedback d-block">
-                      {% for error in form.englishScore.errors %}
-                          <span>{{ error }}</span>
-                      {% endfor %}
-                    </div>
-                </div>
+            {{ form.englishScore(class="form-control")}}
+
+            <div class="invalid-feedback d-block">
+              {% for error in form.englishScore.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
             </div>
-            
-          </div>
-        
-        <!--Science-->
-        <div class="row">
-          <div class="col">
-            <div class="form-group">
-              <input class="form-control" type="text" value="Integrated Science" disabled aria-describedby="helpId">
-            </div>
-          </div>
-          <div class="col">
-            <div class="form-group">
-                
-                    {{ form.scienceScore(class="form-control")}}
-        
-                    <div class="invalid-feedback d-block">
-                      {% for error in form.scienceScore.errors %}
-                          <span>{{ error }}</span>
-                      {% endfor %}
-                    </div>
-                </div>
-            </div>
-      
-         
+        </div>
     </div>
-       <!--Social-->
-        <div class="row">
-          <div class="col">
+    </div>
+   
+    <!-- Science -->
+    <div class="row">
+        <div class="col">
             <div class="form-group">
-              <input class="form-control" type="text" value="Social Studies" disabled aria-describedby="helpId">
+                  <input type="text" class="form-control" value="Integrated Science" disabled name="" id="" aria-describedby="helpId" placeholder="">
             </div>
-          </div>
-          <div class="col">
+        </div>
+        <div class="col">
             <div class="form-group">
-                
-                    {{ form.socialScore(class="form-control")}}
+            {{ form.scienceScore(class="form-control")}}
+
+            <div class="invalid-feedback d-block">
+              {% for error in form.scienceScore.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+        </div>
+    </div>
+    </div>  
+   
+    <!-- Social Studies -->
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                  <input type="text" class="form-control" value="Social Studies" disabled name="" id="" aria-describedby="helpId" placeholder="">
+            </div>
+        </div>
         
-                    <div class="invalid-feedback d-block">
-                      {% for error in form.socialScore.errors %}
-                          <span>{{ error }}</span>
-                      {% endfor %}
-                    </div>
-                </div>
+        <div class="col">
+
+            <div class="form-group">
+            {{ form.socialScore(class="form-control")}}
+
+            <div class="invalid-feedback d-block">
+              {% for error in form.socialScore.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+            </div>
+
+        </div>
+    </div>
+
+   <br/>
+   <small class="text-muted">Please fill the form with the details from your slip</small>
+    <h4>Electives</h4>
+    <!-- Maths -->
+    
+   
+    <!-- Elective -->
+    <div class="row">
+        <div class="col">
+          <div class="form-group">
+            {{ form.el1(class="form-control")}}
+            <div class="invalid-feedback d-block">
+                {% for error in form.el1.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
             </div>
           </div>
-    
-      
-        <div class="btns-group">
-          <a href="#" class="btn btn-next btn-danger">Next</a>
+        </div>
+        
+        <div class="col">
+          <div class="form-group">
+            {{ form.el1grade(class="form-control")}}
+            <div class="invalid-feedback d-block">
+                {% for error in form.el1grade.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- Elective -->
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          {{ form.el2(class="form-control")}}
+          <div class="invalid-feedback d-block">
+              {% for error in form.el2.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
         </div>
       </div>
+      <div class="col">
+        <div class="form-group">
+          {{ form.el2grade(class="form-control")}}
+          <div class="invalid-feedback d-block">
+              {% for error in form.el2grade.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <!-- Elective -->
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        {{ form.el3(class="form-control")}}
+        <div class="invalid-feedback d-block">
+            {% for error in form.el3.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        {{ form.el3grade(class="form-control")}}
+        <div class="invalid-feedback d-block">
+            {% for error in form.el3grade.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+</div>
+
+   
+    <!-- Elective -->
+
+    <h6 style="text-align: center; border-top: 10px;" class="text-muted"> &#9;Optional</h6>
+    <!-- Elective -->
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          {{ form.el4(class="form-control")}}
+          <div class="invalid-feedback d-block">
+              {% for error in form.el4.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          {{ form.el4grade(class="form-control")}}
+          <div class="invalid-feedback d-block">
+              {% for error in form.el4grade.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+        </div>
+      </div>
+  </div>
    
 
-      <div class="form-step">
-        <h2 class="text-center">Elective Subject</h2>
-        
-        <div>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                {{ form.el1(class="form-control")}}
-                <div class="invalid-feedback d-block">
-                    {% for error in form.el1.errors %}
-                        <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-              </div>
-            </div>
-            
-            <div class="col">
-              <div class="form-group">
-                {{ form.el1grade(class="form-control")}}
-                <div class="invalid-feedback d-block">
-                    {% for error in form.el1grade.errors %}
-                        <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-              </div>
-            </div>
-        </div>
-    
-        <!-- Elective -->
-        <div class="row">
-          <div class="col">
-            <div class="form-group">
-              {{ form.el2(class="form-control")}}
-              <div class="invalid-feedback d-block">
-                  {% for error in form.el2.errors %}
-                      <span>{{ error }}</span>
-                  {% endfor %}
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="form-group">
-              {{ form.el2grade(class="form-control")}}
-              <div class="invalid-feedback d-block">
-                  {% for error in form.el2grade.errors %}
-                      <span>{{ error }}</span>
-                  {% endfor %}
-              </div>
-            </div>
-          </div>
-      </div>
-    
-      <!-- Elective -->
-      <div class="row">
-        <div class="col">
-          <div class="form-group">
-            {{ form.el3(class="form-control")}}
-            <div class="invalid-feedback d-block">
-                {% for error in form.el3.errors %}
-                    <span>{{ error }}</span>
-                {% endfor %}
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-group">
-            {{ form.el3grade(class="form-control")}}
-            <div class="invalid-feedback d-block">
-                {% for error in form.el3grade.errors %}
-                    <span>{{ error }}</span>
-                {% endfor %}
-            </div>
-          </div>
-        </div>
+
+    <!--  -->
+
+    <div style="text-align: center;">
+        <button type="submit" class="button btn-danger">Next</button>
+        <!-- <button type="submit" class="button btn-danger" onclick="spin()">Next</button> -->
     </div>
-    
-       
-        <!-- Elective -->
-    
-        <h6 style="text-align: center; border-top: 10px;" class="text-muted"> &#9;Optional</h6>
-        <!-- Elective -->
-        <div class="row">
-          <div class="col">
-            <div class="form-group">
-              {{ form.el4(class="form-control")}}
-              <div class="invalid-feedback d-block">
-                  {% for error in form.el4.errors %}
-                      <span>{{ error }}</span>
-                  {% endfor %}
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="form-group">
-              {{ form.el4grade(class="form-control")}}
-              <div class="invalid-feedback d-block">
-                  {% for error in form.el4grade.errors %}
-                      <span>{{ error }}</span>
-                  {% endfor %}
-              </div>
-            </div>
-          </div>
-      </div>
-       
-    
-    
-        <!--  -->
-    
-                 
-        <div style="text-align: center;">
-          <button type="submit" class="button btn-danger">Next</button>
-          <!-- <button type="submit" class="button btn-danger" onclick="spin()">Next</button> -->
-      </div>
-      </div>
-        <br/>
-    <!-- Item End -->
-    </form>
-    </div>
+    <br/>
+<!-- Item End -->
+</form>
+</div>
+
+<script>
+
+  function timeout(){
+    document.getElementById("spinner").style.display = "none";
+    document.getElementById("body").style.display = "block"
+    alert("This is not working.")
+  }
+
+  function spin() {
+    console.log("asdf")
+    console.log(document.getElementById("spinner").style.display)
+    document.getElementById("spinner").style.display = "flex";
+    document.getElementById("body").style.display = "none"
+    const myTimeout = setTimeout(timeout, 5000);
+
+    // console.log(document.getElementById("spinner").style.display)
+  }
+</script>
 
 
-
-
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script>
+  function autocomplete(inp, arr) {
+    /*the autocomplete function takes two arguments,
+    the text field element and an array of possible autocompleted values:*/
+    var currentFocus;
+    /*execute a function when someone writes in the text field:*/
+    inp.addEventListener("input", function(e) {
+        var a, b, i, val = this.value;
+        /*close any already open lists of autocompleted values*/
+        closeAllLists();
+        if (!val) { return false;}
+        currentFocus = -1;
+        /*create a DIV element that will contain the items (values):*/
+        a = document.createElement("DIV");
+        a.setAttribute("id", this.id + "autocomplete-list");
+        a.setAttribute("class", "autocomplete-items");
+        /*append the DIV element as a child of the autocomplete container:*/
+        this.parentNode.appendChild(a);
+        /*for each item in the array...*/
+        for (i = 0; i < arr.length; i++) {
+          /*check if the item starts with the same letters as the text field value:*/
+          if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+            /*create a DIV element for each matching element:*/
+            b = document.createElement("DIV");
+            /*make the matching letters bold:*/
+            b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+            b.innerHTML += arr[i].substr(val.length);
+            /*insert a input field that will hold the current array item's value:*/
+            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+            /*execute a function when someone clicks on the item value (DIV element):*/
+            b.addEventListener("click", function(e) {
+                /*insert the value for the autocomplete text field:*/
+                inp.value = this.getElementsByTagName("input")[0].value;
+                /*close the list of autocompleted values,
+                (or any other open lists of autocompleted values:*/
+                closeAllLists();
+            });
+            a.appendChild(b);
+          }
+        }
+    });
+    /*execute a function presses a key on the keyboard:*/
+    inp.addEventListener("keydown", function(e) {
+        var x = document.getElementById(this.id + "autocomplete-list");
+        if (x) x = x.getElementsByTagName("div");
+        if (e.keyCode == 40) {
+          /*If the arrow DOWN key is pressed,
+          increase the currentFocus variable:*/
+          currentFocus++;
+          /*and and make the current item more visible:*/
+          addActive(x);
+        } else if (e.keyCode == 38) { //up
+          /*If the arrow UP key is pressed,
+          decrease the currentFocus variable:*/
+          currentFocus--;
+          /*and and make the current item more visible:*/
+          addActive(x);
+        } else if (e.keyCode == 13) {
+          /*If the ENTER key is pressed, prevent the form from being submitted,*/
+          e.preventDefault();
+          if (currentFocus > -1) {
+            /*and simulate a click on the "active" item:*/
+            if (x) x[currentFocus].click();
+          }
+        }
+    });
+    function addActive(x) {
+      /*a function to classify an item as "active":*/
+      if (!x) return false;
+      /*start by removing the "active" class on all items:*/
+      removeActive(x);
+      if (currentFocus >= x.length) currentFocus = 0;
+      if (currentFocus < 0) currentFocus = (x.length - 1);
+      /*add class "autocomplete-active":*/
+      x[currentFocus].classList.add("autocomplete-active");
+    }
+    function removeActive(x) {
+      /*a function to remove the "active" class from all autocomplete items:*/
+      for (var i = 0; i < x.length; i++) {
+        x[i].classList.remove("autocomplete-active");
+      }
+    }
+    function closeAllLists(elmnt) {
+      /*close all autocomplete lists in the document,
+      except the one passed as an argument:*/
+      var x = document.getElementsByClassName("autocomplete-items");
+      for (var i = 0; i < x.length; i++) {
+        if (elmnt != x[i] && elmnt != inp) {
+          x[i].parentNode.removeChild(x[i]);
+        }
+      }
+    }
+    /*execute a function when someone clicks in the document:*/
+    document.addEventListener("click", function (e) {
+        closeAllLists(e.target);
+    });
+  }
   
-</body>
-</html>
+  /*An array containing all the country names in the world:*/
+  var countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua & Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia & Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central Arfrican Republic","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cuba","Curacao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauro","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","North Korea","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre & Miquelon","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","St Kitts & Nevis","St Lucia","St Vincent","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad & Tobago","Tunisia","Turkey","Turkmenistan","Turks & Caicos","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States of America","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"];
+  var courses = [""]
+  
+  // var countries = JSON.parse(document.getElementById('array').innerText)
+  // var countries = document.getElementById('array').innerText
+  console.log(countries)
+  /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+  autocomplete(document.getElementById("elective1"), countries);
+  autocomplete(document.getElementById("elective2"), countries);
+  autocomplete(document.getElementById("elective3"), countries);
+  autocomplete(document.getElementById("elective4"), countries);
+  // autocomplete(document.getElementById("myInput2"), countries);
+  </script>
+
+  <script>
+  window.addEventListener( "pageshow", function ( event ) {
+  var historyTraversal = event.persisted || 
+                         ( typeof window.performance != "undefined" && 
+                              window.performance.navigation.type === 2 );
+  if ( historyTraversal ) {
+    // Handle page restore.
+    window.location.reload();
+  }
+});
+  </script>
+
+{% endblock %}

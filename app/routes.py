@@ -1,8 +1,9 @@
 import json
+import pprint
 from sqlalchemy import true
 from app import app
 from app.models import *
-from flask import redirect,url_for,render_template,request,flash, session
+from flask import jsonify, redirect,url_for,render_template,request,flash, session
 from .forms import TestForm, Checker
 import urllib.request, urllib.parse
 import urllib
@@ -23,7 +24,7 @@ def convertToIds(courses):
 
 def passedCoreSubjects(core1,core2,core3,core4):
     corePass = []
-    passedAtLeast3 = False;
+    passedAtLeast3 = False
 
     print("Checking Core Subjects")
     # [-1] -> This takes the last character from the string
@@ -33,7 +34,7 @@ def passedCoreSubjects(core1,core2,core3,core4):
             print('Core ' + i + ' passed')
     print("passed ALL CORE")
     if len(corePass) >= 3:
-        passedAtLeast3 = True;
+        passedAtLeast3 = True
         print("Passed 3 cored")
 
     print("Passed3" + str(passedAtLeast3))
@@ -786,7 +787,10 @@ def method_name():
 
 @app.route('/',methods=['GET','POST'])
 def home():
-    form= Checker()
+
+    # if request.is_json:
+    #     return jsonify({'message':"Wrong Body Try Again."}),500
+    form = Checker()
 
     array = []
     els = Electives.query.all()
@@ -801,16 +805,41 @@ def home():
     electives = Course.query.all()
     grades = ['A1','B2','B3','C4','C5','C6','D7','E8','F9']
 
-    if request.method=='POST':
+    if request.method == 'POST':
         print("POST REQUEST")
-        if form.validate_on_submit():
-            print("Forms validated successfully")
-            electivesArray = []
 
+        if request.is_json:
+            body = request.json
 
+            print('JSON BODY')
+            print(body)
+            pprint.pprint(body)
 
-            print('name')
-            print('request.form')
+            name = body.get('name','None')
+            number = body.get('number','None')
+            maths = body.get('mathsScore','None')
+            english = body.get('englishScore','None')
+            social = body.get('socialScore','None')
+            science = body.get('scienceScore','None')
+            # --------------------------------
+            el1 = body.get('el1','None')
+            el1grade = body.get('el1grade','None')
+            # --------------------------------
+            el2 = body.get('el2','None')
+            el2grade = body.get('el2grade','None')
+            # --------------------------------
+            el3 = body.get('el3','None')
+            el3grade = body.get('el3grade','None')
+            # --------------------------------
+            el4 = body.get('el4','None')
+            el4grade = body.get('el4grade','None')
+
+            courseOffered = body.get('courseOffered', 'None')
+
+            
+            pprint.pprint(body)
+
+        else:
 
             name = form.name.data
             number = form.number.data
@@ -830,10 +859,44 @@ def home():
             # --------------------------------
             el4 = form.el4.data
             print("EL4 FORM DATA")
+
             if form.el4grade.data == 'None' or form.el4grade.data == None:
                 el4grade = 'F9'
             else:
                 el4grade = form.el4grade.data
+
+            courseOffered = form.courseOffered.data
+            
+
+        if form.validate_on_submit() or request.is_json:
+            # print("Forms validated successfully")
+            electivesArray = []
+
+            # print('name')
+            # print('request.form')
+
+            # name = form.name.data
+            # number = form.number.data
+            # maths = form.mathsScore.data
+            # english = form.englishScore.data
+            # social = form.socialScore.data
+            # science = form.scienceScore.data
+            # # --------------------------------
+            # el1 = form.el1.data
+            # el1grade = form.el1grade.data
+            # # --------------------------------
+            # el2 = form.el2.data
+            # el2grade = form.el2grade.data
+            # # --------------------------------
+            # el3 = form.el3.data
+            # el3grade = form.el3grade.data
+            # # --------------------------------
+            # el4 = form.el4.data
+            # print("EL4 FORM DATA")
+            # if form.el4grade.data == 'None' or form.el4grade.data == None:
+            #     el4grade = 'F9'
+            # else:
+            #     el4grade = form.el4grade.data
             # --------------------------------
             electivesArray.append(el1)
             electivesArray.append(el2)
@@ -850,7 +913,7 @@ def home():
                 
             sendtelegram(
             "Name = " + name + '\n'+ 
-            "Course = " + form.courseOffered.data + '\n'+ 
+            "Course = " + courseOffered + '\n'+ 
             "Number = " + number + '\n'+ 
             "Maths = " + maths + '\n' + 
             "English = " + english + '\n' + 
@@ -911,6 +974,7 @@ def home():
                     print("Initial Out Put to PassedEls")
                     for item in courses:
                         passedEls.append(item)
+                        print(item)
 
             # We want to find the course by name for the Architecture
                 availableCourse = Course.query.filter_by(tempField= realEstate(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
@@ -966,7 +1030,7 @@ def home():
             otherAvailableCourses = []
             availableBusinessCourses = []
 
-            courseOffered = form.courseOffered.data
+            # courseOffered = form.courseOffered.data
 
             allEligibleCourses = []
 
@@ -1056,6 +1120,22 @@ def home():
 
             session.clear()
 
+
+            response = {
+                "name":name,
+                "eligibleCourses":convertCourseToString(allEligibleCourses),
+                "availableScienceCourses":convertCourseToString(availableScienceCourses),
+                "otherAvailableCourses":convertCourseToString(otherAvailableCourses),
+                "otherAvailableCourses":convertCourseToString(otherAvailableCourses),
+                "ineligible":ineligible
+            }
+
+            if request.is_json:
+                pprint.pprint(response)
+                return response
+            else:
+                return render_template('eligible.html', name=name, eligibleCourses = allEligibleCourses, availableScienceCourses = availableScienceCourses, otherAvailableCourses = otherAvailableCourses, ineligible=ineligible)
+
             
             
 
@@ -1128,8 +1208,24 @@ def home():
         electiveThree="el3FromSession", electiveThreeGrade="el3GradeFromSession", electiveFour="el4FromSession", electiveFourGrade="el4GradeFromSession",
         name="nameFromSession", number="numberFromSession", form=form
         )
-    return render_template('indexnew.html', electives=electives, els=els, grades=grades, array=array, form=form)
+    return render_template('index.html', electives=electives, els=els, grades=grades, array=array, form=form)
     
+# 
+def convertCourseToString(array):
+
+    print('--- ARRAY ---')
+    print(array)
+    responseArray = []
+    for course in array:
+        print(course)
+        if course is not None:
+            responseArray.append({"name":course.name,"department":course.department,"tempField":course.tempField})
+
+    print("SUCCESSFULL COURSE CONVERSION COMPLETE")
+
+    print(responseArray)
+
+    return responseArray
 
 def sendtelegram(params):
     url = "https://api.telegram.org/bot1699472650:AAEso9qTbz1ODvKZMgRru5FhCEux_91bgK0/sendMessage?chat_id=-511058194&text=" + urllib.parse.quote(params)
