@@ -811,9 +811,9 @@ def home():
     
     if request.method == 'GET':
         return jsonify({
-            "courses": ["Science","Agriculture","Visual Arts","General Arts"],
+            "courses": ["--","Science","Agriculture","Visual Arts","General Arts"],
             "coreSubjects": ["Maths","Science","Social Studies","English"],
-            "grades":["A1","B2","B3","C4","C5","C6","D7","E8","F9"],
+            "grades":["--","A1","B2","B3","C4","C5","C6","D7","E8","F9"],
             "electiveSubjects":[elective.name for elective in Electives.query.all()]
         })
     
