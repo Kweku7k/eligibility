@@ -7,13 +7,15 @@ class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(), nullable=False)
     tempField = db.Column(db.String())
+    color = db.Column(db.String(), default="grey")
     department = db.Column(db.String(), nullable=True)
+    
     def __repr__(self): 
         return f"Course('{self.id}', '{self.name}','{self.tempField}','{self.department}' )"
 
 class Program(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(), nullable=False)
+    name = db   .Column(db.String(), nullable=False)
 
     def __repr__(self): 
         return f"Course('{self.id}', '{self.name}', )"

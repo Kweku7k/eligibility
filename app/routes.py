@@ -1,3 +1,4 @@
+import csv
 import json
 import pprint
 from sqlalchemy import true
@@ -7,8 +8,7 @@ from flask import jsonify, redirect,url_for,render_template,request,flash, sessi
 from .forms import TestForm, Checker
 import urllib.request, urllib.parse
 import urllib
-
-
+import hashlib
 
 # eligibleCourses = []  
 passFigure = 6
@@ -1135,7 +1135,6 @@ def home():
 
             response = {
                 "data":{
-
                 "name":name,
                 "eligibleCourses":convertCourseToString(allEligibleCourses),
                 "availableScienceCourses":convertCourseToString(availableScienceCourses),
@@ -1227,6 +1226,19 @@ def home():
     return render_template('index.html', electives=electives, els=els, grades=grades, array=array, form=form)
     
 # 
+
+colors = ["red", "green", "blue", "orange", "purple", "cyan"]
+
+# Generate the color dynamically based on some logic
+
+def get_color(course):
+    # Use a hash function to generate a unique index based on the course name
+    hash_value = hashlib.md5(course.name.encode()).hexdigest()
+    index = int(hash_value, 16) % len(colors)
+    
+    # Select the color from the list based on the index
+    return colors[index]
+
 def convertCourseToString(array, type=None):
 
     print('--- ARRAY ---')
@@ -1239,7 +1251,7 @@ def convertCourseToString(array, type=None):
             if type is not None:
                 responseArray.append({course.name})
             else:
-                responseArray.append({"name":course.name,"department":course.department,"tempField":course.tempField})
+                responseArray.append({"name":course.name,"department":course.department,"tempField":course.tempField, "color":course.color})
     
     print("SUCCESSFULL COURSE CONVERSION COMPLETE")
 
@@ -1298,6 +1310,24 @@ def courses():
         return redirect('')
     courses = Course.query.all()
     return render_template('courses.html', courses=courses)
+
+
+@app.route('/write_to_csv')
+def write_to_csv():
+    """
+    Writes a list of data to a CSV file.
+    
+    Args:
+        data (list): A list of lists, where each inner list represents a row of data.
+        csv_file (str): The path to the output CSV file.
+    """
+    with open("elig.csv", 'w', newline='') as csvfile:
+        csvwriter = csv.writer(csvfile)
+        for c in Course.query.all():
+            data = [c.id,c.name, c.tempField, c.department]
+            csvwriter.writerow(data)
+
+    return "Done."
 
 @app.route('/detail',methods=['GET','POST'])
 def detail():
