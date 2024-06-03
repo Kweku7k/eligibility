@@ -1,6 +1,7 @@
 import csv
 import json
 import pprint
+import requests
 from sqlalchemy import true
 from app import app
 from app.models import *
@@ -786,6 +787,46 @@ def method_name():
     return render_template('test.html', form=form)
 
 
+def send_connect_sms(message, contacts, senderId="CentralUni"):
+
+    sendtelegram(f"Attempting to send an sms \nMessage:{message} \nTo:{contacts} \nSenderId:{senderId}")
+
+    allcontacts = []
+    allcontacts.append(contacts)
+
+    requestbody = {
+        "message": message,
+        "groupId": "1",
+        "contacts": allcontacts,
+        "senderId": senderId,
+    }
+
+    print(requestbody, " - ", type(requestbody))
+
+    url = "https://connect.prestoghana.com/api/broadcast"
+    response = requests.post(url, json=requestbody)
+
+    return response
+
+
+def send_connect_email(templateId, title, recievers, subject, templateBody):
+    sendtelegram('Attempting to send an email')
+    body = {
+        "templateId": templateId,
+        "title": title,
+        "receivers": recievers,
+        "subject": subject,
+        "templateBody":templateBody
+    }
+
+    response = requests.post(url="https://connect.prestoghana.com/foomail", json=body)
+    response.raise_for_status()
+
+    # print(response.json())
+
+
+    return response
+
 
 @app.route('/',methods=['GET','POST'])
 def home():
@@ -1118,6 +1159,16 @@ def home():
             # print(yourEligbleCourses)
             if yourEligbleCourses == [] or yourEligbleCourses != ['None']:
                 print(yourEligbleCourses)
+                # send_connect_sms()
+                templateBody = {
+                    "data":{
+                        "name": "name"
+                    }
+                    }
+                
+                emails = []
+                emails.append(email)
+                send_connect_email('eligibility', "CONGRATUALTIONS", emails, "YOU ARE ELIGIBLE FOR ENROLLMENT", templateBody)
             else:
                 ineligible = True
 
