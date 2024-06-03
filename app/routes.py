@@ -829,6 +829,7 @@ def home():
 
             name = body.get('name','None')
             number = body.get('number','None')
+            email = body.get('email','None')
             maths = body.get('mathsScore','None')
             english = body.get('englishScore','None')
             social = body.get('socialScore','None')
@@ -1108,7 +1109,7 @@ def home():
             print(otherAvailableCourses)
             
 
-            newResult = Results(name=name, number=number, course=courseOffered, results=str(allEligibleCourseIds), eligibleCourses=json.dumps(allEligibleCourseIds), availableScienceCourses=str(availableScienceCourses), otherAvailableCourses=str(otherAvailableCourses), passed=passedEligibleTest )
+            newResult = Results(name=name, email=email,number=number, course=courseOffered, results=str(allEligibleCourseIds), eligibleCourses=json.dumps(allEligibleCourseIds), availableScienceCourses=str(availableScienceCourses), otherAvailableCourses=str(otherAvailableCourses), passed=passedEligibleTest )
             db.session.add(newResult)
             db.session.commit()
 

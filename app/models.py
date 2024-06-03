@@ -32,6 +32,7 @@ class Results(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(), nullable=False)
     number = db.Column(db.String(), nullable=False)
+    email = db.Column(db.String())
     # Results array
     course = db.Column(db.String(), default="N/A")
     eligibleCourses = db.Column(db.String(), default="N/A")
