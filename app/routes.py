@@ -989,6 +989,7 @@ def home():
                         print(item)
 
             # We want to find the course by name for the Architecture
+                availableCourse = []
                 availableCourse = Course.query.filter_by(tempField= realEstate(el1,el2,el3,el4,el1grade,el2grade,el3grade,el4grade)).first()
                 print(availableCourse)
                 passedEls.append(availableCourse)
