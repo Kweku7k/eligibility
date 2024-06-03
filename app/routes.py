@@ -852,7 +852,7 @@ def home():
     
     if request.method == 'GET':
         return jsonify({
-            "courses": ["--","Science","Agriculture","Visual Arts","General Arts"],
+            "courses": ["--","Science","Agriculture","Visual Arts","General Arts","Business"],
             "coreSubjects": ["Maths","Science","Social Studies","English"],
             "grades":["--","A1","B2","B3","C4","C5","C6","D7","E8","F9"],
             "electiveSubjects":[elective.name for elective in Electives.query.all()]
@@ -1161,9 +1161,8 @@ def home():
                 print(yourEligbleCourses)
                 # send_connect_sms()
                 templateBody = {
-                    "data":{
-                        "name": "name"
-                    }
+                    "heading":"Gold Baby",
+                    "message":f"Hello {newResult.name}, </br> </br> You are good."
                     }
                 
                 emails = []
