@@ -921,8 +921,6 @@ def home():
             contains_duplicates = len(electives_array) != len(electivesArray)
             print(contains_duplicates)
             
-
-                
             sendtelegram(
             "Name = " + name + '\n'+ 
             "Course = " + courseOffered + '\n'+ 
@@ -936,7 +934,6 @@ def home():
             str(el3) + " = " + str(el3grade) + '\n' +
             str(el4) + " = " + str(el4grade) + '\n' 
         )   
-
 
             if contains_duplicates:
                 print("No Please, contains duplicates")
@@ -1091,7 +1088,7 @@ def home():
             print('allEligibleCourses---------------------')
             print(allEligibleCourses)
             print('available Courses ---------------------')
-            print(availableCourse)
+            # print(availableCourse)
             print('otherAvailableCourses---------------------')
             print(otherAvailableCourses)
             print('ineligble---------------------')
@@ -1245,7 +1242,7 @@ def convertCourseToString(array, type=None):
     print('--- ARRAY ---')
     print(array)
     responseArray = []
-        
+         
     for course in array:
         print(course)
         if course is not None:
