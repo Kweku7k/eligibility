@@ -1162,8 +1162,8 @@ def home():
                 print(yourEligbleCourses)
                 # send_connect_sms()
                 templateBody = {
-                    "heading":"Congratulations!!!",
-                    "message":f"Thank you Robert,\n Central University provides a wide array of undergraduate degrees across various fields such as arts, sciences, engineering, business, and social sciences.\nThese programs are designed to equip students with foundational knowledge and skills for their future careers. \nYou are eligible for the following courses. Pick one to start your application process."}
+                    "heading":f"Congratulations {newResult.name}",
+                    "message":f"Thank you ,\n Central University provides a wide array of undergraduate degrees across various fields such as arts, sciences, engineering, business, and social sciences.\nThese programs are designed to equip students with foundational knowledge and skills for their future careers. \nYou are eligible for the following courses. Pick one to start your application process."}
                 
                 templateBody["message"] = escape(templateBody["message"])
 
