@@ -8,6 +8,7 @@ class Course(db.Model):
     name = db.Column(db.String(), nullable=False)
     tempField = db.Column(db.String())
     color = db.Column(db.String(), default="grey")
+    link = db.Column(db.String())
     department = db.Column(db.String(), nullable=True)
     
     def __repr__(self): 

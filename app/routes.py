@@ -853,7 +853,7 @@ def home():
     
     if request.method == 'GET':
         return jsonify({
-            "courses": ["--","Science","Agriculture","Visual Arts","General Arts","Business"],
+            "courses": ["--","Science","Agriculture","Visual Arts","General Arts","Business","Home Economics"],
             "coreSubjects": ["Maths","Science","Social Studies","English"],
             "grades":["--","A1","B2","B3","C4","C5","C6","D7","E8","F9"],
             "electiveSubjects":[elective.name for elective in Electives.query.all()]
@@ -1303,7 +1303,7 @@ def convertCourseToString(array, type=None):
             if type is not None:
                 responseArray.append({course.name})
             else:
-                responseArray.append({"name":course.name,"department":course.department,"tempField":course.tempField, "color":course.color})
+                responseArray.append({"name":course.name,"department":course.department,"tempField":course.tempField, "color":course.color, "link":course.link})
     
     print("SUCCESSFULL COURSE CONVERSION COMPLETE")
 
