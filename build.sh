@@ -4,10 +4,10 @@
 # git pull origin master
 
 #Delete the previous environment
-sudo rm -r env
+sudo rm -r elig
 
 # Set the name of the virtual environment
-venv_name="env"
+venv_name="elig"
 
 # Create a new virtual environment
 python3 -m venv $venv_name
