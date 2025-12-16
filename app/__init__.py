@@ -2,16 +2,15 @@ from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+import os
 
 
 app = Flask(__name__)
 
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:new_password@45.222.128.55:5432/eligibility'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:reCvef-9niqwa-cipsow@localhost:5432/eligibility'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["ELIGIBILITY_DB_URL"]
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SECRET_KEY'] = "Yorseestrinuecretsing"
-
 
 
 db = SQLAlchemy(app)
