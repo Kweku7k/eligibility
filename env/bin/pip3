@@ -1,4 +1,4 @@
-#!/Users/nanakwekuadumatta/Documents/Projects/CentralUniversity/eligibility/env/bin/python3
+#!/Users/nanakwekuadumatta/Documents/Projects/CentralUniversity/eligibility/env/bin/python3.13
 # -*- coding: utf-8 -*-
 import re
 import sys

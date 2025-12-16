@@ -991,10 +991,10 @@ def home():
                 flash("Duplication is not allowed ","info")
                 sendtelegram("There was an error")
                 return redirect(request.referrer)
-            elif len(number) != 10:
-                print(number)
-                flash("Problem with personal information ","info")
-                return redirect(request.referrer)
+            # elif len(number) != 10:
+            #     print(number)
+            #     flash("Problem with personal information ","info")
+            #     return redirect(request.referrer)
             else:
                 session.clear()
 

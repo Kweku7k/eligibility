@@ -9,6 +9,7 @@ app = Flask(__name__)
 
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["ELIGIBILITY_DB_URL"]
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("ELIGIBILITY_DB_URL","")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SECRET_KEY'] = "Yorseestrinuecretsing"
 
