@@ -37,7 +37,14 @@ def passedCoreSubjects(core1,core2,core3,core4):
             corePass.append(i)
             print('Core ' + i + ' passed')
     print("passed ALL CORE")
-    if len(corePass) >= 3:
+    
+    # check to see if core includes maths and english
+    corePassChecker = False
+    
+    if int(core1[-1]) <= passFigure and int(core2[-1]) <= passFigure:
+        corePassChecker = True
+    
+    if len(corePass) >= 3 and corePassChecker:
         passedAtLeast3 = True
         print("Passed 3 cored")
 
